@@ -1,16 +1,19 @@
 {
-    "words": [
-        "antd",
-        "bisheng",
-        "browserslist",
-        "compat",
-        "docsearch",
-        "dumi",
-        "erda",
-        "esbuild",
-        "jsonml",
-        "modifyVars",
-        "navs",
-        "tinycolor"
-    ]
+  "words": [
+    "antd",
+    "arrowParens",
+    "bisheng",
+    "browserslist",
+    "compat",
+    "docsearch",
+    "dumi",
+    "erda",
+    "esbuild",
+    "jsonml",
+    "modifyVars",
+    "navs",
+    "precommit",
+    "prettierrc",
+    "tinycolor"
+  ]
 }

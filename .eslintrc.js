@@ -109,14 +109,7 @@ module.exports = {
     'import/no-extraneous-dependencies': [
       'error',
       {
-        devDependencies: [
-          'tests/**',
-          'scripts/**',
-          '**/*.test.js',
-          '**/__tests__/*',
-          '*.config.js',
-          '**/*.md',
-        ],
+        devDependencies: ['tests/**', 'scripts/**', '**/*.test.js', '**/__tests__/*', '*.config.js', '**/*.md'],
       },
     ],
     'jsx-a11y/no-static-element-interactions': 0,

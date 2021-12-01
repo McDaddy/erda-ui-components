@@ -4,7 +4,10 @@
   "description": "erda ui component library",
   "main": "index.js",
   "scripts": {
-    "start": "dumi dev"
+    "start": "dumi dev",
+    "prettier": "prettier -c --write .",
+    "prepare": "husky install",
+    "precommit": "lint-staged"
   },
   "keywords": [
     "antd",
@@ -46,6 +49,9 @@
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-react-hooks": "^4.1.2",
     "eslint-plugin-unicorn": "^39.0.0",
+    "husky": "^7.0.4",
+    "prettier": "^2.5.0",
+    "pretty-quick": "^3.1.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "typescript": "^4.5.2",

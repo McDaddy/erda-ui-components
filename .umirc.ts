@@ -5,10 +5,8 @@ const repo = 'components';
 
 export default defineConfig({
   title,
-  favicon:
-    '/images/favicon.png',
-  logo:
-    '/images/favicon.png',
+  favicon: '/images/favicon.png',
+  logo: '/images/favicon.png',
   outputPath: 'docs-dist',
   mode: 'site',
   hash: true,
