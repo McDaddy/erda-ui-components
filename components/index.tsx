@@ -149,17 +149,17 @@ export default class Layout extends React.Component {
     }
   };
 
-              setIframeTheme = (iframeNode, theme) => {
-                  iframeNode.contentWindow.postMessage(
-                  JSON.stringify({
-                      action: 'change.theme',
-                      data: {
-                      themeConfig,
-                      theme,
-                      },
-                  }),
-                  );
-              };
+  setIframeTheme = (iframeNode, theme) => {
+    iframeNode.contentWindow.postMessage(
+      JSON.stringify({
+        action: 'change.theme',
+        data: {
+          themeConfig,
+          theme,
+        },
+      }),
+    );
+  };
 
   setTheme = (theme, persist = true) => {
     if (typeof window === 'undefined') {
