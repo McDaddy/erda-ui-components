@@ -1,0 +1,23 @@
+{
+  "name": "erda-ui-components",
+  "version": "0.0.1",
+  "description": "erda ui component library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "antd",
+    "react",
+    "framework",
+    "frontend",
+    "react",
+    "react-component",
+    "ui"
+  ],
+  "author": "Erda-FE",
+  "license": "MIT",
+  "dependencies": {
+    "antd": "^4.17.2"
+  }
+}
