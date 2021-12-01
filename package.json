@@ -7,7 +7,8 @@
     "start": "dumi dev",
     "prettier": "prettier -c --write .",
     "prepare": "husky install",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "lint": "npm run tsc && npm run lint:script && npm run lint:demo && npm run lint:style && npm run lint:deps && npm run lint:md"
   },
   "keywords": [
     "antd",
@@ -50,6 +51,7 @@
     "eslint-plugin-react-hooks": "^4.1.2",
     "eslint-plugin-unicorn": "^39.0.0",
     "husky": "^7.0.4",
+    "lint-staged": "^12.1.2",
     "prettier": "^2.5.0",
     "pretty-quick": "^3.1.2",
     "react": "^17.0.1",
