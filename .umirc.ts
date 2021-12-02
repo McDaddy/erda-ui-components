@@ -10,9 +10,9 @@ export default defineConfig({
   outputPath: 'docs-dist',
   mode: 'site',
   hash: true,
-  resolve: {
-    includes: ['docs', 'components'],
-  },
+  // resolve: {
+  //   includes: ['docs', 'components'],
+  // },
   // Because of using GitHub Pages
   base: `/${repo}/`,
   publicPath: `/${repo}/`,
