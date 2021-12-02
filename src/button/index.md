@@ -1,7 +1,7 @@
 ---
 nav:
-  title: Button
-  path: /button
+  title: 组件
+  path: /components
 ---
 
 # Button
@@ -12,5 +12,5 @@ nav:
 import React from 'react';
 import { Button } from 'erda-ui-components';
 
-export default () => <Button>FUCK</Button>;
+export default () => <Button type="primary">FUCK</Button>;
 ```

@@ -23,5 +23,15 @@ export default defineConfig({
       path: 'https://github.com/umijs/dumi-template',
     },
   ],
+  extraBabelPlugins: [
+    [
+      'import',
+      {
+        libraryName: 'antd',
+        libraryDirectory: 'es',
+        style: true,
+      },
+    ],
+  ],
   // more config: https://d.umijs.org/config
 });
