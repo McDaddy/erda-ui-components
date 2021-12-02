@@ -2,3 +2,4 @@ node_modules/*
 .umi/*
 .eslintcache
 src/.umi/
+docs-dist/

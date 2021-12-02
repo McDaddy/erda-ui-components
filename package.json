@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "dumi dev",
+    "docs:build": "dumi build",
     "prettier": "prettier -c --write .",
     "prepare": "husky install",
     "precommit": "lint-staged",
