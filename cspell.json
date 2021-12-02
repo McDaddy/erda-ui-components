@@ -12,6 +12,7 @@
     "jsonml",
     "modifyVars",
     "navs",
+    "pnpm",
     "precommit",
     "prettierrc",
     "tinycolor",

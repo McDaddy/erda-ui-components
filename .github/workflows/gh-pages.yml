@@ -10,7 +10,17 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-      - run: npm install
+      - name: Cache pnpm modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-pnpm-modules
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-jest-${{ env.cache-name }}-${{ matrix.node-version }}
+      - name: Set pnpm
+        uses: pnpm/action-setup@v2.0.1
+
+      - run: pnpm install
       - run: npm run docs:build
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
