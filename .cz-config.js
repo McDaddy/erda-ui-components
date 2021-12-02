@@ -12,7 +12,14 @@ module.exports = {
     { value: 'WIP', name: 'WIP:      正在进行中的改动' },
   ],
 
-  scopes: [{ name: 'docs' }, { name: 'demo' }, { name: 'components' }],
+  scopes: [
+    { name: 'docs' },
+    { name: 'demo' },
+    { name: 'components' },
+    { name: 'utils' },
+    { name: 'architecture' },
+    { name: 'test' },
+  ],
 
   allowTicketNumber: false,
   isTicketNumberRequired: false,
