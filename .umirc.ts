@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { defineConfig } from 'dumi';
 
 const title = 'Erda UI Components';
