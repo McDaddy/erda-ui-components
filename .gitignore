@@ -4,3 +4,5 @@ node_modules/*
 components/.umi/
 docs-dist/
 dist
+lib
+es

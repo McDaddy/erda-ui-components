@@ -1,10 +1,14 @@
 ---
+title: Button
 nav:
-  title: 组件
   path: /components
+  title: 组件
+group:
+  path: /common
+  title: 通用
 ---
 
-# Button
+## Button
 
 奥术大师大所
 
