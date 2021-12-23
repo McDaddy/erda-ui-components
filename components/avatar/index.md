@@ -37,10 +37,10 @@ import { Avatar, ConfigProvider } from 'erda-ui-components';
 export default () => (
   <ConfigProvider>
     <span>
-      <Avatar name="戣蓦" showName="tooltip" url="http://blog.kuimo.top/avatar.jpg" />
+      <Avatar name="戣蓦" showName="tooltip" url="//blog.kuimo.top/avatar.jpg" />
     </span>
     <span style={{ marginLeft: '16px' }}>
-      <Avatar name="戣蓦" showName url="http://blog.kuimo.top/avatar.jpg" />
+      <Avatar name="戣蓦" showName url="//blog.kuimo.top/avatar.jpg" />
     </span>
   </ConfigProvider>
 );
