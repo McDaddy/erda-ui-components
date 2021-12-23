@@ -28,7 +28,7 @@ export default () => {
   };
 
   return (
-    <ConfigProvider prefixCls="ec">
+    <ConfigProvider>
       <div>
         <h2>ConfigProvider {count}</h2>
         <Button type="primary" onClick={onChangeColor}>

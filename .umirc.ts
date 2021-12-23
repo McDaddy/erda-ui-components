@@ -37,6 +37,9 @@ export default defineConfig({
       },
     ],
   ],
+  // theme: {
+  //   '@ant-prefix': 'ec',
+  // },
   // webpack5: { lazyCompilation: {} },
   lessLoader: {
     javascriptEnabled: true,

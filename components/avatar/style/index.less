@@ -1,0 +1,16 @@
+@avatar-prefix-cls: ~'@{ant-prefix}-avatar';
+
+.@{avatar-prefix-cls} {
+  &-wrapper {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+  }
+
+  &-inner-name {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
