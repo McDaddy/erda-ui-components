@@ -1,10 +1,15 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable no-console */
+/* eslint-disable import/no-extraneous-dependencies */
 const gulp = require('gulp');
 const path = require('path');
 const rimraf = require('rimraf');
 const ts = require('gulp-typescript');
 const babel = require('gulp-babel');
 const merge2 = require('merge2');
+const through2 = require('through2');
 const webpack = require('webpack');
+const transformLess = require('./utils/transformLess');
 const { compilerOptions } = require('./tsconfig.json');
 
 const tsConfig = {
@@ -42,6 +47,48 @@ gulp.task('compile', gulp.parallel('compile-with-es', 'compile-with-lib'));
 function compile(modules) {
   const targetDir = modules === false ? esDir : libDir;
   rimraf.sync(targetDir);
+
+  // =============================== LESS ===============================
+  const less = gulp
+    .src(['components/**/*.less'])
+    .pipe(
+      through2.obj(function (file, encoding, next) {
+        // Replace content
+        const cloneFile = file.clone();
+        const content = file.contents.toString().replace(/^\uFEFF/, '');
+
+        cloneFile.contents = Buffer.from(content);
+
+        // Clone for css here since `this.push` will modify file.path
+        const cloneCssFile = cloneFile.clone();
+
+        this.push(cloneFile);
+
+        // Transform less file
+        if (
+          file.path.match(/(\/|\\)style(\/|\\)index\.less$/) ||
+          includeLessFile.some((regex) => file.path.match(regex))
+        ) {
+          transformLess(cloneCssFile.contents.toString(), cloneCssFile.path)
+            .then((css) => {
+              cloneCssFile.contents = Buffer.from(css);
+              cloneCssFile.path = cloneCssFile.path.replace(/\.less$/, '.css');
+              this.push(cloneCssFile);
+              next();
+            })
+            .catch((e) => {
+              console.error(e);
+            });
+        } else {
+          next();
+        }
+      }),
+    )
+    .pipe(gulp.dest(modules === false ? esDir : libDir));
+  // const assets = gulp
+  //  .src(['components/**/*.@(png|svg)'])
+  //  .pipe(gulp.dest(modules === false ? esDir : libDir));
+
   const { js, dts } = gulp.src(source, { base }).pipe(ts(tsConfig));
   const dtsFilesStream = dts.pipe(gulp.dest(targetDir));
   let jsFilesStream = js;
@@ -49,7 +96,7 @@ function compile(modules) {
     jsFilesStream = js.pipe(babel(babelConfig));
   }
   jsFilesStream = jsFilesStream.pipe(gulp.dest(targetDir));
-  return merge2([jsFilesStream, dtsFilesStream]);
+  return merge2([less, jsFilesStream, dtsFilesStream]);
 }
 
 function dist(done) {
