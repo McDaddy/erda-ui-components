@@ -3,8 +3,6 @@ import { Tooltip } from 'antd';
 import { ConfigContext } from '../config-provider';
 import { ossImg } from '../_util';
 
-import './style/index.less';
-
 export interface AvatarProps {
   url?: string;
   showName?: boolean | 'tooltip'; // true means show name after img, tooltip means show name in tooltip
