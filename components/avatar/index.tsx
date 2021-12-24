@@ -5,7 +5,7 @@ import { ossImg } from '../_util';
 
 import './style/index.less';
 
-interface IProps {
+export interface AvatarProps {
   url?: string;
   showName?: boolean | 'tooltip'; // true means show name after img, tooltip means show name in tooltip
   name?: string | React.ReactNode;
@@ -15,7 +15,7 @@ interface IProps {
   imgPresets?: (string | React.ReactNode)[];
 }
 
-const Avatar = (props: IProps) => {
+const Avatar = (props: AvatarProps) => {
   const { url, showName = false, name, size = 24, className = '', wrapClassName = '', imgPresets } = props;
 
   const { getPrefixCls } = React.useContext(ConfigContext);
