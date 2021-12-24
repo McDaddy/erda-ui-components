@@ -12,6 +12,11 @@
     "precommit": "lint-staged",
     "lint": "npm run tsc && npm run lint:script && npm run lint:demo && npm run lint:style && npm run lint:deps && npm run lint:md"
   },
+  "files": [
+    "dist",
+    "lib",
+    "es"
+  ],
   "keywords": [
     "antd",
     "react",
