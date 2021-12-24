@@ -16,7 +16,7 @@ const Button = (props: ButtonProps) => {
   const prefixCls = getPrefixCls('btn', customizePrefixCls);
 
   return (
-    <AntButton {...rest}>
+    <AntButton prefixCls={prefixCls} {...rest}>
       <div className={`${prefixCls}-test`}>{children}</div>
     </AntButton>
   );

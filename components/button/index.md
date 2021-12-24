@@ -14,11 +14,7 @@ group:
 
 ```tsx
 import React from 'react';
-import { Button, ConfigProvider } from 'erda-ui-components';
+import { Button } from 'erda-ui-components';
 
-export default () => (
-  <ConfigProvider>
-    <Button type="primary">按钮</Button>
-  </ConfigProvider>
-);
+export default () => <Button type="primary">按钮</Button>;
 ```
