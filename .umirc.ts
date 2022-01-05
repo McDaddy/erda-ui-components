@@ -28,14 +28,8 @@ export default defineConfig({
     },
   ],
   extraBabelPlugins: [
-    [
-      'import',
-      {
-        libraryName: 'antd',
-        libraryDirectory: 'es',
-        style: true,
-      },
-    ],
+    ['babel-plugin-import', { libraryName: 'antd', libraryDirectory: 'es', style: true }, 'antd'],
+    ['babel-plugin-import', { libraryName: '@formily/antd', libraryDirectory: 'esm', style: true }, '@formily/antd'],
   ],
   // theme: {
   //   '@ant-prefix': 'ec',
