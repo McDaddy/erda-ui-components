@@ -48,6 +48,7 @@
     "@formily/antd": "^2.0.7",
     "@formily/core": "^2.0.7",
     "@formily/react": "^2.0.7",
+    "@formily/reactive": "^2.0.7",
     "antd": "^4.17.2",
     "classnames": "^2.3.1",
     "jest": "^27.4.2",

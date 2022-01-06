@@ -1,15 +1,24 @@
 import React from 'react';
 import { map, reduce } from 'lodash';
 import { createSchemaField } from '@formily/react';
-import { createForm, Form as FormType, onFieldValueChange } from '@formily/core';
+import {
+  createForm,
+  Form as FormType,
+  onFieldValueChange,
+  onFieldReact,
+  FormPathPattern,
+  Field,
+  isField,
+  FieldDataSource,
+} from '@formily/core';
+import { action } from '@formily/reactive';
 import {
   Form,
   FormItem,
   FormLayout,
   IFormItemProps,
+  IFormLayoutProps,
   // FormGrid,
-  // Input,
-  // Select,
 } from '@formily/antd';
 
 type Obj<T extends any = any> = { [k: string]: T };
@@ -23,11 +32,14 @@ interface FormProps<T extends Obj> {
     name: string;
     title?: string;
     defaultValue?: unknown;
-    type: { [k: string]: React.ComponentClass | React.FunctionComponent };
+    type?: string;
+    component: { [k: string]: React.ComponentClass | React.FunctionComponent };
     customProps?: Obj;
     wrapperProps?: IFormItemProps;
   }[];
   form?: FormType<T>;
+  layoutConfig: IFormLayoutProps;
+  style?: React.CSSProperties;
 }
 
 interface SchemaField {
@@ -46,21 +58,21 @@ const defaultVoidField = {
   name: 'void',
 };
 
-const ErdaForm = <T extends Obj>({ formConfig, form }: FormProps<T>) => {
+const ErdaForm = <T extends Obj>({ formConfig, form, layoutConfig, style }: FormProps<T>) => {
   const components: { [k: string]: React.ComponentClass | React.FunctionComponent } = {};
   const propertiesArray: SchemaField[] = map(formConfig, (item) => {
-    const { name, title, type, customProps, wrapperProps, defaultValue } = item;
-    console.log('🚀 ~ file: index.tsx ~ line 53 ~ constpropertiesArray:SchemaField[]=map ~ defaultValue', defaultValue);
-    if (Object.keys(type).length !== 1) {
+    const { name, title, type = 'string', customProps, wrapperProps, defaultValue, component } = item;
+    if (Object.keys(component).length !== 1) {
       console.warn(`field ${name} has more than one type or empty type`);
       return defaultVoidField;
     }
-    const componentName = Object.keys(type)[0];
-    const component = Object.values(type)[0];
-    components[componentName] = component;
+    const componentName = Object.keys(component)[0];
+    const _component = Object.values(component)[0];
+    components[componentName] = _component;
     return {
       name,
       title,
+      type,
       default: defaultValue,
       'x-decorator': 'FormItem',
       'x-component': componentName,
@@ -85,9 +97,8 @@ const ErdaForm = <T extends Obj>({ formConfig, form }: FormProps<T>) => {
         'x-component': 'FormLayout',
         'x-component-props': {
           labelCol: 8,
-          // wrapperCol: 10,
-          // layout: 'vertical',
-          // labelAlign: 'left',
+          wrapperCol: 16,
+          ...layoutConfig,
         },
         properties,
       },
@@ -99,12 +110,30 @@ const ErdaForm = <T extends Obj>({ formConfig, form }: FormProps<T>) => {
   });
 
   return (
-    <Form form={form || defaultForm}>
+    <Form style={style} form={form || defaultForm}>
       <SchemaField schema={schemaConfig} />
     </Form>
   );
 };
 
+const takeAsyncDataSource = <T extends FieldDataSource>(
+  pattern: FormPathPattern,
+  service: (field: Field) => Promise<T>,
+) => {
+  onFieldReact(pattern, (field) => {
+    if (isField(field)) {
+      field.loading = true;
+      service(field).then(
+        action.bound!((data: FieldDataSource) => {
+          field.dataSource = data;
+          field.loading = false;
+        }),
+      );
+    }
+  });
+};
+
 export default ErdaForm;
 ErdaForm.createForm = createForm;
 ErdaForm.onFieldValueChange = onFieldValueChange;
+ErdaForm.takeAsyncDataSource = takeAsyncDataSource;

@@ -26,7 +26,7 @@ export default () => {
 
   const formConfig = [
     {
-      type: { Input },
+      component: { Input },
       title: '姓名',
       name: 'username',
       customProps: {
@@ -51,7 +51,7 @@ export default () => {
       }}
     >
       <ConfigProvider>
-        <Form form={form} formConfig={formConfig} />
+        <Form style={{ width: '50%' }} form={form} formConfig={formConfig} />
         <Button type="primary" onClick={() => getValue()}>
           提交
         </Button>
@@ -90,7 +90,7 @@ export default () => {
 
   const formConfig = [
     {
-      type: { Input },
+      component: { Input },
       title: '姓名',
       name: 'username',
       customProps: {
@@ -115,7 +115,7 @@ export default () => {
       }}
     >
       <ConfigProvider>
-        <Form form={form} formConfig={formConfig} />
+        <Form style={{ width: '50%' }} form={form} formConfig={formConfig} />
         <Button type="primary" onClick={() => getValue()}>
           提交
         </Button>
@@ -159,7 +159,7 @@ export default () => {
 
   const formConfig = [
     {
-      type: { InputNumber },
+      component: { InputNumber },
       title: '年龄',
       name: 'age',
       customProps: {
@@ -171,7 +171,7 @@ export default () => {
       },
     },
     {
-      type: { InputNumber },
+      component: { InputNumber },
       title: '明年年龄',
       name: 'nextAge',
       customProps: {
@@ -197,7 +197,7 @@ export default () => {
       }}
     >
       <ConfigProvider>
-        <Form form={form} formConfig={formConfig} />
+        <Form style={{ width: '50%' }} form={form} formConfig={formConfig} />
         <Button type="primary" onClick={() => getValue()}>
           提交
         </Button>
@@ -241,7 +241,7 @@ export default () => {
 
   const formConfig = [
     {
-      type: { InputNumber },
+      component: { InputNumber },
       title: '单价',
       name: 'price',
       customProps: {
@@ -250,7 +250,7 @@ export default () => {
       },
     },
     {
-      type: { InputNumber },
+      component: { InputNumber },
       title: '数量',
       name: 'count',
       customProps: {
@@ -259,7 +259,7 @@ export default () => {
       },
     },
     {
-      type: { InputNumber },
+      component: { InputNumber },
       title: '总价',
       name: 'sum',
       customProps: {
@@ -284,7 +284,7 @@ export default () => {
       }}
     >
       <ConfigProvider>
-        <Form form={form} formConfig={formConfig} />
+        <Form style={{ width: '50%' }} form={form} formConfig={formConfig} />
         <Button type="primary" onClick={() => getValue()}>
           提交
         </Button>
@@ -321,7 +321,7 @@ export default () => {
 
   const formConfig = [
     {
-      type: { Input },
+      component: { Input },
       title: '颜色',
       defaultValue: '#6a549e',
       name: 'color',
@@ -344,7 +344,86 @@ export default () => {
       }}
     >
       <ConfigProvider>
-        <Form form={form} formConfig={formConfig} />
+        <Form style={{ width: '50%' }} form={form} formConfig={formConfig} />
+        <Button type="primary" onClick={() => getValue()}>
+          提交
+        </Button>
+        <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
+      </ConfigProvider>
+    </div>
+  );
+};
+```
+
+## 异步数据源
+
+```tsx
+import React from 'react';
+// import { Select } from '@formily/antd';
+import { Form, Button, ConfigProvider, Select } from 'erda-ui-components';
+
+const { createForm, takeAsyncDataSource } = Form;
+
+const form = createForm({
+  effects: () => {
+    takeAsyncDataSource<{ label: string; value: string }[]>(
+      'province',
+      (field) =>
+        new Promise<{ value: string; label: string }[]>((resolve) => {
+          resolve([
+            {
+              value: 'zhejiang',
+              label: '浙江',
+            },
+            {
+              value: 'taiwan',
+              label: '台湾',
+            },
+          ]);
+        }),
+    );
+  },
+});
+
+export default () => {
+  const [data, setData] = React.useState('');
+
+  const formConfig = [
+    // {
+    //   component: { Select },
+    //   title: '国家',
+    //   name: 'country',
+    //   customProps: {
+    //     options: [
+    //       { value: 'china', label: '中国' },
+    //       { value: 'usa', label: '美国' },
+    //     ],
+    //   },
+    // },
+    {
+      component: { Select },
+      title: '省份',
+      name: 'province',
+    },
+  ];
+
+  const getValue = () => {
+    const state = form.getState();
+    setData(JSON.stringify(state.values, null, 2));
+  };
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        background: '#eee',
+        padding: '40px 0',
+      }}
+    >
+      <ConfigProvider>
+        <Form style={{ width: '50%' }} form={form} formConfig={formConfig} />
         <Button type="primary" onClick={() => getValue()}>
           提交
         </Button>

@@ -9,6 +9,7 @@ specifiers:
   '@formily/antd': ^2.0.7
   '@formily/core': ^2.0.7
   '@formily/react': ^2.0.7
+  '@formily/reactive': ^2.0.7
   '@types/lodash': ^4.14.178
   '@typescript-eslint/eslint-plugin': ^5.5.0
   '@typescript-eslint/parser': ^5.5.0
@@ -61,6 +62,7 @@ dependencies:
   '@formily/antd': registry.npmmirror.com/@formily/antd/2.0.7_a8f8d96c4fec7238b5618c1a06fb97aa
   '@formily/core': registry.npmmirror.com/@formily/core/2.0.7
   '@formily/react': registry.npmmirror.com/@formily/react/2.0.7_587beae5e149c20cb8b57fb85872025f
+  '@formily/reactive': registry.npmmirror.com/@formily/reactive/2.0.7
   antd: 4.17.2_react-dom@17.0.2+react@17.0.2
   classnames: registry.nlark.com/classnames/2.3.1
   jest: registry.npmmirror.com/jest/27.4.2
