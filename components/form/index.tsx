@@ -10,6 +10,8 @@ import {
   Field,
   isField,
   FieldDataSource,
+  FieldValidator,
+  registerValidateRules,
 } from '@formily/core';
 import { action } from '@formily/reactive';
 import {
@@ -33,6 +35,8 @@ interface FormProps<T extends Obj> {
     title?: string;
     defaultValue?: unknown;
     type?: string;
+    required?: boolean;
+    validator?: FieldValidator;
     component: { [k: string]: React.ComponentClass | React.FunctionComponent };
     customProps?: Obj;
     wrapperProps?: IFormItemProps;
@@ -61,7 +65,17 @@ const defaultVoidField = {
 const ErdaForm = <T extends Obj>({ formConfig, form, layoutConfig, style }: FormProps<T>) => {
   const components: { [k: string]: React.ComponentClass | React.FunctionComponent } = {};
   const propertiesArray: SchemaField[] = map(formConfig, (item) => {
-    const { name, title, type = 'string', customProps, wrapperProps, defaultValue, component } = item;
+    const {
+      name,
+      title,
+      type = 'string',
+      customProps,
+      wrapperProps,
+      defaultValue,
+      component,
+      required,
+      validator,
+    } = item;
     if (Object.keys(component).length !== 1) {
       console.warn(`field ${name} has more than one type or empty type`);
       return defaultVoidField;
@@ -73,7 +87,9 @@ const ErdaForm = <T extends Obj>({ formConfig, form, layoutConfig, style }: Form
       name,
       title,
       type,
+      required,
       default: defaultValue,
+      'x-validator': validator,
       'x-decorator': 'FormItem',
       'x-component': componentName,
       'x-component-props': customProps,
@@ -137,3 +153,4 @@ export default ErdaForm;
 ErdaForm.createForm = createForm;
 ErdaForm.onFieldValueChange = onFieldValueChange;
 ErdaForm.takeAsyncDataSource = takeAsyncDataSource;
+ErdaForm.registerValidateRules = registerValidateRules;
