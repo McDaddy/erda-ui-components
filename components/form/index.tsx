@@ -14,14 +14,7 @@ import {
   registerValidateRules,
 } from '@formily/core';
 import { action } from '@formily/reactive';
-import {
-  Form,
-  FormItem,
-  FormLayout,
-  IFormItemProps,
-  IFormLayoutProps,
-  // FormGrid,
-} from '@formily/antd';
+import { Form, FormItem, FormLayout, IFormItemProps, IFormLayoutProps, FormGrid, IFormGridProps } from '@formily/antd';
 
 type Obj<T extends any = any> = { [k: string]: T };
 
@@ -30,7 +23,7 @@ type Obj<T extends any = any> = { [k: string]: T };
 // type OnlyOneElementObj<T extends any = {}> = IsUnion<keyof T> extends false ? T : never;
 
 interface FormProps<T extends Obj> {
-  formConfig: {
+  fieldsConfig: {
     name: string;
     title?: string;
     defaultValue?: unknown;
@@ -42,8 +35,10 @@ interface FormProps<T extends Obj> {
     wrapperProps?: IFormItemProps;
   }[];
   form?: FormType<T>;
-  layoutConfig: IFormLayoutProps;
+  layoutConfig?: IFormLayoutProps;
+  gridConfig?: IFormGridProps;
   style?: React.CSSProperties;
+  className?: string;
 }
 
 interface SchemaField {
@@ -55,16 +50,14 @@ interface SchemaField {
   'x-component-props'?: Obj; // TODO
 }
 
-const defaultForm = createForm();
-
 const defaultVoidField = {
   type: 'void',
   name: 'void',
 };
 
-const ErdaForm = <T extends Obj>({ formConfig, form, layoutConfig, style }: FormProps<T>) => {
+const ErdaForm = <T extends Obj>({ fieldsConfig, form, layoutConfig, style, gridConfig, className }: FormProps<T>) => {
   const components: { [k: string]: React.ComponentClass | React.FunctionComponent } = {};
-  const propertiesArray: SchemaField[] = map(formConfig, (item) => {
+  const propertiesArray: SchemaField[] = map(fieldsConfig, (item) => {
     const {
       name,
       title,
@@ -111,22 +104,28 @@ const ErdaForm = <T extends Obj>({ formConfig, form, layoutConfig, style }: Form
       layout: {
         type: 'void',
         'x-component': 'FormLayout',
-        'x-component-props': {
-          labelCol: 8,
-          wrapperCol: 16,
-          ...layoutConfig,
+        'x-component-props': layoutConfig,
+        properties: {
+          grid: {
+            type: 'void',
+            'x-component': 'FormGrid',
+            'x-component-props': {
+              maxColumns: 1,
+              ...gridConfig,
+            },
+            properties,
+          },
         },
-        properties,
       },
     },
   };
 
   const SchemaField = createSchemaField({
-    components: { ...components, FormItem, FormLayout },
+    components: { ...components, FormItem, FormLayout, FormGrid },
   });
 
   return (
-    <Form style={style} form={form || defaultForm}>
+    <Form style={style} className={className || ''} form={form}>
       <SchemaField schema={schemaConfig} />
     </Form>
   );

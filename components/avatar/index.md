@@ -18,7 +18,7 @@ import { Avatar, ConfigProvider } from 'erda-ui-components';
 
 export default () => (
   <ConfigProvider>
-    <Avatar url="//blog.kuimo.top/avatar.jpg" />
+    <Avatar url="https://joeschmoe.io/api/v1/random" />
   </ConfigProvider>
 );
 ```
@@ -37,10 +37,10 @@ import { Avatar, ConfigProvider } from 'erda-ui-components';
 export default () => (
   <ConfigProvider>
     <span>
-      <Avatar name="戣蓦" showName="tooltip" url="//blog.kuimo.top/avatar.jpg" />
+      <Avatar name="戣蓦" showName="tooltip" url="//joeschmoe.io/api/v1/random" />
     </span>
     <span style={{ marginLeft: '16px' }}>
-      <Avatar name="戣蓦" showName url="//blog.kuimo.top/avatar.jpg" />
+      <Avatar name="戣蓦" showName url="//joeschmoe.io/api/v1/random" />
     </span>
   </ConfigProvider>
 );
@@ -62,7 +62,7 @@ export default () => {
       </Button>
       <Button onClick={() => setSize(24)}>还原</Button>
       <div style={{ marginTop: '12px' }}>
-        <Avatar name="戣蓦" showName="tooltip" size={size} url="//blog.kuimo.top/avatar.jpg" />
+        <Avatar name="戣蓦" showName="tooltip" size={size} url="//joeschmoe.io/api/v1/random" />
       </div>
     </ConfigProvider>
   );
@@ -78,7 +78,7 @@ import React from 'react';
 import { Avatar, ConfigProvider } from 'erda-ui-components';
 
 export default () => {
-  const images = ['//blog.kuimo.top/avatar.jpg', '//blog.kuimo.top/logo.png'];
+  const images = ['https://joeschmoe.io/api/v1/random', '//joeschmoe.io/api/v1/random'];
 
   return (
     <ConfigProvider>

@@ -24,7 +24,7 @@ const form = createForm();
 export default () => {
   const [data, setData] = React.useState('');
 
-  const formConfig = [
+  const fieldsConfig = [
     {
       component: { Input },
       title: '姓名',
@@ -51,7 +51,7 @@ export default () => {
       }}
     >
       <ConfigProvider>
-        <Form style={{ width: '50%' }} form={form} formConfig={formConfig} />
+        <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
         <Button type="primary" onClick={() => getValue()}>
           提交
         </Button>
@@ -88,7 +88,7 @@ export default () => {
     });
   }, []);
 
-  const formConfig = [
+  const fieldsConfig = [
     {
       component: { Input },
       title: '姓名',
@@ -115,7 +115,7 @@ export default () => {
       }}
     >
       <ConfigProvider>
-        <Form style={{ width: '50%' }} form={form} formConfig={formConfig} />
+        <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
         <Button type="primary" onClick={() => getValue()}>
           提交
         </Button>
@@ -140,7 +140,7 @@ const form = createForm();
 export default () => {
   const [data, setData] = React.useState('');
 
-  const formConfig = [
+  const fieldsConfig = [
     {
       component: { Input },
       title: '姓名',
@@ -171,7 +171,7 @@ export default () => {
       }}
     >
       <ConfigProvider>
-        <Form style={{ width: '50%' }} form={form} formConfig={formConfig} />
+        <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
         <div>
           <Button style={{ marginRight: '12px' }} type="primary" onClick={() => getValue()}>
             提交
@@ -217,7 +217,7 @@ const form = createForm({
 export default () => {
   const [data, setData] = React.useState('');
 
-  const formConfig = [
+  const fieldsConfig = [
     {
       component: { Select },
       title: '省份',
@@ -241,7 +241,7 @@ export default () => {
       }}
     >
       <ConfigProvider>
-        <Form style={{ width: '50%' }} form={form} formConfig={formConfig} />
+        <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
         <Button type="primary" onClick={() => getValue()}>
           提交
         </Button>
@@ -283,7 +283,7 @@ const form = createForm({
 export default () => {
   const [data, setData] = React.useState('');
 
-  const formConfig = [
+  const fieldsConfig = [
     {
       component: { InputNumber },
       title: '年龄',
@@ -323,7 +323,7 @@ export default () => {
       }}
     >
       <ConfigProvider>
-        <Form style={{ width: '50%' }} form={form} formConfig={formConfig} />
+        <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
         <Button type="primary" onClick={() => getValue()}>
           提交
         </Button>
@@ -365,7 +365,7 @@ const form = createForm({
 export default () => {
   const [data, setData] = React.useState('');
 
-  const formConfig = [
+  const fieldsConfig = [
     {
       component: { InputNumber },
       title: '单价',
@@ -410,7 +410,7 @@ export default () => {
       }}
     >
       <ConfigProvider>
-        <Form style={{ width: '50%' }} form={form} formConfig={formConfig} />
+        <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
         <Button type="primary" onClick={() => getValue()}>
           提交
         </Button>
@@ -445,7 +445,7 @@ const form = createForm({
 export default () => {
   const [data, setData] = React.useState('');
 
-  const formConfig = [
+  const fieldsConfig = [
     {
       component: { Input },
       title: '颜色',
@@ -470,7 +470,7 @@ export default () => {
       }}
     >
       <ConfigProvider>
-        <Form style={{ width: '50%' }} form={form} formConfig={formConfig} />
+        <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
         <Button type="primary" onClick={() => getValue()}>
           提交
         </Button>
@@ -519,7 +519,7 @@ const form = createForm({
 export default () => {
   const [data, setData] = React.useState('');
 
-  const formConfig = [
+  const fieldsConfig = [
     {
       component: { Select },
       title: '国家',
@@ -554,7 +554,7 @@ export default () => {
       }}
     >
       <ConfigProvider>
-        <Form style={{ width: '50%' }} form={form} formConfig={formConfig} />
+        <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
         <Button type="primary" onClick={() => getValue()}>
           提交
         </Button>
@@ -608,7 +608,7 @@ const form = createForm({
 export default () => {
   const [data, setData] = React.useState('');
 
-  const formConfig = [
+  const fieldsConfig = [
     {
       component: { Select },
       title: '国家',
@@ -643,7 +643,7 @@ export default () => {
       }}
     >
       <ConfigProvider>
-        <Form style={{ width: '50%' }} form={form} formConfig={formConfig} />
+        <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
         <Button type="primary" onClick={() => getValue()}>
           提交
         </Button>
@@ -702,7 +702,7 @@ registerValidateRules({
 export default () => {
   const [data, setData] = React.useState('');
 
-  const formConfig = [
+  const fieldsConfig = [
     {
       component: { Input },
       title: '必填',
@@ -932,7 +932,7 @@ export default () => {
       }}
     >
       <ConfigProvider>
-        <Form style={{ width: '50%' }} form={form} formConfig={formConfig} />
+        <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
         <Button type="primary" onClick={() => submit()}>
           提交
         </Button>
@@ -944,3 +944,222 @@ export default () => {
 ```
 
 ## 表单布局
+
+### Grid 布局
+
+#### 多列布局
+
+```tsx
+import React from 'react';
+import { Input } from 'antd';
+import { Form, Button, ConfigProvider } from 'erda-ui-components';
+
+const { createForm } = Form;
+
+const form = createForm();
+
+export default () => {
+  const [data, setData] = React.useState('');
+
+  const fieldsConfig = [
+    {
+      component: { Input },
+      title: '姓名',
+      name: 'username',
+      customProps: {
+        placeholder: '请输入姓名',
+      },
+    },
+    {
+      component: { Input },
+      title: '昵称',
+      name: 'nickName',
+    },
+    {
+      component: { Input },
+      title: '年龄',
+      name: 'age',
+    },
+    {
+      component: { Input },
+      title: '性别',
+      name: 'gender',
+    },
+  ];
+
+  const getValue = () => {
+    const state = form.getState();
+    setData(JSON.stringify(state.values, null, 2));
+  };
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        background: '#eee',
+        padding: '40px 0',
+      }}
+    >
+      <ConfigProvider>
+        <Form style={{ width: '70%' }} form={form} fieldsConfig={fieldsConfig} gridConfig={{ maxColumns: 2 }} />
+        <Button type="primary" onClick={() => getValue()}>
+          提交
+        </Button>
+        <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
+      </ConfigProvider>
+    </div>
+  );
+};
+```
+
+#### 自定义布局
+
+```tsx
+import React from 'react';
+import { Input } from 'antd';
+import { Form, Button, ConfigProvider } from 'erda-ui-components';
+
+const { createForm } = Form;
+
+const form = createForm();
+
+export default () => {
+  const [data, setData] = React.useState('');
+
+  const fieldsConfig = [
+    {
+      component: { Input },
+      title: '姓名',
+      name: 'username',
+      customProps: {
+        placeholder: '请输入姓名',
+      },
+      wrapperProps: {
+        gridSpan: 2,
+      },
+    },
+    {
+      component: { Input },
+      title: '昵称',
+      name: 'nickName',
+    },
+    {
+      component: { Input },
+      title: '年龄',
+      name: 'age',
+    },
+    {
+      component: { Input },
+      title: '性别',
+      name: 'gender',
+    },
+  ];
+
+  const getValue = () => {
+    const state = form.getState();
+    setData(JSON.stringify(state.values, null, 2));
+  };
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        background: '#eee',
+        padding: '40px 0',
+      }}
+    >
+      <ConfigProvider>
+        <Form style={{ width: '70%' }} form={form} fieldsConfig={fieldsConfig} gridConfig={{ maxColumns: 2 }} />
+        <Button type="primary" onClick={() => getValue()}>
+          提交
+        </Button>
+        <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
+      </ConfigProvider>
+    </div>
+  );
+};
+```
+
+#### 插入非表单内容
+
+```tsx
+import React from 'react';
+import { Input } from 'antd';
+import { Form, Button, ConfigProvider } from 'erda-ui-components';
+
+const { createForm } = Form;
+
+const form = createForm();
+
+const Comp = () => <div style={{ backgroundColor: 'white', paddingLeft: '16px' }}>这是插入的内容</div>;
+
+export default () => {
+  const [data, setData] = React.useState('');
+
+  const fieldsConfig = [
+    {
+      component: { Input },
+      title: '姓名',
+      name: 'username',
+      customProps: {
+        placeholder: '请输入姓名',
+      },
+      wrapperProps: {
+        gridSpan: 2,
+      },
+    },
+    {
+      component: { Comp },
+      type: 'void',
+      name: 'void',
+      wrapperProps: {
+        gridSpan: 2,
+      },
+    },
+    {
+      component: { Input },
+      title: '昵称',
+      name: 'nickName',
+    },
+    {
+      component: { Input },
+      title: '年龄',
+      name: 'age',
+    },
+    {
+      component: { Input },
+      title: '性别',
+      name: 'gender',
+    },
+  ];
+
+  const getValue = () => {
+    const state = form.getState();
+    setData(JSON.stringify(state.values, null, 2));
+  };
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        background: '#eee',
+        padding: '40px 0',
+      }}
+    >
+      <ConfigProvider>
+        <Form style={{ width: '70%' }} form={form} fieldsConfig={fieldsConfig} gridConfig={{ maxColumns: 2 }} />
+        <Button type="primary" onClick={() => getValue()}>
+          提交
+        </Button>
+        <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
+      </ConfigProvider>
+    </div>
+  );
+};
+```
