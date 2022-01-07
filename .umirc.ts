@@ -6,8 +6,8 @@ const repo = 'erda-ui-components';
 
 export default defineConfig({
   title,
-  favicon: '/images/favicon.png',
-  logo: '/images/favicon.png',
+  favicon: process.env.NODE_ENV === 'production' ? `/${repo}/images/favicon.png` : '/images/favicon.png',
+  logo: process.env.NODE_ENV === 'production' ? `/${repo}/images/favicon.png` : '/images/favicon.png',
   outputPath: 'docs-dist',
   mode: 'site',
   hash: true,

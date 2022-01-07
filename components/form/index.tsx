@@ -52,7 +52,7 @@ interface SchemaField {
   default?: unknown;
   'x-decorator'?: string;
   'x-component'?: string;
-  'x-component-props'?: Obj;
+  'x-component-props'?: Obj; // TODO
 }
 
 const defaultForm = createForm();

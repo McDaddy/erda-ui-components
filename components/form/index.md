@@ -692,9 +692,10 @@ const form = createForm({
 
 registerValidateRules({
   customRule: (value) => {
-    if (!value || !value.includes('@')) {
+    if (value && !value.includes('@')) {
       return '请输入包含@的字符串';
     }
+    return '';
   },
 });
 
@@ -851,16 +852,17 @@ export default () => {
     },
     {
       component: { Input },
-      title: '自定义校验2',
+      title: '局部自定义校验',
       name: 'custom2',
       customProps: {
         placeholder: '必须包含@符号',
       },
       validator: {
         validator: (value) => {
-          if (!value || !value.includes('@')) {
+          if (value && !value.includes('@')) {
             return '请输入包含@的字符串';
           }
+          return '';
         },
       },
     },
@@ -940,3 +942,5 @@ export default () => {
   );
 };
 ```
+
+## 表单布局
