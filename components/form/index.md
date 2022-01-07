@@ -1163,3 +1163,282 @@ export default () => {
   );
 };
 ```
+
+## 自定义组件
+
+```tsx
+import React from 'react';
+import { Input } from 'antd';
+import { Form, Button, ConfigProvider } from 'erda-ui-components';
+
+const { createForm } = Form;
+
+const form = createForm();
+
+const CustomComp = ({ value, onChange }: { value: string; onChange: (v: string) => void }) => {
+  const [count, setCount] = React.useState(0);
+
+  React.useEffect(() => {
+    setCount(value?.length);
+  }, [value]);
+
+  return (
+    <div style={{ display: 'flex', paddingLeft: '16px' }}>
+      <div>{count}</div>
+      <Input value={value} onChange={onChange} />
+    </div>
+  );
+};
+
+export default () => {
+  const [data, setData] = React.useState('');
+
+  const fieldsConfig = [
+    {
+      title: '自定义组件',
+      component: { CustomComp },
+      name: 'customValue',
+    },
+    {
+      title: '自定义组件2',
+      component: { CustomComp },
+      name: 'customValue2',
+    },
+  ];
+
+  const getValue = () => {
+    const state = form.getState();
+    setData(JSON.stringify(state.values, null, 2));
+  };
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        background: '#eee',
+        padding: '40px 0',
+      }}
+    >
+      <ConfigProvider>
+        <Form style={{ width: '70%' }} form={form} fieldsConfig={fieldsConfig} />
+        <Button type="primary" onClick={() => getValue()}>
+          提交
+        </Button>
+        <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
+      </ConfigProvider>
+    </div>
+  );
+};
+```
+
+## 性能
+
+Antd Form 实现 300 个字段求和加总
+
+```tsx
+import React from 'react';
+import { InputNumber, Form } from 'antd';
+import { Button, ConfigProvider } from 'erda-ui-components';
+
+const CustomComp = ({ value, onChange }: { value: string; onChange: (v: string) => void }) => {
+  console.log('render child');
+  return <InputNumber style={{ width: '100%' }} value={value} onChange={onChange} />;
+};
+
+const list = new Array(300)
+  .toString()
+  .split(',')
+  .map((item, index) => index);
+
+export default () => {
+  const [count, setCount] = React.useState(0);
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        background: '#eee',
+        padding: '40px 0',
+        height: '300px',
+        overflow: 'auto',
+      }}
+    >
+      <ConfigProvider>
+        <div style={{ marginBottom: '16px' }}>总和： {count}</div>
+        <Form style={{ width: '70%' }}>
+          {list.map((i) => (
+            <Form.Item key={i} label={`字段${i}`} name={`field${i}`}>
+              <CustomComp sum={count} onChange={(v) => setCount(count + v)} />
+            </Form.Item>
+          ))}
+        </Form>
+      </ConfigProvider>
+    </div>
+  );
+};
+```
+
+Erda Form 实现 300 个字段求和加总
+
+```tsx
+import React from 'react';
+import { InputNumber } from 'antd';
+import { Form, Button, ConfigProvider } from 'erda-ui-components';
+
+const { createForm, onFieldValueChange } = Form;
+
+const CustomComp = ({ value, onChange }: { value: string; onChange: (v: string) => void }) => {
+  console.log('render child');
+  return <InputNumber value={value} onChange={onChange} />;
+};
+
+const form = createForm({
+  effects: () => {
+    onFieldValueChange('*(!sum)', (field) => {
+      field.query('sum').take((f) => {
+        const sum = (f.value || 0) + field.value;
+        f.setValue(sum);
+      });
+    });
+  },
+});
+
+const list = new Array(300)
+  .toString()
+  .split(',')
+  .map((item, index) => index);
+
+export default () => {
+  const fieldsConfig = list.map((i) => ({
+    title: `字段${i}`,
+    component: { CustomComp },
+    name: `field${i}`,
+  }));
+  fieldsConfig.unshift({
+    title: '总和',
+    component: { InputNumber },
+    name: 'sum',
+    customProps: {
+      disabled: true,
+    },
+  });
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        background: '#eee',
+        padding: '40px 0',
+        height: '300px',
+        overflow: 'auto',
+      }}
+    >
+      <ConfigProvider>
+        <Form style={{ width: '70%' }} form={form} fieldsConfig={fieldsConfig} />
+      </ConfigProvider>
+    </div>
+  );
+};
+```
+
+## 自增字段（对象数组字段）
+
+```tsx
+import React from 'react';
+import { Input, Space } from 'antd';
+import { Form, Button, ConfigProvider } from 'erda-ui-components';
+import { ArrayField as ArrayFieldType } from '@formily/core';
+
+const { createForm, observer, Field, useField } = Form;
+
+const form = createForm();
+
+const ArrayComponent = observer(() => {
+  const field = useField<ArrayFieldType>();
+  return (
+    <>
+      <div>
+        {field.value?.map((item, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <div key={index} style={{ display: 'flex-block', marginBottom: 10 }}>
+            <Space>
+              <Field name={index} component={[Input]} />
+              <Button
+                onClick={() => {
+                  field.remove(index);
+                }}
+              >
+                Remove
+              </Button>
+              <Button
+                onClick={() => {
+                  field.moveUp(index);
+                }}
+              >
+                Move Up
+              </Button>
+              <Button
+                onClick={() => {
+                  field.moveDown(index);
+                }}
+              >
+                Move Down
+              </Button>
+            </Space>
+          </div>
+        ))}
+      </div>
+      <Button
+        onClick={() => {
+          field.push('');
+        }}
+      >
+        Add
+      </Button>
+    </>
+  );
+});
+
+export default () => {
+  const [data, setData] = React.useState('');
+
+  const fieldsConfig = [
+    {
+      type: 'array',
+      component: { ArrayComponent },
+      name: 'arrayField',
+    },
+  ];
+
+  const getValue = () => {
+    const state = form.getState();
+    setData(JSON.stringify(state.values, null, 2));
+  };
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        background: '#eee',
+        padding: '40px 0',
+      }}
+    >
+      <ConfigProvider>
+        <Form style={{ width: '80%' }} form={form} fieldsConfig={fieldsConfig} />
+        <Button type="primary" onClick={() => getValue()}>
+          提交
+        </Button>
+        <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
+      </ConfigProvider>
+    </div>
+  );
+};
+```

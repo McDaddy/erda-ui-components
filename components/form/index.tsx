@@ -1,6 +1,6 @@
 import React from 'react';
 import { map, reduce } from 'lodash';
-import { createSchemaField } from '@formily/react';
+import { createSchemaField, Field as ReactField, observer, useField } from '@formily/react';
 import {
   createForm,
   Form as FormType,
@@ -22,18 +22,20 @@ type Obj<T extends any = any> = { [k: string]: T };
 
 // type OnlyOneElementObj<T extends any = {}> = IsUnion<keyof T> extends false ? T : never;
 
+interface FieldConfig {
+  name: string;
+  title?: string;
+  defaultValue?: unknown;
+  type?: string;
+  required?: boolean;
+  validator?: FieldValidator;
+  component: { [k: string]: React.ComponentClass | React.FunctionComponent };
+  customProps?: Obj;
+  wrapperProps?: IFormItemProps;
+}
+
 interface FormProps<T extends Obj> {
-  fieldsConfig: {
-    name: string;
-    title?: string;
-    defaultValue?: unknown;
-    type?: string;
-    required?: boolean;
-    validator?: FieldValidator;
-    component: { [k: string]: React.ComponentClass | React.FunctionComponent };
-    customProps?: Obj;
-    wrapperProps?: IFormItemProps;
-  }[];
+  fieldsConfig: FieldConfig[];
   form?: FormType<T>;
   layoutConfig?: IFormLayoutProps;
   gridConfig?: IFormGridProps;
@@ -76,6 +78,7 @@ const ErdaForm = <T extends Obj>({ fieldsConfig, form, layoutConfig, style, grid
     const componentName = Object.keys(component)[0];
     const _component = Object.values(component)[0];
     components[componentName] = _component;
+
     return {
       name,
       title,
@@ -153,3 +156,6 @@ ErdaForm.createForm = createForm;
 ErdaForm.onFieldValueChange = onFieldValueChange;
 ErdaForm.takeAsyncDataSource = takeAsyncDataSource;
 ErdaForm.registerValidateRules = registerValidateRules;
+ErdaForm.observer = observer;
+ErdaForm.Field = ReactField;
+ErdaForm.useField = useField;
