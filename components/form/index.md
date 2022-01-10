@@ -1347,7 +1347,9 @@ export default () => {
 };
 ```
 
-## 自增字段（对象数组字段）
+## 自增字段
+
+### 数组字段
 
 ```tsx
 import React from 'react';
@@ -1413,6 +1415,95 @@ export default () => {
       type: 'array',
       component: { ArrayComponent },
       name: 'arrayField',
+    },
+  ];
+
+  const getValue = () => {
+    const state = form.getState();
+    setData(JSON.stringify(state.values, null, 2));
+  };
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        background: '#eee',
+        padding: '40px 0',
+      }}
+    >
+      <ConfigProvider>
+        <Form style={{ width: '80%' }} form={form} fieldsConfig={fieldsConfig} />
+        <Button type="primary" onClick={() => getValue()}>
+          提交
+        </Button>
+        <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
+      </ConfigProvider>
+    </div>
+  );
+};
+```
+
+### 对象数组字段
+
+```tsx
+import React from 'react';
+import { Space, Input } from '@formily/antd';
+import { Form, Button, ConfigProvider } from 'erda-ui-components';
+
+const { createForm, observer, RecursionField, useFieldSchema, useField } = Form;
+
+const form = createForm();
+
+const ArrayItems = observer((props) => {
+  const schema = useFieldSchema();
+  const field = useField<ArrayFieldType>();
+  return (
+    <div>
+      {props.value?.map((item, index) => (
+        <div key={index} style={{ marginBottom: 10 }}>
+          <Space>
+            <RecursionField schema={schema.items} name={index} />
+            <Button
+              onClick={() => {
+                field.remove(index);
+              }}
+            >
+              Remove
+            </Button>
+          </Space>
+        </div>
+      ))}
+      <Button
+        onClick={() => {
+          field.push({});
+        }}
+      >
+        Add
+      </Button>
+    </div>
+  );
+});
+
+export default () => {
+  const [data, setData] = React.useState('');
+
+  const fieldsConfig = [
+    {
+      type: 'array',
+      component: { ArrayItems },
+      name: 'arrayField',
+      items: [
+        {
+          component: { Input },
+          name: 'name',
+        },
+        {
+          component: { Input },
+          name: 'age',
+        },
+      ],
     },
   ];
 

@@ -1,6 +1,13 @@
 import React from 'react';
 import { map, reduce } from 'lodash';
-import { createSchemaField, Field as ReactField, observer, useField } from '@formily/react';
+import {
+  createSchemaField,
+  Field as ReactField,
+  observer,
+  useField,
+  useFieldSchema,
+  RecursionField,
+} from '@formily/react';
 import {
   createForm,
   Form as FormType,
@@ -32,6 +39,7 @@ interface FieldConfig {
   component: { [k: string]: React.ComponentClass | React.FunctionComponent };
   customProps?: Obj;
   wrapperProps?: IFormItemProps;
+  items?: FieldConfig[];
 }
 
 interface FormProps<T extends Obj> {
@@ -57,8 +65,10 @@ const defaultVoidField = {
   name: 'void',
 };
 
-const ErdaForm = <T extends Obj>({ fieldsConfig, form, layoutConfig, style, gridConfig, className }: FormProps<T>) => {
+const transformConfigRecursively = (fieldsConfig: FieldConfig[]) => {
   const components: { [k: string]: React.ComponentClass | React.FunctionComponent } = {};
+  let subComponents: Obj<React.ComponentClass<{}, any> | React.FunctionComponent<{}>> = {};
+
   const propertiesArray: SchemaField[] = map(fieldsConfig, (item) => {
     const {
       name,
@@ -70,6 +80,7 @@ const ErdaForm = <T extends Obj>({ fieldsConfig, form, layoutConfig, style, grid
       component,
       required,
       validator,
+      items,
     } = item;
     if (Object.keys(component).length !== 1) {
       console.warn(`field ${name} has more than one type or empty type`);
@@ -79,11 +90,22 @@ const ErdaForm = <T extends Obj>({ fieldsConfig, form, layoutConfig, style, grid
     const _component = Object.values(component)[0];
     components[componentName] = _component;
 
+    let _items = {};
+    if (items) {
+      const [_properties, _components] = transformConfigRecursively(items);
+      subComponents = _components;
+      _items = {
+        type: 'object',
+        properties: _properties,
+      };
+    }
+
     return {
       name,
       title,
       type,
       required,
+      items: _items,
       default: defaultValue,
       'x-validator': validator,
       'x-decorator': 'FormItem',
@@ -92,6 +114,7 @@ const ErdaForm = <T extends Obj>({ fieldsConfig, form, layoutConfig, style, grid
       'x-decorator-props': wrapperProps,
     };
   });
+
   const properties = reduce(
     propertiesArray,
     (result, item) => {
@@ -101,6 +124,14 @@ const ErdaForm = <T extends Obj>({ fieldsConfig, form, layoutConfig, style, grid
     },
     {} as Obj<Omit<SchemaField, 'name'>>,
   );
+  return [properties, { ...components, ...subComponents }] as [
+    Obj<Omit<SchemaField, 'name'>>,
+    Obj<React.ComponentClass<{}, any> | React.FunctionComponent<{}>>,
+  ];
+};
+
+const ErdaForm = <T extends Obj>({ fieldsConfig, form, layoutConfig, style, gridConfig, className }: FormProps<T>) => {
+  const [properties, components] = transformConfigRecursively(fieldsConfig);
   const schemaConfig = {
     type: 'object',
     properties: {
@@ -159,3 +190,5 @@ ErdaForm.registerValidateRules = registerValidateRules;
 ErdaForm.observer = observer;
 ErdaForm.Field = ReactField;
 ErdaForm.useField = useField;
+ErdaForm.useFieldSchema = useFieldSchema;
+ErdaForm.RecursionField = RecursionField;
