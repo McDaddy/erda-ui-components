@@ -1,1 +1,1 @@
-import './index.less';
+import 'antd/lib/button/style/index';
