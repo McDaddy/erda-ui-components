@@ -11,7 +11,7 @@
     "precommit": "lint-staged",
     "lint": "npm run tsc && npm run lint:script && npm run lint:demo && npm run lint:style && npm run lint:deps && npm run lint:md"
   },
-  "main": "es/index.js",
+  "main": "lib/index.js",
   "module": "es/index.js",
   "unpkg": "dist/ec.js",
   "typings": "lib/index.d.ts",
