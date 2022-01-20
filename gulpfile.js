@@ -19,7 +19,8 @@ const tsConfig = {
   target: 'es6',
   jsx: 'react',
   moduleResolution: 'node',
-  declaration: false,
+  declaration: true,
+  preserveSymlinks: true,
   allowSyntheticDefaultImports: true,
   ...compilerOptions,
 };
