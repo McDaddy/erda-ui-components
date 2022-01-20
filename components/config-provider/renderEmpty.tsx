@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Empty } from 'antd';
-import { ConfigConsumer, ConfigConsumerProps } from 'antd/es/config-provider';
+import { ConfigConsumer, ConfigConsumerProps } from 'antd/lib/config-provider';
 
 const renderEmpty = (componentName?: string): React.ReactNode => (
   <ConfigConsumer>
