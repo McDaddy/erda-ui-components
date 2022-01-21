@@ -12,6 +12,7 @@ import {
   createForm,
   Form as FormType,
   onFieldValueChange,
+  onFormInitialValuesChange,
   onFieldReact,
   FormPathPattern,
   Field,
@@ -185,6 +186,7 @@ const takeAsyncDataSource = <T extends FieldDataSource>(
 export default ErdaForm;
 ErdaForm.createForm = createForm;
 ErdaForm.onFieldValueChange = onFieldValueChange;
+ErdaForm.onFormInitialValuesChange = onFormInitialValuesChange;
 ErdaForm.takeAsyncDataSource = takeAsyncDataSource;
 ErdaForm.registerValidateRules = registerValidateRules;
 ErdaForm.observer = observer;
