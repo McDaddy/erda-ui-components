@@ -38,7 +38,7 @@ interface FieldConfig {
   type?: string;
   required?: boolean;
   validator?: FieldValidator;
-  component: { [k: string]: React.ComponentClass | React.FunctionComponent };
+  component: Record<string, React.ComponentClass | React.FunctionComponent>;
   customProps?: Obj;
   wrapperProps?: IFormItemProps;
   items?: FieldConfig[];
