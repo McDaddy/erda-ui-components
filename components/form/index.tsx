@@ -30,8 +30,7 @@ type Obj<T extends any = any> = { [k: string]: T };
 // type IsUnion<T, U extends T = T> = (T extends any ? (U extends T ? false : true) : never) extends false ? false : true;
 
 // type OnlyOneElementObj<T extends any = {}> = IsUnion<keyof T> extends false ? T : never;
-
-interface FieldConfig {
+export interface FieldConfig {
   name: string;
   title?: string;
   defaultValue?: unknown;
