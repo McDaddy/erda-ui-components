@@ -16,7 +16,7 @@ function transformLess(lessContent, lessFilePath, config = {}) {
     filename: resolvedLessFile,
     plugins: [new NpmImportPlugin({ prefix: '~' })],
     javascriptEnabled: true,
-    modifyVars: { '@ant-prefix': 'ec', '@primary-color': '#6A549E' },
+    modifyVars: { 'root-entry-name': 'default', '@primary-color': '#6A549E' },
     ...lessConfig,
   };
   return less
