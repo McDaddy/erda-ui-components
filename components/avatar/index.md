@@ -14,13 +14,9 @@ group:
 
 ```tsx
 import React from 'react';
-import { Avatar, ConfigProvider } from 'erda-ui-components';
+import { Avatar } from 'erda-ui-components';
 
-export default () => (
-  <ConfigProvider>
-    <Avatar url="https://joeschmoe.io/api/v1/random" />
-  </ConfigProvider>
-);
+export default () => <Avatar url="https://joeschmoe.io/api/v1/random" />;
 ```
 
 ### 显示名称
@@ -32,17 +28,17 @@ export default () => (
 
 ```tsx
 import React from 'react';
-import { Avatar, ConfigProvider } from 'erda-ui-components';
+import { Avatar } from 'erda-ui-components';
 
 export default () => (
-  <ConfigProvider>
+  <>
     <span>
       <Avatar name="戣蓦" showName="tooltip" url="//joeschmoe.io/api/v1/random" />
     </span>
     <span style={{ marginLeft: '16px' }}>
       <Avatar name="戣蓦" showName url="//joeschmoe.io/api/v1/random" />
     </span>
-  </ConfigProvider>
+  </>
 );
 ```
 
@@ -50,13 +46,13 @@ export default () => (
 
 ```tsx
 import React from 'react';
-import { Avatar, ConfigProvider, Button } from 'erda-ui-components';
+import { Avatar, Button } from 'erda-ui-components';
 
 export default () => {
   const [size, setSize] = React.useState(24);
 
   return (
-    <ConfigProvider>
+    <>
       <Button type="primary" onClick={() => setSize(50)}>
         变大
       </Button>
@@ -64,7 +60,7 @@ export default () => {
       <div style={{ marginTop: '12px' }}>
         <Avatar name="戣蓦" showName="tooltip" size={size} url="//joeschmoe.io/api/v1/random" />
       </div>
-    </ConfigProvider>
+    </>
   );
 };
 ```
@@ -75,20 +71,20 @@ export default () => {
 
 ```tsx
 import React from 'react';
-import { Avatar, ConfigProvider } from 'erda-ui-components';
+import { Avatar } from 'erda-ui-components';
 
 export default () => {
   const images = ['https://joeschmoe.io/api/v1/random', '//joeschmoe.io/api/v1/random'];
 
   return (
-    <ConfigProvider>
+    <>
       <span>
         <Avatar name="戣蓦" showName="tooltip" imgPresets={images} />
       </span>
       <span style={{ marginLeft: '16px' }}>
         <Avatar name="cwt" showName="tooltip" imgPresets={images} />
       </span>
-    </ConfigProvider>
+    </>
   );
 };
 ```

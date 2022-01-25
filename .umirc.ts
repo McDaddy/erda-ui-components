@@ -37,7 +37,7 @@ export default defineConfig({
   // webpack5: { lazyCompilation: {} },
   lessLoader: {
     javascriptEnabled: true,
-    modifyVars: { '@ant-prefix': 'ec', '@primary-color': '#6A549E' },
+    modifyVars: { '@primary-color': '#6A549E' },
   },
   // more config: https://d.umijs.org/config
 });

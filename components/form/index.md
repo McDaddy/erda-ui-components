@@ -15,7 +15,7 @@ group:
 ```tsx
 import React from 'react';
 import { Input } from 'antd';
-import { Form, Button, ConfigProvider } from 'erda-ui-components';
+import { Form, Button } from 'erda-ui-components';
 
 const { createForm } = Form;
 
@@ -50,13 +50,11 @@ export default () => {
         padding: '40px 0',
       }}
     >
-      <ConfigProvider>
-        <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
-        <Button type="primary" onClick={() => getValue()}>
-          提交
-        </Button>
-        <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
-      </ConfigProvider>
+      <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
+      <Button type="primary" onClick={() => getValue()}>
+        提交
+      </Button>
+      <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
     </div>
   );
 };
@@ -67,7 +65,7 @@ export default () => {
 ```tsx
 import React from 'react';
 import { Input } from 'antd';
-import { Form, Button, ConfigProvider } from 'erda-ui-components';
+import { Form, Button } from 'erda-ui-components';
 
 const { createForm } = Form;
 
@@ -114,13 +112,11 @@ export default () => {
         padding: '40px 0',
       }}
     >
-      <ConfigProvider>
-        <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
-        <Button type="primary" onClick={() => getValue()}>
-          提交
-        </Button>
-        <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
-      </ConfigProvider>
+      <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
+      <Button type="primary" onClick={() => getValue()}>
+        提交
+      </Button>
+      <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
     </div>
   );
 };
@@ -131,7 +127,7 @@ export default () => {
 ```tsx
 import React from 'react';
 import { Input } from 'antd';
-import { Form, Button, ConfigProvider } from 'erda-ui-components';
+import { Form, Button } from 'erda-ui-components';
 
 const { createForm } = Form;
 
@@ -170,16 +166,14 @@ export default () => {
         padding: '40px 0',
       }}
     >
-      <ConfigProvider>
-        <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
-        <div>
-          <Button style={{ marginRight: '12px' }} type="primary" onClick={() => getValue()}>
-            提交
-          </Button>
-          <Button onClick={() => resetForm()}>重置</Button>
-        </div>
-        <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
-      </ConfigProvider>
+      <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
+      <div>
+        <Button style={{ marginRight: '12px' }} type="primary" onClick={() => getValue()}>
+          提交
+        </Button>
+        <Button onClick={() => resetForm()}>重置</Button>
+      </div>
+      <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
     </div>
   );
 };
@@ -189,7 +183,8 @@ export default () => {
 
 ```tsx
 import React from 'react';
-import { Form, Button, ConfigProvider, Select } from 'erda-ui-components';
+import { Select } from 'antd';
+import { Form, Button } from 'erda-ui-components';
 
 const { createForm, takeAsyncDataSource } = Form;
 
@@ -240,13 +235,11 @@ export default () => {
         padding: '40px 0',
       }}
     >
-      <ConfigProvider>
-        <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
-        <Button type="primary" onClick={() => getValue()}>
-          提交
-        </Button>
-        <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
-      </ConfigProvider>
+      <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
+      <Button type="primary" onClick={() => getValue()}>
+        提交
+      </Button>
+      <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
     </div>
   );
 };
@@ -259,7 +252,7 @@ export default () => {
 ```tsx
 import React from 'react';
 import { InputNumber } from 'antd';
-import { Form, Button, ConfigProvider } from 'erda-ui-components';
+import { Form, Button } from 'erda-ui-components';
 
 const { createForm, onFieldValueChange } = Form;
 
@@ -322,13 +315,11 @@ export default () => {
         padding: '40px 0',
       }}
     >
-      <ConfigProvider>
-        <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
-        <Button type="primary" onClick={() => getValue()}>
-          提交
-        </Button>
-        <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
-      </ConfigProvider>
+      <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
+      <Button type="primary" onClick={() => getValue()}>
+        提交
+      </Button>
+      <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
     </div>
   );
 };
@@ -339,7 +330,7 @@ export default () => {
 ```tsx
 import React from 'react';
 import { InputNumber } from 'antd';
-import { Form, Button, ConfigProvider } from 'erda-ui-components';
+import { Form, Button } from 'erda-ui-components';
 
 const { createForm, onFieldValueChange } = Form;
 
@@ -409,13 +400,11 @@ export default () => {
         padding: '40px 0',
       }}
     >
-      <ConfigProvider>
-        <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
-        <Button type="primary" onClick={() => getValue()}>
-          提交
-        </Button>
-        <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
-      </ConfigProvider>
+      <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
+      <Button type="primary" onClick={() => getValue()}>
+        提交
+      </Button>
+      <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
     </div>
   );
 };
@@ -426,7 +415,7 @@ export default () => {
 ```tsx
 import React from 'react';
 import { Input } from 'antd';
-import { Form, Button, ConfigProvider } from 'erda-ui-components';
+import { Form, Button } from 'erda-ui-components';
 
 const { createForm, onFieldValueChange } = Form;
 
@@ -469,13 +458,11 @@ export default () => {
         padding: '40px 0',
       }}
     >
-      <ConfigProvider>
-        <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
-        <Button type="primary" onClick={() => getValue()}>
-          提交
-        </Button>
-        <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
-      </ConfigProvider>
+      <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
+      <Button type="primary" onClick={() => getValue()}>
+        提交
+      </Button>
+      <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
     </div>
   );
 };
@@ -485,7 +472,8 @@ export default () => {
 
 ```tsx
 import React from 'react';
-import { Form, Button, ConfigProvider, Select } from 'erda-ui-components';
+import { Select } from 'antd';
+import { Form, Button } from 'erda-ui-components';
 
 const { createForm, onFieldValueChange } = Form;
 
@@ -553,13 +541,11 @@ export default () => {
         padding: '40px 0',
       }}
     >
-      <ConfigProvider>
-        <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
-        <Button type="primary" onClick={() => getValue()}>
-          提交
-        </Button>
-        <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
-      </ConfigProvider>
+      <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
+      <Button type="primary" onClick={() => getValue()}>
+        提交
+      </Button>
+      <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
     </div>
   );
 };
@@ -569,7 +555,8 @@ export default () => {
 
 ```tsx
 import React from 'react';
-import { Form, Button, ConfigProvider, Select } from 'erda-ui-components';
+import { Select } from 'antd';
+import { Form, Button } from 'erda-ui-components';
 
 const { createForm, takeAsyncDataSource } = Form;
 
@@ -642,13 +629,11 @@ export default () => {
         padding: '40px 0',
       }}
     >
-      <ConfigProvider>
-        <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
-        <Button type="primary" onClick={() => getValue()}>
-          提交
-        </Button>
-        <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
-      </ConfigProvider>
+      <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
+      <Button type="primary" onClick={() => getValue()}>
+        提交
+      </Button>
+      <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
     </div>
   );
 };
@@ -659,7 +644,7 @@ export default () => {
 ```tsx
 import React from 'react';
 import { Input, InputNumber } from 'antd';
-import { Form, Button, ConfigProvider } from 'erda-ui-components';
+import { Form, Button } from 'erda-ui-components';
 
 const { createForm, registerValidateRules, onFieldValueChange } = Form;
 
@@ -931,13 +916,11 @@ export default () => {
         padding: '40px 0',
       }}
     >
-      <ConfigProvider>
-        <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
-        <Button type="primary" onClick={() => submit()}>
-          提交
-        </Button>
-        <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
-      </ConfigProvider>
+      <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
+      <Button type="primary" onClick={() => submit()}>
+        提交
+      </Button>
+      <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
     </div>
   );
 };
@@ -952,7 +935,7 @@ export default () => {
 ```tsx
 import React from 'react';
 import { Input } from 'antd';
-import { Form, Button, ConfigProvider } from 'erda-ui-components';
+import { Form, Button } from 'erda-ui-components';
 
 const { createForm } = Form;
 
@@ -1002,13 +985,11 @@ export default () => {
         padding: '40px 0',
       }}
     >
-      <ConfigProvider>
-        <Form style={{ width: '70%' }} form={form} fieldsConfig={fieldsConfig} gridConfig={{ maxColumns: 2 }} />
-        <Button type="primary" onClick={() => getValue()}>
-          提交
-        </Button>
-        <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
-      </ConfigProvider>
+      <Form style={{ width: '70%' }} form={form} fieldsConfig={fieldsConfig} gridConfig={{ maxColumns: 2 }} />
+      <Button type="primary" onClick={() => getValue()}>
+        提交
+      </Button>
+      <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
     </div>
   );
 };
@@ -1019,7 +1000,7 @@ export default () => {
 ```tsx
 import React from 'react';
 import { Input } from 'antd';
-import { Form, Button, ConfigProvider } from 'erda-ui-components';
+import { Form, Button } from 'erda-ui-components';
 
 const { createForm } = Form;
 
@@ -1072,13 +1053,11 @@ export default () => {
         padding: '40px 0',
       }}
     >
-      <ConfigProvider>
-        <Form style={{ width: '70%' }} form={form} fieldsConfig={fieldsConfig} gridConfig={{ maxColumns: 2 }} />
-        <Button type="primary" onClick={() => getValue()}>
-          提交
-        </Button>
-        <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
-      </ConfigProvider>
+      <Form style={{ width: '70%' }} form={form} fieldsConfig={fieldsConfig} gridConfig={{ maxColumns: 2 }} />
+      <Button type="primary" onClick={() => getValue()}>
+        提交
+      </Button>
+      <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
     </div>
   );
 };
@@ -1089,7 +1068,7 @@ export default () => {
 ```tsx
 import React from 'react';
 import { Input } from 'antd';
-import { Form, Button, ConfigProvider } from 'erda-ui-components';
+import { Form, Button } from 'erda-ui-components';
 
 const { createForm } = Form;
 
@@ -1152,13 +1131,11 @@ export default () => {
         padding: '40px 0',
       }}
     >
-      <ConfigProvider>
-        <Form style={{ width: '70%' }} form={form} fieldsConfig={fieldsConfig} gridConfig={{ maxColumns: 2 }} />
-        <Button type="primary" onClick={() => getValue()}>
-          提交
-        </Button>
-        <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
-      </ConfigProvider>
+      <Form style={{ width: '70%' }} form={form} fieldsConfig={fieldsConfig} gridConfig={{ maxColumns: 2 }} />
+      <Button type="primary" onClick={() => getValue()}>
+        提交
+      </Button>
+      <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
     </div>
   );
 };
@@ -1169,7 +1146,7 @@ export default () => {
 ```tsx
 import React from 'react';
 import { Input } from 'antd';
-import { Form, Button, ConfigProvider } from 'erda-ui-components';
+import { Form, Button } from 'erda-ui-components';
 
 const { createForm } = Form;
 
@@ -1221,13 +1198,11 @@ export default () => {
         padding: '40px 0',
       }}
     >
-      <ConfigProvider>
-        <Form style={{ width: '70%' }} form={form} fieldsConfig={fieldsConfig} />
-        <Button type="primary" onClick={() => getValue()}>
-          提交
-        </Button>
-        <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
-      </ConfigProvider>
+      <Form style={{ width: '70%' }} form={form} fieldsConfig={fieldsConfig} />
+      <Button type="primary" onClick={() => getValue()}>
+        提交
+      </Button>
+      <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
     </div>
   );
 };
@@ -1240,7 +1215,7 @@ Antd Form 实现 300 个字段求和加总
 ```tsx
 import React from 'react';
 import { InputNumber, Form } from 'antd';
-import { Button, ConfigProvider } from 'erda-ui-components';
+import { Button } from 'erda-ui-components';
 
 const CustomComp = ({ value, onChange }: { value: string; onChange: (v: string) => void }) => {
   console.log('render child');
@@ -1267,16 +1242,14 @@ export default () => {
         overflow: 'auto',
       }}
     >
-      <ConfigProvider>
-        <div style={{ marginBottom: '16px' }}>总和： {count}</div>
-        <Form style={{ width: '70%' }}>
-          {list.map((i) => (
-            <Form.Item key={i} label={`字段${i}`} name={`field${i}`}>
-              <CustomComp sum={count} onChange={(v) => setCount(count + v)} />
-            </Form.Item>
-          ))}
-        </Form>
-      </ConfigProvider>
+      <div style={{ marginBottom: '16px' }}>总和： {count}</div>
+      <Form style={{ width: '70%' }}>
+        {list.map((i) => (
+          <Form.Item key={i} label={`字段${i}`} name={`field${i}`}>
+            <CustomComp sum={count} onChange={(v) => setCount(count + v)} />
+          </Form.Item>
+        ))}
+      </Form>
     </div>
   );
 };
@@ -1287,7 +1260,7 @@ Erda Form 实现 300 个字段求和加总
 ```tsx
 import React from 'react';
 import { InputNumber } from 'antd';
-import { Form, Button, ConfigProvider } from 'erda-ui-components';
+import { Form, Button } from 'erda-ui-components';
 
 const { createForm, onFieldValueChange } = Form;
 
@@ -1339,9 +1312,7 @@ export default () => {
         overflow: 'auto',
       }}
     >
-      <ConfigProvider>
-        <Form style={{ width: '70%' }} form={form} fieldsConfig={fieldsConfig} />
-      </ConfigProvider>
+      <Form style={{ width: '70%' }} form={form} fieldsConfig={fieldsConfig} />
     </div>
   );
 };
@@ -1354,7 +1325,7 @@ export default () => {
 ```tsx
 import React from 'react';
 import { Input, Space } from 'antd';
-import { Form, Button, ConfigProvider } from 'erda-ui-components';
+import { Form, Button } from 'erda-ui-components';
 import { ArrayField as ArrayFieldType } from '@formily/core';
 
 const { createForm, observer, Field, useField } = Form;
@@ -1433,13 +1404,11 @@ export default () => {
         padding: '40px 0',
       }}
     >
-      <ConfigProvider>
-        <Form style={{ width: '80%' }} form={form} fieldsConfig={fieldsConfig} />
-        <Button type="primary" onClick={() => getValue()}>
-          提交
-        </Button>
-        <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
-      </ConfigProvider>
+      <Form style={{ width: '80%' }} form={form} fieldsConfig={fieldsConfig} />
+      <Button type="primary" onClick={() => getValue()}>
+        提交
+      </Button>
+      <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
     </div>
   );
 };
@@ -1450,7 +1419,7 @@ export default () => {
 ```tsx
 import React from 'react';
 import { Space, Input } from '@formily/antd';
-import { Form, Button, ConfigProvider } from 'erda-ui-components';
+import { Form, Button } from 'erda-ui-components';
 
 const { createForm, observer, RecursionField, useFieldSchema, useField } = Form;
 
@@ -1522,13 +1491,11 @@ export default () => {
         padding: '40px 0',
       }}
     >
-      <ConfigProvider>
-        <Form style={{ width: '80%' }} form={form} fieldsConfig={fieldsConfig} />
-        <Button type="primary" onClick={() => getValue()}>
-          提交
-        </Button>
-        <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
-      </ConfigProvider>
+      <Form style={{ width: '80%' }} form={form} fieldsConfig={fieldsConfig} />
+      <Button type="primary" onClick={() => getValue()}>
+        提交
+      </Button>
+      <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
     </div>
   );
 };

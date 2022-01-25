@@ -1,6 +1,5 @@
 import React from 'react';
 import { Tooltip } from 'antd';
-import { ConfigContext } from '../config-provider';
 import { ossImg } from '../_util';
 
 export interface AvatarProps {
@@ -16,9 +15,6 @@ export interface AvatarProps {
 const Avatar = (props: AvatarProps) => {
   const { url, showName = false, name, size = 24, className = '', wrapClassName = '', imgPresets } = props;
 
-  const { getPrefixCls } = React.useContext(ConfigContext);
-  const prefixCls = getPrefixCls('avatar');
-
   const userName = name || '';
   const style = { width: `${size}px`, height: `${size}px` };
 
@@ -26,10 +22,10 @@ const Avatar = (props: AvatarProps) => {
   if (showName === true) {
     // show name after avatar img
     wrapName = (child) => (
-      <span className={`${prefixCls}-wrapper ${wrapClassName}`}>
+      <span className={wrapClassName}>
         {child}
         <Tooltip title={userName}>
-          <span className={`${prefixCls}-inner-name`}>{userName}</span>
+          <span className={className}>{userName}</span>
         </Tooltip>
       </span>
     );
@@ -45,12 +41,7 @@ const Avatar = (props: AvatarProps) => {
 
   if (url) {
     return wrapName(
-      <img
-        className={`${prefixCls}-img ${className}`}
-        style={style}
-        src={ossImg(url, { w: Math.floor(size * 1.2) })}
-        alt="user-avatar"
-      />,
+      <img className={className} style={style} src={ossImg(url, { w: Math.floor(size * 1.2) })} alt="user-avatar" />,
     );
   }
 
@@ -64,7 +55,7 @@ const Avatar = (props: AvatarProps) => {
     return wrapName(
       typeof avatarImg === 'string' ? (
         <img
-          className={`${prefixCls}-img ${className}`}
+          className={className}
           style={style}
           src={ossImg(avatarImg, { w: Math.floor(size * 1.2) })}
           alt="user-avatar"

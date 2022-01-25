@@ -6,7 +6,3 @@ export type { AvatarProps } from './avatar';
 
 export { default as Form } from './form';
 export type { FieldConfig } from './form';
-
-export { default as Select } from './select';
-
-export { default as ConfigProvider } from './config-provider';
