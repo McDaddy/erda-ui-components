@@ -17,7 +17,7 @@ export interface Field<T extends CT = any> {
   items?: Field[];
 }
 
-interface CheckType {
+export interface CheckType {
   <
     T1 extends CT,
     T2 extends CT,
