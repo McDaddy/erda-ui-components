@@ -31,7 +31,7 @@ type Obj<T extends any = any> = { [k: string]: T };
 
 // type OnlyOneElementObj<T extends any = {}> = IsUnion<keyof T> extends false ? T : never;
 
-interface FormProps<T extends Obj> {
+export interface FormProps<T extends Obj = any> {
   fieldsConfig: XField[];
   form?: FormType<T>;
   layoutConfig?: IFormLayoutProps;

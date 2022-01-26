@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import { ConfigProvider } from 'antd';
 
-// eslint-disable-next-line import/prefer-default-export
 export const usePrefixCls = (
   tag?: string,
   props?: {
@@ -10,4 +9,9 @@ export const usePrefixCls = (
 ) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   return getPrefixCls(tag, props?.prefixCls);
+};
+
+export const useLocale = () => {
+  const { locale } = useContext(ConfigProvider.ConfigContext);
+  return locale?.locale;
 };
