@@ -19,32 +19,20 @@ import {
   Field,
   isField,
   FieldDataSource,
-  FieldValidator,
   registerValidateRules,
 } from '@formily/core';
 import { action } from '@formily/reactive';
-import { Form, FormItem, FormLayout, IFormItemProps, IFormLayoutProps, FormGrid, IFormGridProps } from '@formily/antd';
+import { Form, FormItem, FormLayout, IFormLayoutProps, FormGrid, IFormGridProps } from '@formily/antd';
+import { createFields, Field as XField } from './utils';
 
 type Obj<T extends any = any> = { [k: string]: T };
 
 // type IsUnion<T, U extends T = T> = (T extends any ? (U extends T ? false : true) : never) extends false ? false : true;
 
 // type OnlyOneElementObj<T extends any = {}> = IsUnion<keyof T> extends false ? T : never;
-export interface FieldConfig {
-  name: string;
-  title?: string;
-  defaultValue?: unknown;
-  type?: string;
-  required?: boolean;
-  validator?: FieldValidator;
-  component: Record<string, React.ComponentClass | React.FunctionComponent>;
-  customProps?: Obj;
-  wrapperProps?: IFormItemProps;
-  items?: FieldConfig[];
-}
 
 interface FormProps<T extends Obj> {
-  fieldsConfig: FieldConfig[];
+  fieldsConfig: XField[];
   form?: FormType<T>;
   layoutConfig?: IFormLayoutProps;
   gridConfig?: IFormGridProps;
@@ -66,7 +54,7 @@ const defaultVoidField = {
   name: 'void',
 };
 
-const transformConfigRecursively = (fieldsConfig: FieldConfig[]) => {
+const transformConfigRecursively = (fieldsConfig: XField[]) => {
   const components: { [k: string]: React.ComponentClass | React.FunctionComponent } = {};
   let subComponents: Obj<React.ComponentClass<{}, any> | React.FunctionComponent<{}>> = {};
 
@@ -185,6 +173,7 @@ const takeAsyncDataSource = <T extends FieldDataSource>(
 
 export default ErdaForm;
 ErdaForm.createForm = createForm;
+ErdaForm.createFields = createFields;
 ErdaForm.onFieldValueChange = onFieldValueChange;
 ErdaForm.onFormInitialValuesChange = onFormInitialValuesChange;
 ErdaForm.onFormMount = onFormMount;

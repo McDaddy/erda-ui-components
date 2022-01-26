@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button as AntButton } from 'antd';
-import { ButtonProps as AntButtonProps } from 'antd/es/button';
+import { ButtonProps as AntButtonProps } from 'antd/lib/button';
 
 export interface ButtonProps extends AntButtonProps {
   children: React.ReactNode;
