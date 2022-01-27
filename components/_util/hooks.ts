@@ -13,6 +13,5 @@ export const usePrefixCls = (
 
 export const useLocale = () => {
   const { locale } = useContext(ConfigProvider.ConfigContext);
-  console.log('🚀 ~ file: hooks.ts ~ line 16 ~ useLocale ~ locale', locale);
   return locale?.locale;
 };

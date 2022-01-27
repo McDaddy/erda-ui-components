@@ -26,7 +26,7 @@ export default () => {
 
   const fieldsConfig = [
     {
-      component: { Input },
+      component: Input,
       title: '姓名',
       name: 'username',
       customProps: {
@@ -88,7 +88,7 @@ export default () => {
 
   const fieldsConfig = [
     {
-      component: { Input },
+      component: Input,
       title: '姓名',
       name: 'username',
       customProps: {
@@ -138,7 +138,7 @@ export default () => {
 
   const fieldsConfig = [
     {
-      component: { Input },
+      component: Input,
       title: '姓名',
       name: 'username',
       customProps: {
@@ -214,7 +214,7 @@ export default () => {
 
   const fieldsConfig = [
     {
-      component: { Select },
+      component: Select,
       title: '省份',
       name: 'province',
     },
@@ -278,7 +278,7 @@ export default () => {
 
   const fieldsConfig = [
     {
-      component: { InputNumber },
+      component: InputNumber,
       title: '年龄',
       name: 'age',
       customProps: {
@@ -290,7 +290,7 @@ export default () => {
       },
     },
     {
-      component: { InputNumber },
+      component: InputNumber,
       title: '明年年龄',
       name: 'nextAge',
       customProps: {
@@ -358,7 +358,7 @@ export default () => {
 
   const fieldsConfig = [
     {
-      component: { InputNumber },
+      component: InputNumber,
       title: '单价',
       name: 'price',
       customProps: {
@@ -367,7 +367,7 @@ export default () => {
       },
     },
     {
-      component: { InputNumber },
+      component: InputNumber,
       title: '数量',
       name: 'count',
       customProps: {
@@ -376,7 +376,7 @@ export default () => {
       },
     },
     {
-      component: { InputNumber },
+      component: InputNumber,
       title: '总价',
       name: 'sum',
       customProps: {
@@ -436,7 +436,7 @@ export default () => {
 
   const fieldsConfig = [
     {
-      component: { Input },
+      component: Input,
       title: '颜色',
       defaultValue: '#6a549e',
       name: 'color',
@@ -509,7 +509,7 @@ export default () => {
 
   const fieldsConfig = [
     {
-      component: { Select },
+      component: Select,
       title: '国家',
       name: 'country',
       customProps: {
@@ -520,7 +520,7 @@ export default () => {
       },
     },
     {
-      component: { Select },
+      component: Select,
       title: '省份',
       name: 'province',
     },
@@ -597,7 +597,7 @@ export default () => {
 
   const fieldsConfig = [
     {
-      component: { Select },
+      component: Select,
       title: '国家',
       name: 'country',
       customProps: {
@@ -608,7 +608,7 @@ export default () => {
       },
     },
     {
-      component: { Select },
+      component: Select,
       title: '省份',
       name: 'province',
     },
@@ -689,7 +689,7 @@ export default () => {
 
   const fieldsConfig = [
     {
-      component: { Input },
+      component: Input,
       title: '必填',
       name: 'required1',
       required: true,
@@ -698,7 +698,7 @@ export default () => {
       },
     },
     {
-      component: { Input },
+      component: Input,
       title: '必填2',
       name: 'required2',
       customProps: {
@@ -709,7 +709,7 @@ export default () => {
       },
     },
     {
-      component: { InputNumber },
+      component: InputNumber,
       title: '最大值',
       name: 'max',
       customProps: {
@@ -720,7 +720,7 @@ export default () => {
       },
     },
     {
-      component: { InputNumber },
+      component: InputNumber,
       title: '最大值',
       name: 'max2',
       customProps: {
@@ -731,7 +731,7 @@ export default () => {
       },
     },
     {
-      component: { InputNumber },
+      component: InputNumber,
       title: '最小值',
       name: 'min',
       customProps: {
@@ -742,7 +742,7 @@ export default () => {
       },
     },
     {
-      component: { InputNumber },
+      component: InputNumber,
       title: '最小值',
       name: 'min2',
       customProps: {
@@ -753,7 +753,7 @@ export default () => {
       },
     },
     {
-      component: { Input },
+      component: Input,
       title: '最大长度',
       name: 'maxLength',
       customProps: {
@@ -764,7 +764,7 @@ export default () => {
       },
     },
     {
-      component: { Input },
+      component: Input,
       title: '最小长度',
       name: 'minLength',
       customProps: {
@@ -775,7 +775,7 @@ export default () => {
       },
     },
     {
-      component: { Input },
+      component: Input,
       title: '枚举匹配',
       name: 'enum',
       customProps: {
@@ -786,7 +786,7 @@ export default () => {
       },
     },
     {
-      component: { Input },
+      component: Input,
       title: '自定义报错信息',
       name: 'customMessage',
       customProps: {
@@ -798,7 +798,7 @@ export default () => {
       },
     },
     {
-      component: { Input },
+      component: Input,
       title: '多个校验条件',
       name: 'multiple',
       customProps: {
@@ -814,7 +814,7 @@ export default () => {
       ],
     },
     {
-      component: { Input },
+      component: Input,
       title: '内置格式校验',
       name: 'format',
       customProps: {
@@ -825,7 +825,7 @@ export default () => {
       },
     },
     {
-      component: { Input },
+      component: Input,
       title: '全局自定义校验',
       name: 'custom',
       customProps: {
@@ -836,7 +836,7 @@ export default () => {
       },
     },
     {
-      component: { Input },
+      component: Input,
       title: '局部自定义校验',
       name: 'custom2',
       customProps: {
@@ -852,7 +852,7 @@ export default () => {
       },
     },
     {
-      component: { Input },
+      component: Input,
       title: '异步校验',
       name: 'async',
       customProps: {
@@ -868,7 +868,7 @@ export default () => {
       },
     },
     {
-      component: { InputNumber },
+      component: InputNumber,
       title: '联动校验A',
       name: 'linkA',
       customProps: {
@@ -876,7 +876,7 @@ export default () => {
       },
     },
     {
-      component: { InputNumber },
+      component: InputNumber,
       title: '联动校验B',
       name: 'linkB',
       defaultValue: 10,
@@ -885,7 +885,7 @@ export default () => {
       },
     },
     {
-      component: { Input },
+      component: Input,
       title: '校验时机(onBlur)',
       name: 'trigger',
       customProps: {
@@ -946,7 +946,7 @@ export default () => {
 
   const fieldsConfig = [
     {
-      component: { Input },
+      component: Input,
       title: '姓名',
       name: 'username',
       customProps: {
@@ -954,17 +954,17 @@ export default () => {
       },
     },
     {
-      component: { Input },
+      component: Input,
       title: '昵称',
       name: 'nickName',
     },
     {
-      component: { Input },
+      component: Input,
       title: '年龄',
       name: 'age',
     },
     {
-      component: { Input },
+      component: Input,
       title: '性别',
       name: 'gender',
     },
@@ -1011,7 +1011,7 @@ export default () => {
 
   const fieldsConfig = [
     {
-      component: { Input },
+      component: Input,
       title: '姓名',
       name: 'username',
       customProps: {
@@ -1022,17 +1022,17 @@ export default () => {
       },
     },
     {
-      component: { Input },
+      component: Input,
       title: '昵称',
       name: 'nickName',
     },
     {
-      component: { Input },
+      component: Input,
       title: '年龄',
       name: 'age',
     },
     {
-      component: { Input },
+      component: Input,
       title: '性别',
       name: 'gender',
     },
@@ -1081,7 +1081,7 @@ export default () => {
 
   const fieldsConfig = [
     {
-      component: { Input },
+      component: Input,
       title: '姓名',
       name: 'username',
       customProps: {
@@ -1092,7 +1092,7 @@ export default () => {
       },
     },
     {
-      component: { Comp },
+      component: Comp,
       type: 'void',
       name: 'void',
       wrapperProps: {
@@ -1100,17 +1100,17 @@ export default () => {
       },
     },
     {
-      component: { Input },
+      component: Input,
       title: '昵称',
       name: 'nickName',
     },
     {
-      component: { Input },
+      component: Input,
       title: '年龄',
       name: 'age',
     },
     {
-      component: { Input },
+      component: Input,
       title: '性别',
       name: 'gender',
     },
@@ -1173,12 +1173,12 @@ export default () => {
   const fieldsConfig = [
     {
       title: '自定义组件',
-      component: { CustomComp },
+      component: CustomComp,
       name: 'customValue',
     },
     {
       title: '自定义组件2',
-      component: { CustomComp },
+      component: CustomComp,
       name: 'customValue2',
     },
   ];
@@ -1288,12 +1288,12 @@ const list = new Array(300)
 export default () => {
   const fieldsConfig = list.map((i) => ({
     title: `字段${i}`,
-    component: { CustomComp },
+    component: CustomComp,
     name: `field${i}`,
   }));
   fieldsConfig.unshift({
     title: '总和',
-    component: { InputNumber },
+    component: InputNumber,
     name: 'sum',
     customProps: {
       disabled: true,
@@ -1384,7 +1384,7 @@ export default () => {
   const fieldsConfig = [
     {
       type: 'array',
-      component: { ArrayComponent },
+      component: ArrayComponent,
       name: 'arrayField',
     },
   ];
@@ -1461,15 +1461,15 @@ export default () => {
   const fieldsConfig = [
     {
       type: 'array',
-      component: { ArrayItems },
+      component: ArrayItems,
       name: 'arrayField',
       items: [
         {
-          component: { Input },
+          component: Input,
           name: 'name',
         },
         {
-          component: { Input },
+          component: Input,
           name: 'age',
         },
       ],

@@ -1,5 +1,5 @@
 import React from 'react';
-import { map, reduce } from 'lodash';
+import { map, reduce, uniqueId } from 'lodash';
 import {
   createSchemaField,
   Field as ReactField,
@@ -26,6 +26,7 @@ import { Form, FormItem, FormLayout, IFormLayoutProps, FormGrid, IFormGridProps 
 import { createFields, Field as XField } from './utils';
 
 type Obj<T extends any = any> = { [k: string]: T };
+type CT = React.ComponentClass | React.FunctionComponent;
 
 // type IsUnion<T, U extends T = T> = (T extends any ? (U extends T ? false : true) : never) extends false ? false : true;
 
@@ -49,15 +50,12 @@ interface SchemaField {
   'x-component-props'?: Obj; // TODO
 }
 
-const defaultVoidField = {
-  type: 'void',
-  name: 'void',
-};
+// const defaultVoidField = {
+//   type: 'void',
+//   name: 'void',
+// };
 
-const transformConfigRecursively = (fieldsConfig: XField[]) => {
-  const components: { [k: string]: React.ComponentClass | React.FunctionComponent } = {};
-  let subComponents: Obj<React.ComponentClass<{}, any> | React.FunctionComponent<{}>> = {};
-
+const transformConfigRecursively = (fieldsConfig: XField[], componentMap: Map<CT, string>) => {
   const propertiesArray: SchemaField[] = map(fieldsConfig, (item) => {
     const {
       name,
@@ -71,18 +69,18 @@ const transformConfigRecursively = (fieldsConfig: XField[]) => {
       validator,
       items,
     } = item;
-    if (Object.keys(component).length !== 1) {
-      console.warn(`field ${name} has more than one type or empty type`);
-      return defaultVoidField;
+
+    let componentName = '';
+    if (componentMap.has(component)) {
+      componentName = componentMap.get(component)!;
+    } else {
+      componentName = uniqueId('component-');
+      componentMap.set(component, componentName);
     }
-    const componentName = Object.keys(component)[0];
-    const _component = Object.values(component)[0];
-    components[componentName] = _component;
 
     let _items = {};
     if (items) {
-      const [_properties, _components] = transformConfigRecursively(items);
-      subComponents = _components;
+      const _properties = transformConfigRecursively(items, componentMap);
       _items = {
         type: 'object',
         properties: _properties,
@@ -113,14 +111,12 @@ const transformConfigRecursively = (fieldsConfig: XField[]) => {
     },
     {} as Obj<Omit<SchemaField, 'name'>>,
   );
-  return [properties, { ...components, ...subComponents }] as [
-    Obj<Omit<SchemaField, 'name'>>,
-    Obj<React.ComponentClass<{}, any> | React.FunctionComponent<{}>>,
-  ];
+  return properties as Obj<Omit<SchemaField, 'name'>>;
 };
 
 const ErdaForm = <T extends Obj>({ fieldsConfig, form, layoutConfig, style, gridConfig, className }: FormProps<T>) => {
-  const [properties, components] = transformConfigRecursively(fieldsConfig);
+  const componentMap = new Map<CT, string>();
+  const properties = transformConfigRecursively(fieldsConfig, componentMap);
   const schemaConfig = {
     type: 'object',
     properties: {
@@ -142,6 +138,11 @@ const ErdaForm = <T extends Obj>({ fieldsConfig, form, layoutConfig, style, grid
       },
     },
   };
+
+  const components = Array.from(componentMap.entries()).reduce<Obj<CT>>(
+    (main, [key, value]) => ({ ...main, [value]: key }),
+    {},
+  );
 
   const SchemaField = createSchemaField({
     components: { ...components, FormItem, FormLayout, FormGrid },

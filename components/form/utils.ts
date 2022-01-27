@@ -11,7 +11,7 @@ export interface Field<T extends CT = any> {
   type?: string;
   required?: boolean;
   validator?: FieldValidator;
-  component: Record<string, T>;
+  component: T;
   customProps?: T extends CT ? React.ComponentProps<T> : never;
   wrapperProps?: IFormItemProps;
   items?: Field[];
