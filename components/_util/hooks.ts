@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import ConfigProvider from 'antd/lib/config-provider';
+import { ConfigProvider } from 'antd';
 
 export const usePrefixCls = (
   tag?: string,
