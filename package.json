@@ -21,7 +21,7 @@
     "lib/*.js",
     "components/*.ts",
     "*.less",
-    "**/*/style.js"
+    "**/*/style/index.js"
   ],
   "files": [
     "dist",
