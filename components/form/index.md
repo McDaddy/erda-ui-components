@@ -1229,6 +1229,12 @@ const list = new Array(300)
 
 export default () => {
   const [count, setCount] = React.useState(0);
+  const [array, setArray] = React.useState(new Array(300));
+
+  React.useEffect(() => {
+    const result = array.reduce((acc, item) => acc + (item || 0), 0);
+    setCount(result);
+  }, [array]);
 
   return (
     <div
@@ -1244,9 +1250,15 @@ export default () => {
     >
       <div style={{ marginBottom: '16px' }}>总和： {count}</div>
       <Form style={{ width: '70%' }}>
-        {list.map((i) => (
+        {list.map((i, index) => (
           <Form.Item key={i} label={`字段${i}`} name={`field${i}`}>
-            <CustomComp sum={count} onChange={(v) => setCount(count + v)} />
+            <CustomComp
+              sum={count}
+              onChange={(v) => {
+                array[index] = v;
+                setArray([...array]);
+              }}
+            />
           </Form.Item>
         ))}
       </Form>
@@ -1271,10 +1283,10 @@ const CustomComp = ({ value, onChange }: { value: string; onChange: (v: string) 
 
 const form = createForm({
   effects: () => {
-    onFieldValueChange('*(!sum)', (field) => {
-      field.query('sum').take((f) => {
-        const sum = (f.value || 0) + field.value;
-        f.setValue(sum);
+    onFieldValueChange('*(!sum)', () => {
+      const sumResult = form.query('*(!sum)').reduce((sum, _field) => sum + (_field.value || 0), 0);
+      form.setFieldState('sum', (state) => {
+        state.value = sumResult;
       });
     });
   },
