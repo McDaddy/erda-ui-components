@@ -115,8 +115,8 @@ const transformConfigRecursively = (fieldsConfig: XField[], componentMap: Map<CT
 };
 
 const ErdaForm = <T extends Obj>({ fieldsConfig, form, layoutConfig, style, gridConfig, className }: FormProps<T>) => {
-  const componentMap = new Map<CT, string>();
-  const properties = transformConfigRecursively(fieldsConfig, componentMap);
+  const componentMap = React.useRef(new Map<CT, string>());
+  const properties = React.useMemo(() => transformConfigRecursively(fieldsConfig, componentMap.current), []);
   const schemaConfig = {
     type: 'object',
     properties: {
@@ -139,7 +139,7 @@ const ErdaForm = <T extends Obj>({ fieldsConfig, form, layoutConfig, style, grid
     },
   };
 
-  const components = Array.from(componentMap.entries()).reduce<Obj<CT>>(
+  const components = Array.from(componentMap.current.entries()).reduce<Obj<CT>>(
     (main, [key, value]) => ({ ...main, [value]: key }),
     {},
   );
