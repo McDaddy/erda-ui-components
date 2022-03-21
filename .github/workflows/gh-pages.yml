@@ -18,7 +18,7 @@ jobs:
           path: ~/.pnpm-store
           key: ${{ runner.os }}-jest-${{ env.cache-name }}-${{ matrix.node-version }}
       - name: Set pnpm
-        uses: pnpm/action-setup@v2.1.0
+        uses: pnpm/action-setup@v2.2.1
         with:
           version: latest
       - run: pnpm install
