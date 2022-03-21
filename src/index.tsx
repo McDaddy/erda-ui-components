@@ -18,3 +18,5 @@ export type {
 
 export { default as FormModal } from './form-modal';
 export type { FormModalProps } from './form-modal';
+
+export { default as ConfigProvider } from './context-provider';

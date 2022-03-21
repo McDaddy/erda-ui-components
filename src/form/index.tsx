@@ -12,6 +12,7 @@ import {
   createForm,
   Form as FormType,
   onFieldValueChange,
+  onFormValuesChange,
   onFormInitialValuesChange,
   onFormMount,
   onFieldReact,
@@ -178,6 +179,7 @@ export default ErdaForm;
 ErdaForm.createForm = createForm;
 ErdaForm.createFields = createFields;
 ErdaForm.onFieldValueChange = onFieldValueChange;
+ErdaForm.onFormValuesChange = onFormValuesChange;
 ErdaForm.onFormInitialValuesChange = onFormInitialValuesChange;
 ErdaForm.onFormMount = onFormMount;
 ErdaForm.takeAsyncDataSource = takeAsyncDataSource;

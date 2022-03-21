@@ -1,8 +1,15 @@
 import React from 'react';
 import { Modal, ModalProps } from 'antd';
+import zhCN from 'antd/lib/locale/zh_CN';
+import enUS from 'antd/lib/locale/en_US';
 import Form from '../form';
 import type { FormProps } from '../form';
-import { useLocale, usePrefixCls } from '../_util/hooks';
+import { Context } from '../context-provider';
+
+const localeMap = {
+  zh: zhCN.Modal,
+  en: enUS.Modal,
+};
 
 export interface FormModalProps extends ModalProps {
   isEditing?: boolean;
@@ -13,14 +20,14 @@ export interface FormModalProps extends ModalProps {
 const FormModal = (props: FormModalProps) => {
   const { formProps, isEditing, title, ...rest } = props;
 
+  const { locale } = React.useContext(Context);
+
+  const localeProps = localeMap[locale];
+
   const displayTitle = props.exactTitle ? title : `${isEditing ? '编辑' : '新建'}${title}`;
 
-  const locale = useLocale();
-  const xxx = usePrefixCls('xxxxx');
-  console.log('🚀 ~ file: index.tsx ~ line 19 ~ FormModal ~ locale', locale, xxx);
-
   return (
-    <Modal title={displayTitle} {...rest}>
+    <Modal title={displayTitle} {...localeProps} {...rest}>
       <Form {...formProps} />
     </Modal>
   );
