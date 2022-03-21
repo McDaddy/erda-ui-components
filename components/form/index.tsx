@@ -186,4 +186,4 @@ ErdaForm.Field = ReactField;
 ErdaForm.useField = useField;
 ErdaForm.useFieldSchema = useFieldSchema;
 ErdaForm.RecursionField = RecursionField;
-export { FormType, Field, IFormLayoutProps, ArrayFieldType };
+export type { FormType, Field, IFormLayoutProps, ArrayFieldType, IFormGridProps, FormLayout, FormGrid };
