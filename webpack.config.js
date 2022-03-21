@@ -6,7 +6,7 @@ module.exports = {
   mode: 'development',
   devtool: false,
   entry: {
-    ec: './components/index.tsx',
+    ec: './src/index.tsx',
   },
   output: {
     path: path.resolve('dist'),

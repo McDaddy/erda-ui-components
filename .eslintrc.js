@@ -36,50 +36,10 @@ module.exports = {
     {
       // In v2, explicitly apply eslint-plugin-markdown's `markdown`
       // processor on any Markdown files you want to lint.
-      files: ['components/*/demo/*.md'],
+      files: ['src/**/*.md'],
       processor: 'markdown/markdown',
-    },
-    {
-      // In v2, configuration for fenced code blocks is separate from the
-      // containing Markdown file. Each code block has a virtual filename
-      // appended to the Markdown file's path.
-      files: [
-        'components/*/demo/*.md/*.ts',
-        'components/*/demo/*.md/*.tsx',
-        'components/*/demo/*.md/*.js',
-        'components/*/demo/*.md/*.jsx',
-      ],
-      // Configuration for fenced code blocks goes with the override for
-      // the code block's virtual filename, for example:
-      parserOptions: {
-        ecmaFeatures: {
-          impliedStrict: true,
-        },
-      },
-      globals: {
-        React: true,
-        ReactDOM: true,
-        mountNode: true,
-      },
       rules: {
-        indent: 0,
-        'default-case': 0,
-        'eol-last': 0,
-        'no-console': 0,
-        'no-plusplus': 0,
-        'no-script-url': 0,
-        'prefer-rest-params': 0,
-        'compat/compat': 0,
-        'class-methods-use-this': 0,
-        'react/no-access-state-in-setstate': 0,
-        'react/destructuring-assignment': 0,
-        'react/no-multi-comp': 0,
-        'react/no-array-index-key': 0,
-        'jsx-a11y/href-no-hash': 0,
-        'jsx-a11y/control-has-associated-label': 0,
         'import/no-extraneous-dependencies': 0,
-        'react/jsx-no-constructed-context-values': 0,
-        'react/no-unstable-nested-components': 0,
       },
     },
   ],
@@ -106,12 +66,13 @@ module.exports = {
     'react/no-unused-class-component-methods': 0,
     'import/extensions': 0,
     'import/no-cycle': 0,
-    'import/no-extraneous-dependencies': [
-      'error',
-      {
-        devDependencies: ['tests/**', 'scripts/**', '**/*.test.js', '**/__tests__/*', '*.config.js', '**/*.md'],
-      },
-    ],
+    'import/no-extraneous-dependencies': 0,
+    // 'import/no-extraneous-dependencies': [
+    //   'error',
+    //   {
+    //     devDependencies: ['tests/**', 'scripts/**', '**/*.test.js', '**/__tests__/*', '*.config.js', '**/*.md'],
+    //   },
+    // ],
     'jsx-a11y/no-static-element-interactions': 0,
     'jsx-a11y/anchor-has-content': 0,
     'jsx-a11y/click-events-have-key-events': 0,

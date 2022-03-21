@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "ec": ["components/index.tsx"]
+      "erda-ui-components": ["src/index.tsx"]
     },
     "strictNullChecks": true,
     "module": "esnext",

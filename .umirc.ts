@@ -1,5 +1,4 @@
 import { defineConfig } from 'dumi';
-import path from 'path';
 
 const title = 'Erda UI Components';
 const repo = 'erda-ui-components';
@@ -11,11 +10,8 @@ export default defineConfig({
   outputPath: 'docs-dist',
   mode: 'site',
   hash: true,
-  alias: {
-    'erda-ui-components': path.resolve(__dirname, 'components/index.tsx'),
-  },
   resolve: {
-    includes: ['docs', 'components'],
+    includes: ['docs', 'src'],
   },
   // Because of using GitHub Pages
   base: `/${repo}/`,

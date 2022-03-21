@@ -1215,7 +1215,6 @@ Antd Form 实现 300 个字段求和加总
 ```tsx
 import React from 'react';
 import { InputNumber, Form } from 'antd';
-import { Button } from 'erda-ui-components';
 
 const CustomComp = ({ value, onChange }: { value: string; onChange: (v: string) => void }) => {
   console.log('render child');
@@ -1272,7 +1271,7 @@ Erda Form 实现 300 个字段求和加总
 ```tsx
 import React from 'react';
 import { InputNumber } from 'antd';
-import { Form, Button } from 'erda-ui-components';
+import { Form } from 'erda-ui-components';
 
 const { createForm, onFieldValueChange } = Form;
 

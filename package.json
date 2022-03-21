@@ -19,7 +19,7 @@
     "dist/*",
     "es/*.js",
     "lib/*.js",
-    "components/*.ts",
+    "src/*.ts",
     "*.less",
     "**/*/style/index.js"
   ],
