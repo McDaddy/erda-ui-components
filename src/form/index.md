@@ -1442,6 +1442,7 @@ const ArrayItems = observer((props) => {
   return (
     <div>
       {props.value?.map((item, index) => (
+        // eslint-disable-next-line react/no-array-index-key
         <div key={index} style={{ marginBottom: 10 }}>
           <Space>
             <RecursionField schema={schema.items} name={index} />
@@ -1449,6 +1450,7 @@ const ArrayItems = observer((props) => {
               onClick={() => {
                 field.remove(index);
               }}
+              style={{ marginBottom: '22px' }}
             >
               Remove
             </Button>
@@ -1478,10 +1480,12 @@ export default () => {
         {
           component: Input,
           name: 'name',
+          title: '姓名',
         },
         {
           component: Input,
           name: 'age',
+          label: '年龄',
         },
       ],
     },

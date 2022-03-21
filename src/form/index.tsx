@@ -63,6 +63,7 @@ const transformConfigRecursively = (fieldsConfig: XField[], componentMap: Map<CT
     const {
       name,
       title,
+      label,
       type = 'string',
       customProps,
       wrapperProps,
@@ -71,6 +72,8 @@ const transformConfigRecursively = (fieldsConfig: XField[], componentMap: Map<CT
       required,
       validator,
       items,
+      gridConfig,
+      layoutConfig,
     } = item;
 
     let componentName = '';
@@ -86,13 +89,29 @@ const transformConfigRecursively = (fieldsConfig: XField[], componentMap: Map<CT
       const _properties = transformConfigRecursively(items, componentMap);
       _items = {
         type: 'object',
-        properties: _properties,
+        properties: {
+          layout: {
+            type: 'void',
+            'x-component': 'FormLayout',
+            'x-component-props': { ...layoutConfig },
+            properties: {
+              grid: {
+                type: 'void',
+                'x-component': 'FormGrid',
+                'x-component-props': {
+                  ...gridConfig,
+                },
+                properties: _properties,
+              },
+            },
+          },
+        },
       };
     }
 
     return {
       name,
-      title,
+      title: title ?? label,
       type,
       required,
       items: _items,

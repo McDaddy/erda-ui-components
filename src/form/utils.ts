@@ -1,5 +1,5 @@
 import React from 'react';
-import { IFormItemProps } from '@formily/antd';
+import { IFormGridProps, IFormItemProps, IFormLayoutProps } from '@formily/antd';
 import { FieldValidator } from '@formily/core';
 
 type CT = React.ComponentClass | React.FunctionComponent;
@@ -7,6 +7,7 @@ type CT = React.ComponentClass | React.FunctionComponent;
 export interface Field<T extends CT = any> {
   name: string;
   title?: string;
+  label?: string;
   defaultValue?: unknown;
   type?: string;
   required?: boolean;
@@ -15,6 +16,8 @@ export interface Field<T extends CT = any> {
   customProps?: T extends CT ? React.ComponentProps<T> : never;
   wrapperProps?: IFormItemProps;
   items?: Field[];
+  gridConfig?: IFormGridProps;
+  layoutConfig?: IFormLayoutProps;
 }
 
 export interface CheckType {
