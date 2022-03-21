@@ -20,6 +20,7 @@ import {
   isField,
   FieldDataSource,
   registerValidateRules,
+  ArrayField as ArrayFieldType,
 } from '@formily/core';
 import { action } from '@formily/reactive';
 import { Form, FormItem, FormLayout, IFormLayoutProps, FormGrid, IFormGridProps } from '@formily/antd';
@@ -185,3 +186,4 @@ ErdaForm.Field = ReactField;
 ErdaForm.useField = useField;
 ErdaForm.useFieldSchema = useFieldSchema;
 ErdaForm.RecursionField = RecursionField;
+export { FormType, Field, IFormLayoutProps, ArrayFieldType };
