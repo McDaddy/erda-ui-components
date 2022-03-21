@@ -26,8 +26,8 @@ const tsConfig = {
 };
 const babelConfig = require('./babel.config');
 
-const source = ['components/**/*.{js,ts,jsx,tsx}', '!components/**/e2e/*', '!components/**/unit/*'];
-const base = path.join(process.cwd(), 'components');
+const source = ['src/**/*.{js,ts,jsx,tsx}', '!src/**/e2e/*', '!src/**/unit/*'];
+const base = path.join(process.cwd(), 'src');
 function getProjectPath(filePath) {
   return path.join(process.cwd(), filePath);
 }
@@ -51,7 +51,7 @@ function compile(modules) {
 
   // =============================== LESS ===============================
   const less = gulp
-    .src(['components/**/*.less'])
+    .src(['src/**/*.less'])
     .pipe(
       through2.obj(function (file, encoding, next) {
         // Replace content
