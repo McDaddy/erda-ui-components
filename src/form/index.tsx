@@ -25,6 +25,7 @@ import {
 import { action } from '@formily/reactive';
 import { Form, FormItem, FormLayout, IFormLayoutProps, FormGrid, IFormGridProps } from '@formily/antd';
 import { createFields, Field as XField } from './utils';
+import '@formily/antd/esm/form-item/style';
 
 type Obj<T extends any = any> = { [k: string]: T };
 type CT = React.ComponentClass | React.FunctionComponent;
