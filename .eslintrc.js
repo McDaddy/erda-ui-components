@@ -1,120 +1,58 @@
 module.exports = {
-  extends: [
-    'airbnb',
-    'prettier',
-    'plugin:compat/recommended',
-    'plugin:jest/recommended',
-    'plugin:react/recommended',
-    'plugin:import/typescript',
-    'plugin:markdown/recommended',
-  ],
   env: {
     browser: true,
-    node: true,
-    jasmine: true,
-    jest: true,
     es6: true,
   },
-  settings: {
-    react: {
-      version: '16.9',
-    },
-    polyfills: ['Promise', 'URL'],
+  globals: {
+    Cypress: 'readonly',
+    cy: 'readonly',
   },
+  extends: ['eslint-config-ali/typescript/react', 'prettier', 'prettier/@typescript-eslint', 'prettier/react'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react', 'babel', 'jest', '@typescript-eslint', 'react-hooks', 'unicorn', 'markdown'],
-  // https://github.com/typescript-eslint/typescript-eslint/issues/46#issuecomment-470486034
+  plugins: ['deprecation'],
+  parserOptions: {
+    ecmaVersion: 2020, // specify the version of ECMAScript syntax you want to use: 2015 => (ES6)
+    sourceType: 'module', // Allows for the use of imports
+    ecmaFeatures: {
+      jsx: true, // enable JSX
+      impliedStrict: true, // enable global strict mode
+    },
+    tsconfigRootDir: __dirname,
+  },
+  rules: {
+    'deprecation/deprecation': 'error',
+    'no-param-reassign': ['error', { props: true, ignorePropertyModificationsFor: ['draft', 'state', 'acc'] }],
+    'import/prefer-default-export': 'off',
+    // 'react/jsx-filename-extension': [2, { 'extensions': ['.js', '.jsx', '.ts', '.tsx'] }],
+    'react/prop-types': 'off',
+    'arrow-body-style': 'off',
+    'max-len': 'off',
+    'no-nested-ternary': 'off',
+    'react/no-multi-comp': 'off',
+    'jsx-first-prop-new-line': 'off',
+    'no-unused-vars': 'off',
+    'import/no-named-as-default': 'off',
+    'import/no-named-as-default-member': 'off',
+    'react-hooks/rules-of-hooks': 'error',
+    'no-console': 2,
+    '@typescript-eslint/ban-ts-ignore': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-unused-vars': [1, { argsIgnorePattern: '^_', varsIgnorePattern: '^ignored?$' }],
+    '@typescript-eslint/interface-name-prefix': 'off',
+    indent: 0,
+    'react/jsx-no-undef': 0,
+    '@typescript-eslint/consistent-type-assertions': [0, { objectLiteralTypeAssertions: 'allow-as-parameter' }],
+    'import/no-anonymous-default-export': 1,
+  },
   overrides: [
     {
-      files: ['*.ts', '*.tsx'],
+      files: ['**/*.js'], // none ts script like webpack config or legacy node scripts
       rules: {
-        '@typescript-eslint/no-unused-vars': [2, { args: 'none' }],
-        'no-unused-expressions': 'off',
-        '@typescript-eslint/no-unused-expressions': 2,
-      },
-    },
-    {
-      // In v2, explicitly apply eslint-plugin-markdown's `markdown`
-      // processor on any Markdown files you want to lint.
-      files: ['src/**/*.md'],
-      processor: 'markdown/markdown',
-      rules: {
-        'import/no-extraneous-dependencies': 0,
+        '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/no-require-imports': 'off',
+        'no-console': 'off',
       },
     },
   ],
-  rules: {
-    'react/jsx-one-expression-per-line': 0,
-    'react/prop-types': 0,
-    'react/forbid-prop-types': 0,
-    'react/jsx-indent': 0,
-    'react/jsx-wrap-multilines': ['error', { declaration: false, assignment: false }],
-    'react/jsx-filename-extension': 0,
-    'react/state-in-constructor': 0,
-    'react/jsx-props-no-spreading': 0,
-    'react/destructuring-assignment': 0, // TODO: remove later
-    'react/require-default-props': 0,
-    'react/sort-comp': 0,
-    'react/display-name': 0,
-    'react/static-property-placement': 0,
-    'react/jsx-no-bind': 0, // Should not check test file
-    'react/no-find-dom-node': 0,
-    'react/no-unused-prop-types': 0,
-    'react/default-props-match-prop-types': 0,
-    'react-hooks/rules-of-hooks': 2, // Checks rules of Hooks
-    'react/function-component-definition': 0,
-    'react/no-unused-class-component-methods': 0,
-    'import/extensions': 0,
-    'import/no-cycle': 0,
-    'import/no-extraneous-dependencies': 0,
-    // 'import/no-extraneous-dependencies': [
-    //   'error',
-    //   {
-    //     devDependencies: ['tests/**', 'scripts/**', '**/*.test.js', '**/__tests__/*', '*.config.js', '**/*.md'],
-    //   },
-    // ],
-    'jsx-a11y/no-static-element-interactions': 0,
-    'jsx-a11y/anchor-has-content': 0,
-    'jsx-a11y/click-events-have-key-events': 0,
-    'jsx-a11y/anchor-is-valid': 0,
-    'jsx-a11y/no-noninteractive-element-interactions': 0,
-    // label-has-for has been deprecated
-    // https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/label-has-for.md
-    'jsx-a11y/label-has-for': 0,
-
-    'comma-dangle': ['error', 'always-multiline'],
-    'consistent-return': 0, // TODO: remove later
-    'no-param-reassign': 0, // TODO: remove later
-    'no-underscore-dangle': 0,
-    // for (let i = 0; i < len; i++)
-    'no-plusplus': 0,
-    // https://eslint.org/docs/rules/no-continue
-    // labeledLoop is conflicted with `eslint . --fix`
-    'no-continue': 0,
-    // ban this for Number.isNaN needs polyfill
-    'no-restricted-globals': 0,
-    'max-classes-per-file': 0,
-
-    'jest/no-test-callback': 0,
-    'jest/expect-expect': 0,
-    'jest/no-done-callback': 0,
-    'jest/valid-title': 0,
-    'jest/no-conditional-expect': 0,
-
-    'unicorn/better-regex': 2,
-    'unicorn/prefer-string-trim-start-end': 2,
-    'unicorn/expiring-todo-comments': 2,
-    'unicorn/no-abusive-eslint-disable': 2,
-
-    // https://github.com/typescript-eslint/typescript-eslint/issues/2540#issuecomment-692866111
-    'no-use-before-define': 0,
-    '@typescript-eslint/no-use-before-define': 2,
-    'no-shadow': 0,
-    '@typescript-eslint/no-shadow': [2, { ignoreTypeValueShadow: true }],
-    // https://github.com/typescript-eslint/typescript-eslint/issues/2528#issuecomment-689369395
-    'no-undef': 0,
-  },
-  globals: {
-    gtag: true,
-  },
 };

@@ -18,6 +18,7 @@ export interface Field<T extends CT = any> {
   items?: Field[];
   gridConfig?: IFormGridProps;
   layoutConfig?: IFormLayoutProps;
+  stepName?: string;
 }
 
 export interface CheckType {

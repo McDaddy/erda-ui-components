@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Ref } from 'react';
 import { map, reduce, uniqueId } from 'lodash';
 import {
   createSchemaField,
@@ -7,6 +7,8 @@ import {
   useField,
   useFieldSchema,
   RecursionField,
+  FormProvider,
+  FormConsumer,
 } from '@formily/react';
 import {
   createForm,
@@ -24,7 +26,16 @@ import {
   ArrayField as ArrayFieldType,
 } from '@formily/core';
 import { action } from '@formily/reactive';
-import { Form, FormItem, FormLayout, IFormLayoutProps, FormGrid, IFormGridProps } from '@formily/antd';
+import {
+  Form,
+  FormItem,
+  FormLayout,
+  IFormLayoutProps,
+  FormGrid,
+  IFormGridProps,
+  FormStep,
+  IFormStep,
+} from '@formily/antd';
 import { createFields, Field as XField } from './utils';
 import '@formily/antd/esm/form-item/style';
 
@@ -35,6 +46,15 @@ type CT = React.ComponentClass | React.FunctionComponent;
 
 // type OnlyOneElementObj<T extends any = {}> = IsUnion<keyof T> extends false ? T : never;
 
+interface StepConfig {
+  stepName: string;
+  stepTitle: string;
+}
+
+interface StepFields extends StepConfig {
+  fields: XField[];
+}
+
 export interface FormProps<T extends Obj = any> {
   fieldsConfig: XField[];
   form?: FormType<T>;
@@ -42,6 +62,8 @@ export interface FormProps<T extends Obj = any> {
   gridConfig?: IFormGridProps;
   style?: React.CSSProperties;
   className?: string;
+  stepConfig?: StepConfig[];
+  stepButtonGroup?: (formStep: IFormStep) => React.ReactChild;
 }
 
 interface SchemaField {
@@ -53,10 +75,16 @@ interface SchemaField {
   'x-component-props'?: Obj; // TODO
 }
 
+interface FormRef {
+  formStep?: IFormStep;
+}
+
 // const defaultVoidField = {
 //   type: 'void',
 //   name: 'void',
 // };
+
+const { createFormStep } = FormStep;
 
 const transformConfigRecursively = (fieldsConfig: XField[], componentMap: Map<CT, string>) => {
   const propertiesArray: SchemaField[] = map(fieldsConfig, (item) => {
@@ -136,9 +164,78 @@ const transformConfigRecursively = (fieldsConfig: XField[], componentMap: Map<CT
   return properties as Obj<Omit<SchemaField, 'name'>>;
 };
 
-const ErdaForm = <T extends Obj>({ fieldsConfig, form, layoutConfig, style, gridConfig, className }: FormProps<T>) => {
+const ErdaForm = <T extends Obj>({
+  fieldsConfig,
+  form,
+  layoutConfig,
+  style,
+  gridConfig,
+  className,
+  stepConfig,
+  stepButtonGroup,
+  formRef,
+}: FormProps<T> & { formRef?: Ref<FormRef> }) => {
   const componentMap = React.useRef(new Map<CT, string>());
-  const properties = React.useMemo(() => transformConfigRecursively(fieldsConfig, componentMap.current), []);
+  let stepGroups: StepFields[] = [];
+
+  if (stepConfig) {
+    stepGroups = (fieldsConfig ?? []).reduce<StepFields[]>((acc, fItem) => {
+      const { stepName } = fItem;
+      if (!stepName) {
+        // eslint-disable-next-line no-console
+        console.warn('stepName is required when stepConfig is provided');
+        return acc;
+      }
+      const existGroup = acc.find((group) => group.stepName === stepName);
+      if (existGroup) {
+        existGroup.fields.push(fItem);
+      } else {
+        acc.push({
+          stepName,
+          stepTitle: stepConfig.find((step) => step.stepName === stepName)?.stepTitle ?? '',
+          fields: [fItem],
+        });
+      }
+      return acc;
+    }, []);
+  }
+
+  const properties = React.useMemo(
+    () => (stepConfig ? {} : transformConfigRecursively(fieldsConfig, componentMap.current)),
+    [stepConfig],
+  );
+
+  const stepProperties = React.useMemo(() => {
+    const _stepProperties = (stepGroups ?? []).reduce<any>((acc, step) => {
+      const { stepName, stepTitle, fields } = step;
+      const _properties = transformConfigRecursively(fields, componentMap.current);
+      acc[stepName] = {
+        type: 'void',
+        'x-component': 'FormStep.StepPane',
+        'x-component-props': {
+          title: stepTitle,
+        },
+        properties: _properties,
+      };
+      return acc;
+    }, {});
+    return _stepProperties;
+  }, []);
+
+  const stepSchemaConfig = {
+    type: 'object',
+    properties: {
+      step: {
+        type: 'void',
+        'x-component': 'FormStep',
+        'x-component-props': {
+          formStep: '{{formStep}}',
+        },
+        properties: stepProperties,
+      },
+    },
+  };
+
   const schemaConfig = {
     type: 'object',
     properties: {
@@ -166,14 +263,43 @@ const ErdaForm = <T extends Obj>({ fieldsConfig, form, layoutConfig, style, grid
     {},
   );
 
+  const optionalComponents: Obj<CT> = stepConfig ? { FormStep } : {};
   const SchemaField = createSchemaField({
-    components: { ...components, FormItem, FormLayout, FormGrid },
+    components: { ...components, FormItem, FormLayout, FormGrid, ...optionalComponents },
   });
 
+  const formStep = React.useMemo(() => {
+    if (stepConfig) {
+      // @ts-ignore
+      return createFormStep();
+    }
+    return undefined;
+  }, []);
+
+  React.useImperativeHandle(
+    formRef,
+    () => {
+      return {
+        formStep,
+      };
+    },
+    [formStep],
+  );
+
   return (
-    <Form style={style} className={className || ''} form={form}>
-      <SchemaField schema={schemaConfig} />
-    </Form>
+    <FormProvider form={form!}>
+      <Form style={style} className={className ?? ''} form={form!}>
+        <SchemaField schema={stepConfig ? stepSchemaConfig : schemaConfig} scope={{ formStep }} />
+        <FormConsumer>
+          {() => {
+            if (stepButtonGroup && stepConfig && formStep) {
+              return stepButtonGroup(formStep);
+            }
+            return <></>;
+          }}
+        </FormConsumer>
+      </Form>
+    </FormProvider>
   );
 };
 
@@ -208,4 +334,4 @@ ErdaForm.Field = ReactField;
 ErdaForm.useField = useField;
 ErdaForm.useFieldSchema = useFieldSchema;
 ErdaForm.RecursionField = RecursionField;
-export type { FormType, Field, IFormLayoutProps, ArrayFieldType, IFormGridProps, FormLayout, FormGrid };
+export type { FormType, Field, IFormLayoutProps, ArrayFieldType, IFormGridProps, FormLayout, FormGrid, FormRef };
