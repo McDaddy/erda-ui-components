@@ -160,7 +160,7 @@ export const transformConfigRecursively = (fieldsConfig: Field[], componentMap: 
       componentMap.set(component, componentName);
     }
 
-    let _items = {};
+    let _items = {}; // for array fields
     if (items) {
       const _properties = transformConfigRecursively(items, componentMap);
       _items = {
@@ -196,7 +196,7 @@ export const transformConfigRecursively = (fieldsConfig: Field[], componentMap: 
       'x-decorator': 'FormItem',
       'x-component': componentName,
       'x-component-props': customProps,
-      'x-decorator-props': wrapperProps,
+      'x-decorator-props': { colon: false, ...wrapperProps},
     };
   });
 

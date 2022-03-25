@@ -28,6 +28,8 @@ import { action } from '@formily/reactive';
 import { Form, FormItem, FormLayout, IFormLayoutProps, FormGrid, IFormGridProps } from '@formily/antd';
 import { createFields, Field as XField, transformConfigRecursively } from './utils';
 import StepForm from './step-form';
+import classnames from 'classnames';
+import { usePrefixCls } from '../_util/hooks';
 
 interface Obj<T extends any = any> {
   [k: string]: T;
@@ -47,8 +49,14 @@ export interface FormProps<T extends Obj = any> {
   className?: string;
 }
 
+const defaultLayoutConfig = {
+  layout: 'vertical',
+};
+
 const ErdaForm = <T extends Obj>({ fieldsConfig, form, layoutConfig, style, gridConfig, className }: FormProps<T>) => {
   const componentMap = React.useRef(new Map<CT, string>());
+
+  const prefixCls = usePrefixCls();
 
   const properties = React.useMemo(
     () => transformConfigRecursively(fieldsConfig, componentMap.current),
@@ -61,7 +69,7 @@ const ErdaForm = <T extends Obj>({ fieldsConfig, form, layoutConfig, style, grid
       layout: {
         type: 'void',
         'x-component': 'FormLayout',
-        'x-component-props': layoutConfig,
+        'x-component-props': { ...defaultLayoutConfig, ...layoutConfig },
         properties: {
           grid: {
             type: 'void',
@@ -88,7 +96,7 @@ const ErdaForm = <T extends Obj>({ fieldsConfig, form, layoutConfig, style, grid
 
   return (
     <FormProvider form={form!}>
-      <Form style={style} className={className ?? ''} form={form!}>
+      <Form style={style} className={classnames(`${prefixCls}-erda-form`, className)} form={form!}>
         <SchemaField schema={schemaConfig} />
       </Form>
     </FormProvider>

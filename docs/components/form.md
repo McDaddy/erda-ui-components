@@ -1456,6 +1456,22 @@ const ArrayItems = observer((props) => {
             >
               Remove
             </Button>
+            <Button
+              onClick={() => {
+                field.moveUp(index);
+              }}
+              style={{ marginBottom: '22px' }}
+            >
+              Up
+            </Button>
+            <Button
+              onClick={() => {
+                field.moveDown(index);
+              }}
+              style={{ marginBottom: '22px' }}
+            >
+              Down
+            </Button>
           </Space>
         </div>
       ))}

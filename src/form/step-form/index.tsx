@@ -115,8 +115,7 @@ const StepForm = <T extends Obj>({
     components: { ...components, FormItem, FormLayout, FormGrid, FormStep },
   });
 
-  // @ts-ignore TODO issue
-  const formStep = React.useMemo(() => createFormStep(), []);
+  const formStep = React.useMemo(() => createFormStep!(), []);
 
   React.useImperativeHandle(
     formRef,
@@ -132,7 +131,7 @@ const StepForm = <T extends Obj>({
     <FormProvider form={form!}>
       <Form style={style} className={className ?? ''} form={form!}>
         <SchemaField schema={stepSchemaConfig} scope={{ formStep }} />
-        <FormConsumer>{() => (formStep ? stepButtonGroup(formStep) : <></>)}</FormConsumer>
+        <FormConsumer>{() => stepButtonGroup(formStep)}</FormConsumer>
       </Form>
     </FormProvider>
   );
