@@ -8,6 +8,7 @@
     "compat",
     "docsearch",
     "dumi",
+    "elint",
     "erda",
     "esbuild",
     "formily",
@@ -17,7 +18,10 @@
     "pnpm",
     "precommit",
     "prettierrc",
+    "stylelint",
     "tinycolor",
-    "umirc"
+    "umirc",
+    "unshift",
+    "vars"
   ]
 }
