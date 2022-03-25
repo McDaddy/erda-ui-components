@@ -1525,7 +1525,7 @@ import React from 'react';
 import { Input } from '@formily/antd';
 import { Form, Button } from 'erda-ui-components';
 
-const { createForm, createFields } = Form;
+const { createForm, createFields, StepForm } = Form;
 
 const form = createForm();
 
@@ -1612,7 +1612,7 @@ export default () => {
         padding: '40px 0',
       }}
     >
-      <Form
+      <StepForm
         style={{ width: '80%' }}
         form={form}
         fieldsConfig={fieldsConfig}

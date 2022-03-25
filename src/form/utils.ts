@@ -1,6 +1,7 @@
 import React from 'react';
 import { IFormGridProps, IFormItemProps, IFormLayoutProps } from '@formily/antd';
 import { FieldValidator } from '@formily/core';
+import { map, reduce, uniqueId } from 'lodash';
 
 type CT = React.ComponentClass | React.FunctionComponent;
 
@@ -120,3 +121,93 @@ export interface CheckType {
 
 // eslint-disable-next-line import/prefer-default-export
 export const createFields: CheckType = (fieldList: any) => fieldList;
+
+interface Obj<T extends any = any> {
+  [k: string]: T;
+}
+interface SchemaField {
+  name: string;
+  title?: string;
+  default?: unknown;
+  'x-decorator'?: string;
+  'x-component'?: string;
+  'x-component-props'?: Obj; // TODO
+}
+
+export const transformConfigRecursively = (fieldsConfig: Field[], componentMap: Map<CT, string>) => {
+  const propertiesArray: SchemaField[] = map(fieldsConfig, (item) => {
+    const {
+      name,
+      title,
+      label,
+      type = 'string',
+      customProps,
+      wrapperProps,
+      defaultValue,
+      component,
+      required,
+      validator,
+      items,
+      gridConfig,
+      layoutConfig,
+    } = item;
+
+    let componentName = '';
+    if (componentMap.has(component)) {
+      componentName = componentMap.get(component)!;
+    } else {
+      componentName = uniqueId('component-');
+      componentMap.set(component, componentName);
+    }
+
+    let _items = {};
+    if (items) {
+      const _properties = transformConfigRecursively(items, componentMap);
+      _items = {
+        type: 'object',
+        properties: {
+          layout: {
+            type: 'void',
+            'x-component': 'FormLayout',
+            'x-component-props': { ...layoutConfig },
+            properties: {
+              grid: {
+                type: 'void',
+                'x-component': 'FormGrid',
+                'x-component-props': {
+                  ...gridConfig,
+                },
+                properties: _properties,
+              },
+            },
+          },
+        },
+      };
+    }
+
+    return {
+      name,
+      title: title ?? label,
+      type,
+      required,
+      items: _items,
+      default: defaultValue,
+      'x-validator': validator,
+      'x-decorator': 'FormItem',
+      'x-component': componentName,
+      'x-component-props': customProps,
+      'x-decorator-props': wrapperProps,
+    };
+  });
+
+  const properties = reduce(
+    propertiesArray,
+    (acc, item) => {
+      const { name, ...rest } = item;
+      acc[name] = rest;
+      return acc;
+    },
+    {} as Obj<Omit<SchemaField, 'name'>>,
+  );
+  return properties as Obj<Omit<SchemaField, 'name'>>;
+};
