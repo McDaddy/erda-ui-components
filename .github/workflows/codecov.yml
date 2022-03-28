@@ -1,0 +1,54 @@
+name: codecov
+
+# Controls when the action will run.
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  run-test:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: checkout code
+        uses: actions/checkout@v2
+
+      - name: Cache pnpm modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-pnpm-modules
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-jest-${{ env.cache-name }}-${{ matrix.node-version }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+
+      - name: Set pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.10.0
+
+      - name: Install Dependencies
+        run: |
+          pnpm i
+
+      - name: Run Tests
+        working-directory: '.'
+        run: |
+          npm run test:coverage
+
+      - name: Codecov
+        run: curl -s https://codecov.io/bash | bash

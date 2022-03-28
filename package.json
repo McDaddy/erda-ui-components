@@ -10,7 +10,8 @@
     "prepare": "husky install",
     "precommit": "lint-staged",
     "lint": "npm run tsc && npm run lint:script && npm run lint:demo && npm run lint:style && npm run lint:deps && npm run lint:md",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "main": "lib/index.js",
   "module": "es/index.js",

@@ -4,9 +4,10 @@ import '@testing-library/jest-dom';
 import Form from 'src/form';
 import { Input } from 'antd';
 
+const { createForm } = Form;
+
 describe('erda form test', () => {
   it('render basic form', async () => {
-    const { createForm } = Form;
     const form = createForm();
     const fieldsConfig = [
       {
