@@ -6,7 +6,7 @@ hero:
   desc: 📖 为研发中台而生的组件库
   actions:
     - text: 快速上手
-      link: /components/button
+      link: /components/form
 features:
   - icon: https://gw.alipayobjects.com/zos/bmw-prod/881dc458-f20b-407b-947a-95104b5ec82b/k79dm8ih_w144_h144.png
     title: 开箱即用

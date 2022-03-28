@@ -46,7 +46,8 @@ export default () => (
 
 ```tsx
 import React from 'react';
-import { Avatar, Button } from 'erda-ui-components';
+import { Avatar } from 'erda-ui-components';
+import { Button } from 'antd';
 
 export default () => {
   const [size, setSize] = React.useState(24);
