@@ -32,6 +32,7 @@ specifiers:
   gulp-babel: ^8.0.0
   gulp-typescript: ^6.0.0-alpha.1
   husky: ^7.0.4
+  identity-obj-proxy: ^3.0.0
   jest: ^27.5.1
   less: ^4.1.2
   less-loader: ^10.2.0
@@ -87,6 +88,7 @@ devDependencies:
   gulp-babel: 8.0.0
   gulp-typescript: 6.0.0-alpha.1_typescript@4.5.2
   husky: 7.0.4
+  identity-obj-proxy: 3.0.0
   jest: 27.5.1
   less: 4.1.2
   less-loader: 10.2.0_less@4.1.2+webpack@5.64.4
@@ -7338,6 +7340,11 @@ packages:
     engines: { node: '>=6' }
     dev: true
 
+  /harmony-reflect/1.6.2:
+    resolution:
+      { integrity: sha512-HIp/n38R9kQjDEziXyDTuW3vvoxxyxjxFzXLrBr18uB47GnSt+G9D29fqrpM5ZkspMcPICud3XsBJQ4Y2URg8g== }
+    dev: true
+
   /has-bigints/1.0.1:
     resolution:
       { integrity: sha512-LSBS2LjbNBTf6287JEbEzvJgftkF5qFkmCo9hDRpAzKhUOlJ+hx8dd4USs00SgsUNwc4617J9ki5YtEClM2ffA== }
@@ -7716,6 +7723,14 @@ packages:
     engines: { node: '>=0.10.0' }
     dependencies:
       safer-buffer: 2.1.2
+    dev: true
+
+  /identity-obj-proxy/3.0.0:
+    resolution:
+      { integrity: sha512-00n6YnVHKrinT9t0d9+5yZC6UBNJANpYEQvL2LlX6Ab9lnmxzIRcEmTPuyGScvl1+jKuCICX1Z0Ab1pPKKdikA== }
+    engines: { node: '>=4' }
+    dependencies:
+      harmony-reflect: 1.6.2
     dev: true
 
   /ieee754/1.2.1:

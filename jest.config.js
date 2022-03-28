@@ -3,8 +3,8 @@ module.exports = {
   preset: 'ts-jest/presets/js-with-ts-esm',
   modulePathIgnorePatterns: ['<rootDir>/package.json'],
   moduleDirectories: ['node_modules', 'src'],
-  coverageDirectory: 'coverage',
-  moduleFileExtensions: ['tsx', 'ts', 'jsx', 'js', 'mjs'],
+  // coverageDirectory: 'coverage',
+  moduleFileExtensions: ['tsx', 'ts', 'js'],
   // collectCoverageFrom: [
   //   'app/common/**/*.{js,jsx,ts,tsx}',
   //   '!app/common/**/*.d.ts',
@@ -17,19 +17,20 @@ module.exports = {
   //   '!app/common/utils/axios-config.ts',
   // ],
   testMatch: ['**/__tests__/**/*.test.+(tsx|ts)'],
-  transform: {
-    mjs$: 'babel-jest',
+  globals: {
+    'ts-jest': {
+      babelConfig: true,
+      tsconfig: 'tsconfig-jest.json',
+      diagnostics: false,
+      isolatedModules: true,
+      useESM: true,
+    },
   },
-  // globals: {
-  //   'ts-jest': {
-  //     babelConfig: true,
-  //     tsconfig: 'tsconfig-jest.json',
-  //     diagnostics: false,
-  //     isolatedModules: true,
-  //     useESM: true,
-  //   },
-  // },
   testEnvironment: 'jsdom',
+  moduleNameMapper: {
+    'src/(.*)': '<rootDir>/src/$1',
+    '\\.(css|less|scss)$': 'identity-obj-proxy',
+  },
   // setupFilesAfterEnv: ['<rootDir>/test/extend-expect.ts'],
   // setupFiles: ['<rootDir>/test/setupJest.ts'],
   // transformIgnorePatterns: [],
