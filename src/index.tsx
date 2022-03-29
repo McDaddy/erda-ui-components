@@ -21,3 +21,6 @@ export { default as FormModal } from './form-modal';
 export type { FormModalProps } from './form-modal';
 
 export { default as ConfigProvider } from './context-provider';
+
+export { default as ErdaIcon } from './icon';
+export { useErdaIcon } from './icon';

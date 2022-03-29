@@ -34,9 +34,6 @@ import StepForm from './step-form';
 import classnames from 'classnames';
 import { usePrefixCls } from '../_util/hooks';
 
-interface Obj<T extends any = any> {
-  [k: string]: T;
-}
 export type CT = React.ComponentClass | React.FunctionComponent;
 
 // type IsUnion<T, U extends T = T> = (T extends any ? (U extends T ? false : true) : never) extends false ? false : true;

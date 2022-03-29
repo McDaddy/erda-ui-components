@@ -3,9 +3,6 @@ title: Form
 nav:
   path: /components
   title: 组件
-group:
-  path: /common
-  title: 通用
 ---
 
 # 表单 Form
