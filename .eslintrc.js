@@ -5,6 +5,7 @@ module.exports = {
   },
   extends: ['eslint-config-ali/typescript/react', 'prettier', 'prettier/@typescript-eslint', 'prettier/react'],
   parser: '@typescript-eslint/parser',
+  plugins: ['markdown'],
   parserOptions: {
     ecmaVersion: 2020, // specify the version of ECMAScript syntax you want to use: 2015 => (ES6)
     sourceType: 'module', // Allows for the use of imports
@@ -47,6 +48,18 @@ module.exports = {
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-require-imports': 'off',
         'no-console': 'off',
+      },
+    },
+    {
+      files: ['./docs/**/*.md'], // none ts script like webpack config or legacy node scripts
+      processor: 'markdown/markdown',
+    },
+    {
+      files: ['./docs/**/*.md/*.tsx'],
+      rules: {
+        'no-console': 'off',
+        'import/no-anonymous-default-export': 'off',
+        'no-param-reassign': 'off',
       },
     },
   ],

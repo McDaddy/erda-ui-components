@@ -197,10 +197,10 @@ const FormSelect = connect(
 
 const form = createForm({
   effects: () => {
-    takeAsyncDataSource<{ label: string; value: string }[]>(
+    takeAsyncDataSource<Array<{ label: string; value: string }>>(
       'province',
-      (field) =>
-        new Promise<{ value: string; label: string }[]>((resolve) => {
+      () =>
+        new Promise<Array<{ value: string; label: string }>>((resolve) => {
           resolve([
             {
               value: 'zhejiang',
@@ -1239,6 +1239,7 @@ export default () => {
   const [array, setArray] = React.useState(new Array(300));
 
   React.useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
     const result = array.reduce((acc, item) => acc + (item || 0), 0);
     setCount(result);
   }, [array]);
@@ -1284,7 +1285,6 @@ import { Form } from 'erda-ui-components';
 const { createForm, onFieldValueChange } = Form;
 
 const CustomComp = ({ value, onChange }: { value: string; onChange: (v: string) => void }) => {
-  // eslint-disable-next-line no-console
   console.log('render child');
   return <InputNumber value={value} onChange={onChange} />;
 };
@@ -1292,6 +1292,7 @@ const CustomComp = ({ value, onChange }: { value: string; onChange: (v: string) 
 const form = createForm({
   effects: () => {
     onFieldValueChange('*(!sum)', () => {
+      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
       const sumResult = form.query('*(!sum)').reduce((sum, _field) => sum + (_field.value || 0), 0);
       form.setFieldState('sum', (state) => {
         state.value = sumResult;
@@ -1345,9 +1346,9 @@ export default () => {
 ```tsx
 import React from 'react';
 import { Input, Space, Button } from 'antd';
-import { Form } from 'erda-ui-components';
+import { Form, ArrayFieldType } from 'erda-ui-components';
 
-const { createForm, observer, Field, useField, ArrayFieldType } = Form;
+const { createForm, observer, Field, useField } = Form;
 
 const form = createForm();
 
@@ -1439,9 +1440,9 @@ export default () => {
 import React from 'react';
 import { Space, Input } from '@formily/antd';
 import { Button } from 'antd';
-import { Form, Schema } from 'erda-ui-components';
+import { Form, Schema, ArrayFieldType } from 'erda-ui-components';
 
-const { createForm, observer, RecursionField, useFieldSchema, useField, ArrayFieldType } = Form;
+const { createForm, observer, RecursionField, useFieldSchema, useField } = Form;
 
 const form = createForm();
 

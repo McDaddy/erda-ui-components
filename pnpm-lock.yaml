@@ -29,6 +29,7 @@ specifiers:
   docsearch.js: ^2.6.3
   dumi: ^1.1.40
   eslint: ^8.3.0
+  eslint-plugin-markdown: ^2.2.1
   f2elint: ^2.2.1
   gulp: ^4.0.2
   gulp-babel: ^8.0.0
@@ -87,6 +88,7 @@ devDependencies:
   docsearch.js: 2.6.3
   dumi: 1.1.40_587beae5e149c20cb8b57fb85872025f
   eslint: 8.3.0
+  eslint-plugin-markdown: 2.2.1_eslint@8.3.0
   f2elint: 2.2.1_typescript@4.5.2
   gulp: registry.nlark.com/gulp/4.0.2
   gulp-babel: 8.0.0
@@ -6349,6 +6351,19 @@ packages:
       jsx-ast-utils: 3.2.1
       language-tags: 1.0.5
       minimatch: 3.0.4
+    dev: true
+
+  /eslint-plugin-markdown/2.2.1_eslint@8.3.0:
+    resolution:
+      { integrity: sha512-FgWp4iyYvTFxPwfbxofTvXxgzPsDuSKHQy2S+a8Ve6savbujey+lgrFFbXQA0HPygISpRYWYBjooPzhYSF81iA== }
+    engines: { node: ^8.10.0 || ^10.12.0 || >= 12.0.0 }
+    peerDependencies:
+      eslint: '>=6.0.0'
+    dependencies:
+      eslint: 8.3.0
+      mdast-util-from-markdown: 0.8.5
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /eslint-plugin-node/11.1.0_eslint@7.32.0:

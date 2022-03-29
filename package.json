@@ -85,6 +85,7 @@
     "docsearch.js": "^2.6.3",
     "dumi": "^1.1.40",
     "eslint": "^8.3.0",
+    "eslint-plugin-markdown": "^2.2.1",
     "f2elint": "^2.2.1",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
