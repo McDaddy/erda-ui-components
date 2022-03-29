@@ -8,6 +8,9 @@ import {
   useFieldSchema,
   RecursionField,
   FormProvider,
+  connect,
+  mapProps,
+  Schema,
 } from '@formily/react';
 import {
   createForm,
@@ -122,6 +125,8 @@ const takeAsyncDataSource = <T extends FieldDataSource>(
 
 export default ErdaForm;
 ErdaForm.createForm = createForm;
+ErdaForm.connect = connect;
+ErdaForm.mapProps = mapProps;
 ErdaForm.createFields = createFields;
 ErdaForm.onFieldValueChange = onFieldValueChange;
 ErdaForm.onFormValuesChange = onFormValuesChange;
@@ -135,4 +140,4 @@ ErdaForm.useField = useField;
 ErdaForm.useFieldSchema = useFieldSchema;
 ErdaForm.RecursionField = RecursionField;
 ErdaForm.StepForm = StepForm;
-export type { FormType, Field, IFormLayoutProps, ArrayFieldType, IFormGridProps, FormLayout, FormGrid };
+export type { FormType, Field, IFormLayoutProps, ArrayFieldType, IFormGridProps, FormLayout, FormGrid, Schema };

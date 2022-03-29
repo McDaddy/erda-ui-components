@@ -186,7 +186,14 @@ import React from 'react';
 import { Select, Button } from 'antd';
 import { Form } from 'erda-ui-components';
 
-const { createForm, takeAsyncDataSource } = Form;
+const { createForm, takeAsyncDataSource, connect, mapProps } = Form;
+
+const FormSelect = connect(
+  Select,
+  mapProps({
+    dataSource: 'options',
+  }),
+);
 
 const form = createForm({
   effects: () => {
@@ -214,7 +221,7 @@ export default () => {
 
   const fieldsConfig = [
     {
-      component: Select,
+      component: FormSelect,
       title: '省份',
       name: 'province',
     },
@@ -1339,9 +1346,8 @@ export default () => {
 import React from 'react';
 import { Input, Space, Button } from 'antd';
 import { Form } from 'erda-ui-components';
-import { ArrayField as ArrayFieldType } from '@formily/core';
 
-const { createForm, observer, Field, useField } = Form;
+const { createForm, observer, Field, useField, ArrayFieldType } = Form;
 
 const form = createForm();
 
@@ -1433,13 +1439,18 @@ export default () => {
 import React from 'react';
 import { Space, Input } from '@formily/antd';
 import { Button } from 'antd';
-import { Form } from 'erda-ui-components';
+import { Form, Schema } from 'erda-ui-components';
 
-const { createForm, observer, RecursionField, useFieldSchema, useField } = Form;
+const { createForm, observer, RecursionField, useFieldSchema, useField, ArrayFieldType } = Form;
 
 const form = createForm();
 
-const ArrayItems = observer((props) => {
+interface DataType {
+  name: string;
+  age: string;
+}
+
+const ArrayItems = observer((props: { value: DataType[] }) => {
   const schema = useFieldSchema();
   const field = useField<ArrayFieldType>();
   return (
@@ -1448,7 +1459,7 @@ const ArrayItems = observer((props) => {
         // eslint-disable-next-line react/no-array-index-key
         <div key={index} style={{ marginBottom: 10 }}>
           <Space>
-            <RecursionField schema={schema.items} name={index} />
+            <RecursionField schema={schema.items as Schema} name={index} />
             <Button
               onClick={() => {
                 field.remove(index);

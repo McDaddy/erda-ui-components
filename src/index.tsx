@@ -13,6 +13,7 @@ export type {
   IFormGridProps,
   FormLayout,
   FormGrid,
+  Schema,
 } from './form';
 
 export { default as FormModal } from './form-modal';

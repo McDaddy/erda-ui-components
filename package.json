@@ -55,13 +55,14 @@
     }
   },
   "dependencies": {
-    "@formily/antd": "^2.0.16",
-    "@formily/core": "^2.0.16",
-    "@formily/react": "^2.0.16",
-    "@formily/reactive": "^2.0.16",
+    "@formily/antd": "^2.0.17",
+    "@formily/core": "^2.0.17",
+    "@formily/react": "^2.0.17",
+    "@formily/reactive": "^2.0.17",
     "classnames": "^2.3.1"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
     "@babel/plugin-transform-runtime": "^7.16.4",
     "@babel/plugin-transform-typescript": "^7.16.1",
     "@babel/preset-env": "^7.16.4",
@@ -69,6 +70,7 @@
     "@babel/runtime": "^7.16.3",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
+    "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.4.1",
     "@types/lodash": "^4.14.178",
     "@typescript-eslint/eslint-plugin": "^5.5.0",
