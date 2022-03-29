@@ -13,6 +13,7 @@ import {
 } from '@formily/antd';
 import { Field as XField, transformConfigRecursively } from '../utils';
 import { CT } from '..';
+import cn from 'classnames';
 
 interface Obj<T extends any = any> {
   [k: string]: T;
@@ -56,7 +57,7 @@ const StepForm = <T extends Obj>({
   const componentMap = React.useRef(new Map<CT, string>());
 
   const stepProperties = React.useMemo(() => {
-    const stepGroups = (fieldsConfig ?? []).reduce<StepFields[]>((acc, fItem) => {
+    const stepGroups = fieldsConfig.reduce<StepFields[]>((acc, fItem) => {
       const { stepName } = fItem;
       if (!stepName) {
         // eslint-disable-next-line no-console
@@ -76,7 +77,7 @@ const StepForm = <T extends Obj>({
       return acc;
     }, []);
 
-    const _stepProperties = (stepGroups ?? []).reduce<any>((acc, step) => {
+    const _stepProperties = stepGroups.reduce<any>((acc, step) => {
       const { stepName, stepTitle, fields } = step;
       const _properties = transformConfigRecursively(fields, componentMap.current);
       acc[stepName] = {
@@ -115,7 +116,7 @@ const StepForm = <T extends Obj>({
     components: { ...components, FormItem, FormLayout, FormGrid, FormStep },
   });
 
-  const formStep = React.useMemo(() => createFormStep!(), []);
+  const formStep = React.useMemo(() => createFormStep(), []);
 
   React.useImperativeHandle(
     formRef,
@@ -129,7 +130,7 @@ const StepForm = <T extends Obj>({
 
   return (
     <FormProvider form={form!}>
-      <Form style={style} className={className ?? ''} form={form!}>
+      <Form style={style} className={cn(className)} form={form!}>
         <SchemaField schema={stepSchemaConfig} scope={{ formStep }} />
         <FormConsumer>{() => stepButtonGroup(formStep)}</FormConsumer>
       </Form>

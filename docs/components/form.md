@@ -1553,7 +1553,7 @@ export default () => {
 import React from 'react';
 import { Input } from '@formily/antd';
 import { Button } from 'antd';
-import { Form } from 'erda-ui-components';
+import { Form, IFormStep } from 'erda-ui-components';
 
 const { createForm, createFields, StepForm } = Form;
 
@@ -1591,6 +1591,15 @@ export default () => {
       },
       stepName: 'third',
     },
+    {
+      component: Input,
+      title: '学历',
+      name: 'education',
+      customProps: {
+        placeholder: '请输入学历',
+      },
+      stepName: 'third',
+    },
   ]);
 
   const getValue = () => {
@@ -1598,7 +1607,7 @@ export default () => {
     setData(JSON.stringify(state.values, null, 2));
   };
 
-  const buttonGroup = (formStep) => {
+  const buttonGroup = (formStep: IFormStep) => {
     return (
       <div>
         {formStep.allowBack && (

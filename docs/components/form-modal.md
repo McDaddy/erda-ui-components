@@ -50,7 +50,6 @@ export default () => {
         onCancel={() => setVisible(false)}
         formProps={{
           form,
-          layoutConfig: { layout: 'vertical' },
           fieldsConfig: formFieldsList,
         }}
       />

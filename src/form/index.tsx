@@ -28,7 +28,7 @@ import {
   ArrayField as ArrayFieldType,
 } from '@formily/core';
 import { action } from '@formily/reactive';
-import { Form, FormItem, FormLayout, IFormLayoutProps, FormGrid, IFormGridProps } from '@formily/antd';
+import { Form, FormItem, FormLayout, IFormLayoutProps, FormGrid, IFormGridProps, IFormStep } from '@formily/antd';
 import { createFields, Field as XField, transformConfigRecursively } from './utils';
 import StepForm from './step-form';
 import classnames from 'classnames';
@@ -140,4 +140,14 @@ ErdaForm.useField = useField;
 ErdaForm.useFieldSchema = useFieldSchema;
 ErdaForm.RecursionField = RecursionField;
 ErdaForm.StepForm = StepForm;
-export type { FormType, Field, IFormLayoutProps, ArrayFieldType, IFormGridProps, FormLayout, FormGrid, Schema };
+export type {
+  FormType,
+  Field,
+  IFormLayoutProps,
+  ArrayFieldType,
+  IFormGridProps,
+  FormLayout,
+  FormGrid,
+  Schema,
+  IFormStep,
+};

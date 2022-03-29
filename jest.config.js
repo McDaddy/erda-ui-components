@@ -21,6 +21,9 @@ module.exports = {
     'src/(.*)': '<rootDir>/src/$1',
     '\\.(css|less|scss)$': 'identity-obj-proxy',
   },
+  transform: {
+    '^.+\\.(ts|tsx)?$': 'ts-jest',
+  },
   // setupFilesAfterEnv: ['<rootDir>/test/extend-expect.ts'],
   // setupFiles: ['<rootDir>/test/setupJest.ts'],
   // transformIgnorePatterns: [],
