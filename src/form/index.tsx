@@ -10,7 +10,6 @@ import {
   FormProvider,
   connect,
   mapProps,
-  Schema,
 } from '@formily/react';
 import {
   createForm,
@@ -137,14 +136,4 @@ ErdaForm.useField = useField;
 ErdaForm.useFieldSchema = useFieldSchema;
 ErdaForm.RecursionField = RecursionField;
 ErdaForm.StepForm = StepForm;
-export type {
-  FormType,
-  Field,
-  IFormLayoutProps,
-  ArrayFieldType,
-  IFormGridProps,
-  FormLayout,
-  FormGrid,
-  Schema,
-  IFormStep,
-};
+export type { FormType, Field, IFormLayoutProps, ArrayFieldType, IFormGridProps, FormLayout, FormGrid, IFormStep };

@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-import Form, { ArrayFieldType, Schema, IFormStep } from 'src/form';
+import Form, { ArrayFieldType, IFormStep } from 'src/form';
 import { Input, Select, Space, Button } from 'antd';
 
 const {
@@ -108,7 +108,7 @@ describe('erda form test', () => {
             // eslint-disable-next-line react/no-array-index-key
             <div key={index} style={{ marginBottom: 10 }}>
               <Space>
-                <RecursionField schema={schema.items! as Schema} name={index} />
+                <RecursionField schema={schema.items! as any} name={index} />
                 <Button
                   onClick={() => {
                     field.remove(index);

@@ -15,10 +15,6 @@ import { Field as XField, transformConfigRecursively } from '../utils';
 import { CT } from '..';
 import cn from 'classnames';
 
-interface Obj<T extends any = any> {
-  [k: string]: T;
-}
-
 interface StepConfig {
   stepName: string;
   stepTitle: string;
@@ -30,7 +26,7 @@ interface StepFields extends StepConfig {
   fields: XField[];
 }
 
-interface FormRef {
+export interface FormRef {
   formStep?: IFormStep;
 }
 

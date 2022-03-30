@@ -1435,8 +1435,7 @@ export default () => {
 
 ```tsx
 import React from 'react';
-import { Space, Input } from '@formily/antd';
-import { Button } from 'antd';
+import { Button, Space, Input } from 'antd';
 import { Form, Schema, ArrayFieldType } from 'erda-ui-components';
 
 const { createForm, observer, RecursionField, useFieldSchema, useField } = Form;
@@ -1548,8 +1547,7 @@ export default () => {
 
 ```tsx
 import React from 'react';
-import { Input } from '@formily/antd';
-import { Button } from 'antd';
+import { Button, Input } from 'antd';
 import { Form, IFormStep } from 'erda-ui-components';
 
 const { createForm, createFields, StepForm } = Form;

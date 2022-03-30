@@ -13,7 +13,6 @@ export type {
   IFormGridProps,
   FormLayout,
   FormGrid,
-  Schema,
   IFormStep,
 } from './form';
 
