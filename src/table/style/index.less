@@ -1,0 +1,40 @@
+@import (reference) '~antd/es/style/themes/index.less';
+@import '../../themes/default.less';
+
+@table-prefix-cls: ~'@{ant-prefix}-erda-table';
+@ant-table-prefix-cls: ~'@{ant-prefix}-table';
+
+.@{table-prefix-cls} {
+  flex: 1;
+  overflow-y: auto;
+
+  .@{ant-table-prefix-cls}-content {
+    margin: 0 1rem;
+  }
+
+  .@{ant-table-prefix-cls} {
+    border-radius: 0 !important;
+  }
+
+  .@{ant-table-prefix-cls}-tbody td {
+    line-height: 30px !important;
+  }
+
+  .@{ant-table-prefix-cls}-tbody tr:not(.ant-table-measure-row) {
+    td {
+      padding: 4px 12px;
+    }
+  }
+
+  th {
+    padding: 4px 12px !important;
+  }
+
+  .@{ant-table-prefix-cls}-tbody > tr.ant-table-row:hover > td {
+    background: @item-selected-bg;
+
+    // .erda-table-td-title {
+    //   color: $color-table-text-highlight;
+    // }
+  }
+}

@@ -33,7 +33,7 @@ export default defineConfig({
   // webpack5: { lazyCompilation: {} },
   lessLoader: {
     javascriptEnabled: true,
-    modifyVars: { '@primary-color': '#6A549E' },
+    modifyVars: { '@primary-color': '#302647' },
   },
   // more config: https://d.umijs.org/config
 });

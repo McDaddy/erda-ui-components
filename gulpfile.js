@@ -8,7 +8,7 @@ const ts = require('gulp-typescript');
 const babel = require('gulp-babel');
 const merge2 = require('merge2');
 const through2 = require('through2');
-const webpack = require('webpack');
+// const webpack = require('webpack');
 const transformLess = require('./utils/transformLess');
 const { compilerOptions } = require('./tsconfig.json');
 
@@ -66,10 +66,7 @@ function compile(modules) {
         this.push(cloneFile);
 
         // Transform less file
-        if (
-          file.path.match(/(\/|\\)style(\/|\\)index\.less$/) ||
-          includeLessFile.some((regex) => file.path.match(regex))
-        ) {
+        if (file.path.match(/(\/|\\)style(\/|\\)index\.less$/)) {
           transformLess(cloneCssFile.contents.toString(), cloneCssFile.path)
             .then((css) => {
               cloneCssFile.contents = Buffer.from(css);
@@ -100,6 +97,7 @@ function compile(modules) {
   return merge2([less, jsFilesStream, dtsFilesStream]);
 }
 
+/*
 function dist(done) {
   rimraf.sync(getProjectPath('dist'));
   process.env.RUN_ENV = 'PRODUCTION';
@@ -150,3 +148,4 @@ function dist(done) {
     done(0);
   });
 }
+*/
