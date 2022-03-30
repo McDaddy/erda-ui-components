@@ -5,12 +5,9 @@ import ErdaIcon, { ErdaIconProps, useErdaIcon } from 'src/icon';
 
 const TestIconComp = (props: ErdaIconProps<'green' | 'red'>) => {
   useErdaIcon({
-    url: 'https://lf1-cdn-tos.bytegoofy.com/obj/iconpark/icons.es5.js',
+    url: '//at.alicdn.com/t/font_500774_mn4zbo4c94.js',
     colors: {
       green: '#52C41A',
-    },
-    mapping: {
-      map: 'lock',
     },
   });
 
@@ -19,27 +16,13 @@ const TestIconComp = (props: ErdaIconProps<'green' | 'red'>) => {
 
 describe('test Erda Icon', () => {
   it('render basic icon', () => {
-    const { container } = render(<TestIconComp type="lock" />);
-    const iconDom = container.querySelector('iconpark-icon');
-    expect(iconDom?.getAttribute('name')).toBe('lock');
+    const { container } = render(<TestIconComp type="chinese" />);
+    const iconDom = container.querySelector('.erda-icon > use');
+    expect(iconDom?.getAttribute('xlink:href')?.includes('#icon-chinese')).toBeTruthy();
   });
   it('render predefine color icon', () => {
-    const { container } = render(<TestIconComp type="lock" color="green" stroke="green" fill="green" />);
-    const iconDom = container.querySelector('iconpark-icon');
-    expect(iconDom?.getAttribute('color')).toBe('#52C41A');
-    expect(iconDom?.getAttribute('stroke')).toBe('#52C41A');
-    expect(iconDom?.getAttribute('fill')).toBe('#52C41A');
-  });
-  it('render disableCurrent icon', () => {
-    const { container } = render(<TestIconComp type="lock" disableCurrent />);
-    const iconDom = container.querySelector('iconpark-icon');
-    expect(iconDom?.getAttribute('color')).toBeNull();
-    expect(iconDom?.getAttribute('stroke')).toBeNull();
-    expect(iconDom?.getAttribute('fill')).toBeNull();
-  });
-  it('render mapped icon', () => {
-    const { container } = render(<TestIconComp type="map" />);
-    const iconDom = container.querySelector('iconpark-icon');
-    expect(iconDom?.getAttribute('name')).toBe('lock');
+    const { container } = render(<TestIconComp type="aliyun" />);
+    const iconDom = container.querySelector('.erda-icon > use');
+    expect(iconDom?.getAttribute('xlink:href')?.includes('#icon-aliyun')).toBeTruthy();
   });
 });

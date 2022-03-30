@@ -7,7 +7,7 @@ nav:
 
 ## Form Modal
 
-按钮组件
+### 基本用法
 
 ```tsx
 import React from 'react';

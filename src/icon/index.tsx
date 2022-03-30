@@ -1,83 +1,63 @@
 import React from 'react';
 import cn from 'classnames';
 
-export let iconMap: Obj<string> = {};
 let themeColor: Obj<string> = {};
 
 export interface ErdaIconProps<T = any> {
   className?: string;
   type: string; // unique identification of icon
   style?: React.CSSProperties;
-  width?: string; // with of svg, and it's more priority than size
-  height?: string; // height of svg, and it's more priority than size
-  spin?: boolean; // use infinite rotate animation like loading icon, the default value is false
   size?: string | number; // size of svg with default value of 1rem. Use width and height if width-to-height ratio is not 1
-  fill?: T; // color of svg fill area, and it's more priority than color
-  stroke?: T; // color of svg stroke, and it's more priority than color
   color?: T; // color of svg
-  rtl?: boolean; // acoustic image, the default value is from left to right
   onClick?: React.MouseEventHandler;
-  opacity?: number;
-  disableCurrent?: boolean; // true = use origin color
 }
 
-const ErdaIcon = ({ type, fill, disableCurrent = false, color, stroke, className, ...rest }: ErdaIconProps) => {
-  const [fillVal, colorVal, strokeVal] = disableCurrent
-    ? []
-    : [
-        fill ? themeColor[fill] : 'currentColor',
-        color ? themeColor[color] : 'currentColor',
-        stroke ? themeColor[stroke] : 'currentColor',
-      ];
-
+const ErdaIcon = ({ type, color, className, style, onClick, size }: ErdaIconProps) => {
+  const classes = cn(className, 'erda-icon');
+  const sizeWithUnit = typeof size === 'string' || Number.isNaN(Number(size)) ? size : `${size ?? 20}px`;
+  const styleProps = {
+    width: sizeWithUnit,
+    height: sizeWithUnit,
+    color: themeColor[color] ?? 'currentColor',
+    ...style,
+  };
   return (
-    // @ts-ignore iconpark component
-    <iconpark-icon
-      name={iconMap[type] ?? type}
-      fill={fillVal}
-      color={colorVal}
-      stroke={strokeVal}
-      class={cn(className)}
-      {...rest}
-    />
+    <svg className={classes} aria-hidden="true" style={styleProps} onClick={onClick}>
+      <use xlinkHref={`#icon-${type}`} />
+    </svg>
   );
 };
 
 ErdaIcon.themeColor = themeColor;
 
-export const useErdaIcon = ({
-  url: scriptUrl,
-  mapping,
-  colors,
-}: {
-  url: string | string[];
-  mapping?: Obj<string>;
-  colors?: Obj<string>;
-}) => {
-  if (mapping) {
-    iconMap = mapping;
+const insertScripts = (scriptUrls: string[]) => {
+  const scripts: HTMLScriptElement[] = [];
+
+  for (let i = 0; i < scriptUrls.length; i++) {
+    const script = document.createElement('script');
+    script.src = scriptUrls[i];
+    script.async = true;
+    document.body.appendChild(script);
+    scripts.push(script);
   }
-  if (colors) {
-    themeColor = colors;
+  return scripts;
+};
+
+export const useErdaIcon = (props?: { url?: string | string[]; colors?: Obj<string> }) => {
+  if (props?.colors) {
+    themeColor = props.colors;
   }
 
   React.useLayoutEffect(() => {
-    const scripts: HTMLScriptElement[] = [];
-    const scriptUrls = Array.isArray(scriptUrl) ? scriptUrl : [scriptUrl];
-    scriptUrls.forEach((url) => {
-      const script = document.createElement('script');
-      script.src = url;
-      script.async = true;
-      document.body.appendChild(script);
-      scripts.push(script);
-    });
-
+    const scriptUrls = props?.url ? (Array.isArray(props.url) ? props.url : [props.url]) : [];
+    scriptUrls.push('//at.alicdn.com/t/font_1538246_9a270phpjyn.js');
+    const scripts = insertScripts(scriptUrls);
     return () => {
       scripts.forEach((script) => {
         document.body.removeChild(script);
       });
     };
-  }, [scriptUrl]);
+  }, [props?.url]);
 };
 
 export default ErdaIcon;

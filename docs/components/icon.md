@@ -14,15 +14,13 @@ import React from 'react';
 import { ErdaIcon, useErdaIcon } from 'erda-ui-components';
 
 export default () => {
-  useErdaIcon({
-    url: 'https://lf1-cdn-tos.bytegoofy.com/obj/iconpark/icons_138_430.0403c6a0a00cff5b144244eb211e0af9.es5.js',
-  });
+  useErdaIcon();
 
-  return <ErdaIcon type="lock" />;
+  return <ErdaIcon type="chinese" />;
 };
 ```
 
-### 设置图标映射
+### 添加自定义 iconfont
 
 ```tsx
 import React from 'react';
@@ -30,17 +28,14 @@ import { ErdaIcon, useErdaIcon } from 'erda-ui-components';
 
 export default () => {
   useErdaIcon({
-    url: 'https://lf1-cdn-tos.bytegoofy.com/obj/iconpark/icons_138_430.0403c6a0a00cff5b144244eb211e0af9.es5.js',
-    mapping: {
-      map: 'lock',
-    },
+    url: '//at.alicdn.com/t/font_500774_mn4zbo4c94.js',
   });
 
-  return <ErdaIcon type="map" />;
+  return <ErdaIcon type="aliyun" />;
 };
 ```
 
-### 图标颜色
+### 图标颜色大小
 
 ```tsx
 import React from 'react';
@@ -48,12 +43,11 @@ import { ErdaIcon, useErdaIcon } from 'erda-ui-components';
 
 export default () => {
   useErdaIcon({
-    url: 'https://lf1-cdn-tos.bytegoofy.com/obj/iconpark/icons_138_430.0403c6a0a00cff5b144244eb211e0af9.es5.js',
     colors: {
       green: '#52C41A',
     },
   });
 
-  return <ErdaIcon type="jinru" color="green" stroke="green" fill="green" size="24px" />;
+  return <ErdaIcon type="bell" color="green" size="36px" />;
 };
 ```
