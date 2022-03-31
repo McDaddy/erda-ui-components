@@ -20,6 +20,7 @@
     "modifyVars",
     "navs",
     "pnpm",
+    "Popover",
     "precommit",
     "prettierrc",
     "stylelint",

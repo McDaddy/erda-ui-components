@@ -9,7 +9,7 @@
     "prettier": "prettier -c --write .",
     "prepare": "husky install",
     "precommit": "lint-staged",
-    "lint": "npm run tsc && npm run lint:script && npm run lint:demo && npm run lint:style && npm run lint:deps && npm run lint:md",
+    "lint": "eslint --ext .ts,.tsx,.js,.jsx src",
     "test": "jest",
     "test:coverage": "jest --coverage"
   },

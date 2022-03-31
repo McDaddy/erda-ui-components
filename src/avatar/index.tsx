@@ -9,7 +9,7 @@ export interface AvatarProps {
   size?: number;
   className?: string;
   wrapClassName?: string;
-  imgPresets?: (string | React.ReactNode)[];
+  imgPresets?: Array<string | React.ReactNode>;
 }
 
 const Avatar = (props: AvatarProps) => {

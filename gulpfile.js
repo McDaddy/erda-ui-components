@@ -16,8 +16,6 @@ const tsConfig = {
   noUnusedParameters: true,
   noUnusedLocals: true,
   strictNullChecks: true,
-  target: 'es6',
-  jsx: 'react',
   moduleResolution: 'node',
   declaration: true,
   preserveSymlinks: true,

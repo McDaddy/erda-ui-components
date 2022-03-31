@@ -20,6 +20,12 @@ export interface FormModalProps extends ModalProps {
 const FormModal = (props: FormModalProps) => {
   const { formProps, isEditing, title, ...rest } = props;
 
+  React.useEffect(() => {
+    return () => {
+      formProps.form && formProps.form.reset();
+    };
+  });
+
   const { locale } = React.useContext(Context);
 
   const localeProps = localeMap[locale];

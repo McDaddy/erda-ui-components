@@ -23,5 +23,3 @@ export const ossImg = (src: string | undefined | null, config: IOssConfig = { w:
   const _params = Object.keys(params).reduce((all, key) => `${all},${key}_${params[key as 'w' | 'h']}`, '');
   return `${removeProtocol(src)}?x-oss-process=image/${op || 'resize'}${_params}`;
 };
-
-export default {};

@@ -1,4 +1,5 @@
 import { defineConfig } from 'dumi';
+import { resolve } from 'path';
 
 const title = 'Erda UI Components';
 const repo = 'erda-ui-components';
@@ -16,6 +17,9 @@ export default defineConfig({
   // Because of using GitHub Pages
   base: `/${repo}/`,
   publicPath: `/${repo}/`,
+  alias: {
+    src: resolve(__dirname, 'src'),
+  },
   navs: [
     null,
     {

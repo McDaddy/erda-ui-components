@@ -33,9 +33,14 @@ ErdaIcon.themeColor = themeColor;
 const insertScripts = (scriptUrls: string[]) => {
   const scripts: HTMLScriptElement[] = [];
 
-  for (let i = 0; i < scriptUrls.length; i++) {
+  // make sure only insert script once
+  const existScripts = Array.from(document.querySelectorAll('script'));
+  const existScriptUrls = existScripts.map((script) => script.src);
+  const pendingInsertScripts = scriptUrls.filter((url) => !existScriptUrls.some((eUrl) => eUrl.endsWith(url)));
+
+  for (let i = 0; i < pendingInsertScripts.length; i++) {
     const script = document.createElement('script');
-    script.src = scriptUrls[i];
+    script.src = pendingInsertScripts[i];
     script.async = true;
     document.body.appendChild(script);
     scripts.push(script);
@@ -50,7 +55,7 @@ export const useErdaIcon = (props?: { url?: string | string[]; colors?: Obj<stri
 
   React.useLayoutEffect(() => {
     const scriptUrls = props?.url ? (Array.isArray(props.url) ? props.url : [props.url]) : [];
-    scriptUrls.push('//at.alicdn.com/t/font_1538246_9a270phpjyn.js');
+    scriptUrls.push('//at.alicdn.com/t/font_1538246_ya8icumcvsa.js'); // TODO keep it as static
     const scripts = insertScripts(scriptUrls);
     return () => {
       scripts.forEach((script) => {

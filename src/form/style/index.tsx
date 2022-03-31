@@ -1,2 +1,2 @@
-import '@formily/antd/lib/form-item/style';
+import '@formily/antd/esm/form-item/style.less';
 import './index.less';
