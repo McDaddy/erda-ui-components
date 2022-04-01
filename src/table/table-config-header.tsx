@@ -3,34 +3,68 @@ import { Checkbox, Popover } from 'antd';
 import ErdaIcon from '../icon';
 import { ErdaColumnType } from '.';
 import { SorterResult } from 'antd/lib/table/interface';
-// import { TableConfigProps, ColumnProps } from './interface';
+import { getLsColumnsConfig, saveLsColumnsConfig, transformDataIndex } from './utils';
+import { usePrefixCls } from 'src/_util/hooks';
+import cn from 'classnames';
+import { ColumnsConfig } from './interface';
 
 export interface TableConfigProps<T> {
   slot?: React.ReactNode;
   columns: Array<ErdaColumnType<T>>;
-  setColumns: (val: Array<ErdaColumnType<T>>) => void;
+  setHiddenColumns: (val: string[]) => void;
   onReload: () => void;
   sortColumn: SorterResult<T>;
   hideReload?: boolean;
   hideColumnConfig?: boolean;
-  whiteHead?: boolean;
+  whiteHeader?: boolean;
+  tableKey?: string;
 }
 
 function TableConfigHeader<T extends Record<string, any>>({
   slot,
   columns,
-  setColumns,
+  setHiddenColumns,
   onReload,
   sortColumn,
   hideColumnConfig = false,
   hideReload = false,
-  whiteHead,
+  whiteHeader,
+  tableKey,
 }: TableConfigProps<T>) {
   const { column, order } = sortColumn;
+  const [clsPrefix] = usePrefixCls('table-header');
+
+  React.useEffect(() => {
+    if (!tableKey) {
+      return;
+    }
+    const originLsConfig = getLsColumnsConfig(tableKey);
+    if (!originLsConfig) {
+      return;
+    }
+    const _columns = columns
+      .map<string>(({ dataIndex: _dataIndex }): string => {
+        const dataIndex = transformDataIndex(_dataIndex);
+        return originLsConfig[dataIndex].hidden ? (_dataIndex as string) : '';
+      })
+      .filter(Boolean);
+    setHiddenColumns(_columns);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setHiddenColumns, tableKey]); // only trigger on mount
 
   const onCheck = (checked: boolean, title: string) => {
-    const newColumns = columns.map((item) => (item.title === title ? { ...item, hidden: !checked } : item));
-    setColumns(newColumns);
+    if (tableKey) {
+      const hiddenColumns: string[] = [];
+      const lsColumns = columns.reduce<ColumnsConfig>((acc, { dataIndex, title: _title, hidden }) => {
+        const _dataIndex = transformDataIndex(dataIndex);
+        const currentStatus = _title === title ? !checked : !!hidden;
+        acc[_dataIndex] = { dataIndex: _dataIndex, hidden: currentStatus };
+        currentStatus && hiddenColumns.push(dataIndex as string);
+        return acc;
+      }, {});
+      setHiddenColumns(hiddenColumns);
+      saveLsColumnsConfig(tableKey, lsColumns);
+    }
   };
 
   const showLength = columns.filter((item) => !item.hidden).length;
@@ -39,7 +73,7 @@ function TableConfigHeader<T extends Record<string, any>>({
     .map((item: ErdaColumnType<T>) => (
       <div key={`${item.dataIndex}`}>
         <Checkbox
-          className="whitespace-nowrap"
+          className={`${clsPrefix}-checkbox`}
           checked={!item.hidden}
           onChange={(e) => onCheck(e.target.checked, item.title as string)}
           disabled={showLength === 1 && !item.hidden}
@@ -50,29 +84,21 @@ function TableConfigHeader<T extends Record<string, any>>({
     ));
 
   return (
-    <div className={`erda-table-filter flex justify-between ${whiteHead ? 'bg-white' : 'bg-default-02'}`}>
-      <div className="erda-table-filter-content flex-1 flex items-center">
-        <div className="flex-1">{slot}</div>
+    <div className={cn(`${clsPrefix}`, whiteHeader ? `${clsPrefix}-white-bg` : `${clsPrefix}-default-bg-02`)}>
+      <div className={`${clsPrefix}-slot}`}>
+        <div>{slot}</div>
       </div>
-      <div className="erda-table-filter-ops flex items-center">
-        {!hideReload ? (
-          <ErdaIcon
-            size="20"
-            className={`icon-hover ml-3 bg-hover p-1`}
-            type="refresh"
-            color="currentColor"
-            onClick={onReload}
-          />
-        ) : null}
+      <div className={`${clsPrefix}-ops`}>
+        {!hideReload ? <ErdaIcon size="20" className={`${clsPrefix}-icon`} type="refresh" onClick={onReload} /> : null}
         {!hideColumnConfig ? (
           <Popover
             content={columnsFilter}
             trigger="click"
             placement="bottomRight"
-            overlayClassName="erda-table-columns-filter"
+            overlayClassName={`${clsPrefix}-columns-filter`}
             getPopupContainer={(triggerNode) => triggerNode.parentElement as HTMLElement}
           >
-            <ErdaIcon type="config" size="20" className={`ml-3 icon-hover bg-hover p-1`} />
+            <ErdaIcon type="config" size="20" className={`${clsPrefix}-icon`} />
           </Popover>
         ) : null}
       </div>

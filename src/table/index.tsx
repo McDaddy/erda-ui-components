@@ -5,8 +5,9 @@ import { usePrefixCls } from '../_util/hooks';
 import { ColumnType } from 'antd/lib/table';
 import TableConfigHeader from './table-config-header';
 import { SorterResult } from 'antd/lib/table/interface';
-import { ColumnsConfig, getLsColumnsConfig, saveLsColumnsConfig, transformDataIndex } from './utils';
 import { useErdaIcon } from 'src/icon';
+import { TableRowActions } from './interface';
+import { renderActions } from './utils';
 
 export interface ErdaColumnType<T> extends ColumnType<T> {
   subTitle?: ((text: string, record: T, index: number) => React.ReactNode) | React.ReactNode;
@@ -16,16 +17,17 @@ export interface ErdaColumnType<T> extends ColumnType<T> {
 }
 
 export interface ErdaTableProps<T = unknown> extends TableProps<T> {
-  tableKey?: string;
   columns: Array<ErdaColumnType<T>>;
   headerConfig?: {
+    tableKey?: string;
     hideHeader?: boolean;
     hideReload?: boolean;
     hideColumnConfig?: boolean;
     slot?: React.ReactNode;
     onReload: () => void;
-    whiteHead?: boolean;
+    whiteHeader?: boolean;
   };
+  actions?: TableRowActions<T> | null;
 }
 
 const ErdaTable = <T extends object>({
@@ -37,19 +39,16 @@ const ErdaTable = <T extends object>({
   className,
   columns: columnsSource,
   headerConfig,
-  tableKey,
+  actions,
   ...restTableProps
 }: ErdaTableProps<T>) => {
   useErdaIcon();
-  const prefixCls = usePrefixCls();
+  const [prefixCls] = usePrefixCls('table');
   const [columns, setColumns] = React.useState(columnsSource);
-  const [sortColumn, setSortColumn] = React.useState<SorterResult<T>>({}); // TODO
-  // eslint-disable-next-line no-console
-  console.log('🚀 ~ file: index.tsx ~ line 48 ~ setSortColumn', setSortColumn);
-  const columnsConfig = React.useRef(tableKey ? getLsColumnsConfig(tableKey) : {});
+  const [hiddenColumns, setHiddenColumns] = React.useState<string[]>([]);
+  const [sortColumn] = React.useState<SorterResult<T>>({}); // TODO
 
   React.useEffect(() => {
-    const _columnsConfig: ColumnsConfig = {};
     const _columns = columnsSource.map(
       ({
         width = 300,
@@ -58,13 +57,12 @@ const ErdaTable = <T extends object>({
         // render,
         // icon,
         align,
-        dataIndex: _dataIndex,
-        hidden = false,
+        dataIndex,
         ...restColumnProps
       }) => {
-        const dataIndex = transformDataIndex(_dataIndex);
-        const _columnConfig = columnsConfig.current[dataIndex] || { dataIndex, hidden: !!hidden };
-        _columnsConfig[dataIndex] = _columnConfig;
+        // const dataIndex = transformDataIndex(_dataIndex);
+        // const _columnConfig = columnsConfig.current[dataIndex] || { dataIndex, hidden: !!hidden };
+        // _columnsConfig[dataIndex] = _columnConfig;
 
         // const { subTitle } = args;
         // let sortTitle;
@@ -126,25 +124,24 @@ const ErdaTable = <T extends object>({
         //     );
         //   };
         // }
-
         return {
           align,
           title,
           // sortTitle,
           ellipsis: true,
-          onCell: () => ({ style: { maxWidth: width }, className: align === 'right' && sorter ? 'pr-8' : '' }),
+          onCell: () => ({
+            style: { maxWidth: width },
+            className: cn({ [`${prefixCls}-sort-cell`]: align === 'right' && sorter }),
+          }),
           // render: columnRender,
           dataIndex,
+          hidden: hiddenColumns.includes(dataIndex as string),
           ...restColumnProps,
-          hidden: _columnConfig.hidden,
         };
       },
     );
-
-    columnsConfig.current = _columnsConfig;
     setColumns(_columns);
-    tableKey && saveLsColumnsConfig(tableKey, _columnsConfig);
-  }, [columnsSource, tableKey]);
+  }, [columnsSource, hiddenColumns, prefixCls]);
 
   const onReload = () => {
     if (headerConfig?.onReload) {
@@ -165,16 +162,10 @@ const ErdaTable = <T extends object>({
           hideReload={headerConfig?.hideReload}
           columns={columns}
           sortColumn={sortColumn}
-          setColumns={(val) => {
-            val.forEach((col) => {
-              columnsConfig.current[col.dataIndex as string].hidden = !!col.hidden;
-            });
-
-            tableKey && saveLsColumnsConfig(tableKey, columnsConfig.current);
-            setColumns(val);
-          }}
+          setHiddenColumns={setHiddenColumns}
           onReload={onReload}
-          whiteHead={headerConfig?.whiteHead}
+          whiteHeader={headerConfig?.whiteHeader}
+          tableKey={headerConfig?.tableKey}
         />
       )}
       <Table
@@ -182,9 +173,9 @@ const ErdaTable = <T extends object>({
         scroll={{ x: '100%' }}
         columns={[
           ...columns.filter((item) => !item.hidden).map((item) => ({ ...item, title: item.sortTitle || item.title })),
-          // ...renderActions(actions),
+          ...renderActions(prefixCls, actions),
         ]}
-        rowClassName={onRow ? `cursor-pointer ${rowClassName || ''}` : rowClassName}
+        rowClassName={cn({ 'cursor-pointer': onRow }, rowClassName)}
         size="small"
         pagination={false}
         onChange={onChange}
@@ -203,7 +194,7 @@ const ErdaTable = <T extends object>({
         //     : undefined
         // }
         // {...props}
-        className={cn(`${prefixCls}-erda-table`, className)}
+        className={cn(`${prefixCls}-table`, className)}
         tableLayout="auto"
         // locale={{
         //   emptyText:

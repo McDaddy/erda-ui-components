@@ -57,6 +57,88 @@ export default () => {
     },
   ];
 
-  return <Table columns={columns} dataSource={dataSource} />;
+  return <Table columns={columns} dataSource={dataSource} headerConfig={{ tableKey: 'basic', whiteHeader: true }} />;
+};
+```
+
+### 行操作
+
+```tsx
+import React from 'react';
+import { Table } from 'erda-ui-components';
+import { Tooltip } from 'antd';
+
+export default () => {
+  const columns = [
+    {
+      title: '集群名称',
+      dataIndex: 'clusterName',
+      render: (value: string) => <Tooltip title={value}>{value}</Tooltip>,
+    },
+    {
+      title: '域名',
+      dataIndex: 'domain',
+      render: (value: string) => <Tooltip title={value}>{value}</Tooltip>,
+    },
+    {
+      title: '归属类型',
+      dataIndex: 'type',
+    },
+    {
+      title: '项目名称',
+      dataIndex: 'projectName',
+      render: (value: string) => <Tooltip title={value}>{value}</Tooltip>,
+    },
+    {
+      title: '应用名',
+      dataIndex: 'appName',
+      render: (value: string) => <Tooltip title={value}>{value}</Tooltip>,
+    },
+    {
+      title: '环境',
+      dataIndex: 'workspace',
+    },
+  ];
+
+  const dataSource = [
+    {
+      clusterName: 'daily-cluster',
+      domain: 'erda.cloud',
+      type: 'API网关',
+      projectName: 'auto-cmp-project',
+      appName: 'base-api-design',
+      workspace: '测试',
+    },
+  ];
+
+  const actions = {
+    render: (record) => {
+      return [
+        {
+          title: '管理',
+          onClick: () => {
+            console.log(record);
+          },
+          disabled: true,
+          disabledTip: 'disable reason',
+        },
+        {
+          title: '编辑',
+          onClick: () => {
+            console.log(record);
+          },
+        },
+      ];
+    },
+  };
+
+  return (
+    <Table
+      columns={columns}
+      dataSource={dataSource}
+      headerConfig={{ tableKey: 'action', whiteHeader: true }}
+      actions={actions}
+    />
+  );
 };
 ```

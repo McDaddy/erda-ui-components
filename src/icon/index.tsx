@@ -55,7 +55,7 @@ export const useErdaIcon = (props?: { url?: string | string[]; colors?: Obj<stri
 
   React.useLayoutEffect(() => {
     const scriptUrls = props?.url ? (Array.isArray(props.url) ? props.url : [props.url]) : [];
-    scriptUrls.push('//at.alicdn.com/t/font_1538246_ya8icumcvsa.js'); // TODO keep it as static
+    scriptUrls.push('//at.alicdn.com/t/font_1538246_v09pfnqrc6m.js'); // TODO keep it as static
     const scripts = insertScripts(scriptUrls);
     return () => {
       scripts.forEach((script) => {

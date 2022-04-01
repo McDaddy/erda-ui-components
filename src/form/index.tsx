@@ -55,7 +55,7 @@ const defaultLayoutConfig = {
 const ErdaForm = <T extends Obj>({ fieldsConfig, form, layoutConfig, style, gridConfig, className }: FormProps<T>) => {
   const componentMap = React.useRef(new Map<CT, string>());
 
-  const prefixCls = usePrefixCls();
+  const [prefixCls] = usePrefixCls();
 
   const properties = React.useMemo(
     () => transformConfigRecursively(fieldsConfig, componentMap.current),
@@ -95,7 +95,7 @@ const ErdaForm = <T extends Obj>({ fieldsConfig, form, layoutConfig, style, grid
 
   return (
     <FormProvider form={form!}>
-      <Form style={style} className={classnames(`${prefixCls}-erda-form`, className)} form={form!}>
+      <Form style={style} className={classnames(`${prefixCls}-form`, className)} form={form!}>
         <SchemaField schema={schemaConfig} />
       </Form>
     </FormProvider>

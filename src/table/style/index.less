@@ -1,7 +1,7 @@
 @import (reference) '~antd/es/style/themes/index.less';
 @import '../../themes/default.less';
 
-@table-prefix-cls: ~'@{ant-prefix}-erda-table';
+@table-prefix-cls: ~'@{erda-prefix}-table';
 @ant-table-prefix-cls: ~'@{ant-prefix}-table';
 
 .@{table-prefix-cls} {
@@ -26,8 +26,28 @@
     }
   }
 
+  &-sort-cell {
+    padding-right: 32px;
+  }
+
+  &-action-menu-item {
+    color: unset;
+    cursor: pointer;
+    margin-right: 4px;
+  }
+
+  &-action-more {
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 2px;
+  }
+
   th {
     padding: 4px 12px !important;
+  }
+
+  &-action-menu-item-disabled {
+    color: @disabled-color;
   }
 
   .@{ant-table-prefix-cls}-tbody > tr.ant-table-row:hover > td {

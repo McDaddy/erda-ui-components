@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { ConfigProvider } from 'antd';
+import { Context as EcContext } from '../context-provider';
 
 export const usePrefixCls = (
   tag?: string,
@@ -8,7 +9,9 @@ export const usePrefixCls = (
   },
 ) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  return getPrefixCls(tag, props?.prefixCls);
+  const { clsPrefix } = useContext(EcContext);
+
+  return [`${clsPrefix}-${tag}`, getPrefixCls(tag, props?.prefixCls)];
 };
 
 export const useLocale = () => {
