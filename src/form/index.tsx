@@ -29,11 +29,10 @@ import {
 import { action } from '@formily/reactive';
 import { Form, FormItem, FormLayout, IFormLayoutProps, FormGrid, IFormGridProps, IFormStep } from '@formily/antd';
 import { createFields, Field as XField, transformConfigRecursively } from './utils';
+import type { CT } from './utils';
 import StepForm from './step-form';
 import classnames from 'classnames';
 import { usePrefixCls } from '../_util/hooks';
-
-export type CT = React.ComponentClass | React.FunctionComponent;
 
 // type IsUnion<T, U extends T = T> = (T extends any ? (U extends T ? false : true) : never) extends false ? false : true;
 

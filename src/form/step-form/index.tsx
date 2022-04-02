@@ -11,8 +11,7 @@ import {
   IFormLayoutProps,
   IFormGridProps,
 } from '@formily/antd';
-import { Field as XField, transformConfigRecursively } from '../utils';
-import { CT } from '..';
+import { CT, Field as XField, transformConfigRecursively } from '../utils';
 import cn from 'classnames';
 
 interface StepConfig {

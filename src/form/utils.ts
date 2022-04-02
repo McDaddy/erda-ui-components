@@ -3,7 +3,7 @@ import { IFormGridProps, IFormItemProps, IFormLayoutProps } from '@formily/antd'
 import { FieldValidator } from '@formily/core';
 import { map, reduce, uniqueId } from 'lodash';
 
-type CT = React.ComponentClass | React.FunctionComponent | React.VoidFunctionComponent;
+export type CT = React.ComponentClass | React.FunctionComponent | React.VoidFunctionComponent;
 
 export interface Field<T extends CT = any> {
   name: string;
