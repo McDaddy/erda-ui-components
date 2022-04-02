@@ -2,7 +2,6 @@ import React from 'react';
 import { Checkbox, Popover } from 'antd';
 import ErdaIcon from '../icon';
 import { ErdaColumnType } from '.';
-import { SorterResult } from 'antd/lib/table/interface';
 import { getLsColumnsConfig, saveLsColumnsConfig, transformDataIndex } from './utils';
 import { usePrefixCls } from 'src/_util/hooks';
 import cn from 'classnames';
@@ -13,7 +12,6 @@ export interface TableConfigProps<T> {
   columns: Array<ErdaColumnType<T>>;
   setHiddenColumns: (val: string[]) => void;
   onReload: () => void;
-  sortColumn: SorterResult<T>;
   hideReload?: boolean;
   hideColumnConfig?: boolean;
   whiteHeader?: boolean;
@@ -25,13 +23,11 @@ function TableConfigHeader<T extends Record<string, any>>({
   columns,
   setHiddenColumns,
   onReload,
-  sortColumn,
   hideColumnConfig = false,
   hideReload = false,
   whiteHeader,
   tableKey,
 }: TableConfigProps<T>) {
-  const { column, order } = sortColumn;
   const [clsPrefix] = usePrefixCls('table-header');
 
   React.useEffect(() => {
@@ -45,7 +41,7 @@ function TableConfigHeader<T extends Record<string, any>>({
     const _columns = columns
       .map<string>(({ dataIndex: _dataIndex }): string => {
         const dataIndex = transformDataIndex(_dataIndex);
-        return originLsConfig[dataIndex].hidden ? (_dataIndex as string) : '';
+        return originLsConfig[dataIndex] && originLsConfig[dataIndex].hidden ? (_dataIndex as string) : '';
       })
       .filter(Boolean);
     setHiddenColumns(_columns);
@@ -53,16 +49,16 @@ function TableConfigHeader<T extends Record<string, any>>({
   }, [setHiddenColumns, tableKey]); // only trigger on mount
 
   const onCheck = (checked: boolean, title: string) => {
+    const hiddenColumns: string[] = [];
+    const lsColumns = columns.reduce<ColumnsConfig>((acc, { dataIndex, title: _title, hidden }) => {
+      const _dataIndex = transformDataIndex(dataIndex);
+      const currentStatus = _title === title ? !checked : !!hidden;
+      acc[_dataIndex] = { dataIndex: _dataIndex, hidden: currentStatus };
+      currentStatus && hiddenColumns.push(dataIndex as string);
+      return acc;
+    }, {});
+    setHiddenColumns(hiddenColumns);
     if (tableKey) {
-      const hiddenColumns: string[] = [];
-      const lsColumns = columns.reduce<ColumnsConfig>((acc, { dataIndex, title: _title, hidden }) => {
-        const _dataIndex = transformDataIndex(dataIndex);
-        const currentStatus = _title === title ? !checked : !!hidden;
-        acc[_dataIndex] = { dataIndex: _dataIndex, hidden: currentStatus };
-        currentStatus && hiddenColumns.push(dataIndex as string);
-        return acc;
-      }, {});
-      setHiddenColumns(hiddenColumns);
       saveLsColumnsConfig(tableKey, lsColumns);
     }
   };
@@ -78,7 +74,7 @@ function TableConfigHeader<T extends Record<string, any>>({
           onChange={(e) => onCheck(e.target.checked, item.title as string)}
           disabled={showLength === 1 && !item.hidden}
         >
-          {typeof item.title === 'function' ? item.title({ sortColumn: column, sortOrder: order }) : item.title}
+          {typeof item.title === 'function' ? item.title({}) : item.title}
         </Checkbox>
       </div>
     ));

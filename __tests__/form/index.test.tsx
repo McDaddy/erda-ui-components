@@ -173,6 +173,46 @@ describe('erda form test', () => {
     expect(container.getElementsByClassName('ant-input')).toHaveLength(4);
   });
 
+  it('render custom field', async () => {
+    const form = createForm();
+    const CustomComp = ({
+      value,
+      onChange,
+    }: {
+      value: string;
+      onChange: React.ChangeEventHandler<HTMLInputElement>;
+    }) => {
+      const [count, setCount] = React.useState(0);
+
+      React.useEffect(() => {
+        setCount(value?.length);
+      }, [value]);
+
+      return (
+        <div style={{ display: 'flex', paddingLeft: '16px' }}>
+          <div>{count}</div>
+          <Input value={value} onChange={onChange} />
+        </div>
+      );
+    };
+
+    const fieldsConfig = createFields([
+      {
+        title: '自定义组件',
+        component: CustomComp,
+        name: 'customValue',
+      },
+      {
+        title: '自定义组件2',
+        component: CustomComp,
+        name: 'customValue2',
+      },
+    ]);
+
+    render(<Form form={form} fieldsConfig={fieldsConfig} />);
+    expect(screen.getByText('自定义组件2')).toBeInTheDocument();
+  });
+
   it('render step form', async () => {
     const form = createForm();
     const fieldsConfig = createFields([

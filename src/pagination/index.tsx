@@ -1,0 +1,168 @@
+// Copyright (c) 2021 Terminus, Inc.
+//
+// This program is free software: you can use, redistribute, and/or modify
+// it under the terms of the GNU Affero General Public License, version 3
+// or later ("AGPL"), as published by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful, but WITHOUT
+// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+// FITNESS FOR A PARTICULAR PURPOSE.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+import React from 'react';
+import { Popover, Input, Button, Dropdown, Menu } from 'antd';
+import ErdaIcon from 'src/icon';
+import { PAGINATION } from 'src/table/utils';
+
+/**
+ * 配置项：
+    total // 总数，默认为0
+    current // 当前页码，默认为1
+    pageSize // 每页行数默认为PAGINATION.pageSize
+    showSizeChanger // 是否选择pageSize的下拉选择框，默认为true
+    onChange // 翻页或者pageSize选择时触发，第一个参数为current，第二个参数为pageSize
+ */
+export interface IPaginationProps {
+  total?: number;
+  current?: number;
+  pageSize?: number;
+  theme?: 'light' | 'dark';
+  onChange: (page: number, pageSize: number) => void;
+  hidePageSizeChange?: boolean;
+  hideTotal?: boolean;
+}
+
+interface IPaginationJumpProps {
+  pagination: IPaginationProps;
+  hidePopover: () => void;
+}
+
+const Pagination = (pagination: IPaginationProps) => {
+  const {
+    total = 0,
+    current = 1,
+    pageSize = PAGINATION.pageSize,
+    onChange,
+    hidePageSizeChange = false,
+    hideTotal = false,
+    theme = 'light',
+  } = pagination;
+
+  const [goToVisible, setGoToVisible] = React.useState(false);
+
+  return (
+    <div className={`erda-pagination flex justify-end items-center relative theme-${theme}`}>
+      {!hideTotal ? <div className="erda-pagination-total mr-2">{`共 ${total} 条`}</div> : null}
+      <div className="erda-pagination-content inline-flex">
+        <div
+          className={`bg-hover flex-all-center leading-none hover:bg-default-06 pagination-pre ${
+            current === 1 ? 'disabled' : 'cursor-pointer'
+          }`}
+          onClick={() => current > 1 && onChange?.(current - 1, pageSize)}
+        >
+          <ErdaIcon type="left" size={18} />
+        </div>
+
+        <Popover
+          content={<PaginationJump pagination={pagination} hidePopover={() => setGoToVisible(false)} />}
+          trigger="click"
+          getPopupContainer={(triggerNode) => triggerNode.parentElement as HTMLElement}
+          placement="top"
+          overlayClassName="pagination-jump"
+          visible={goToVisible}
+          onVisibleChange={setGoToVisible}
+        >
+          <div
+            className="pagination-center bg-hover hover:bg-default-06 px-3 cursor-pointer"
+            onClick={() => setGoToVisible(true)}
+          >
+            {total ? pagination.current : 0} / {(total && pageSize && Math.ceil(total / pageSize)) || 0}
+          </div>
+        </Popover>
+
+        <div
+          className={`bg-hover flex-all-center leading-none hover:bg-default-06 pagination-next ${
+            current === Math.ceil(total / pageSize) || total === 0 ? 'disabled' : 'cursor-pointer'
+          }`}
+          onClick={() => total && current < Math.ceil(total / pageSize) && onChange?.(current + 1, pageSize)}
+        >
+          <ErdaIcon type="right" size={18} />
+        </div>
+      </div>
+      {!hidePageSizeChange ? (
+        <Dropdown
+          trigger={['click']}
+          overlay={
+            <Menu>
+              {PAGINATION.pageSizeOptions.map((item: string | number) => {
+                return (
+                  <Menu.Item key={item} onClick={() => onChange?.(1, +item)}>
+                    <span className="fake-link mr-1">{`${item} 条 / 页`}</span>
+                  </Menu.Item>
+                );
+              })}
+            </Menu>
+          }
+          align={{ offset: [0, 5] }}
+          overlayStyle={{ minWidth: 120 }}
+          getPopupContainer={(triggerNode) => triggerNode.parentElement as HTMLElement}
+        >
+          <span className="bg-hover px-3 py-1 cursor-pointer hover:bg-default-06">{`${pageSize} 条 / 页`}</span>
+        </Dropdown>
+      ) : null}
+    </div>
+  );
+};
+
+const PaginationJump = ({ pagination, hidePopover }: IPaginationJumpProps) => {
+  const { total = 0, pageSize = PAGINATION.pageSize, onChange } = pagination;
+  const [value, setValue] = React.useState('');
+
+  const handleChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { value: val } = e.target;
+      if (!isNaN(Number(val)) && +val > 0 && !val.includes('.')) {
+        setValue(val);
+      } else if (!val) {
+        setValue('');
+      }
+    },
+    [setValue],
+  );
+
+  const jump = () => {
+    const maxCurrent = Math.ceil(total / pageSize);
+    if (value) {
+      if (+value <= maxCurrent) {
+        onChange?.(+value, pageSize);
+      } else {
+        onChange?.(maxCurrent, pageSize);
+      }
+      setValue('');
+      hidePopover();
+    }
+  };
+
+  return (
+    <div className="flex items-center erda-pagination-jump" onClick={(e) => e.stopPropagation()}>
+      {'前往页'}
+      <Input
+        className="mx-2"
+        autoFocus
+        style={{ width: 80 }}
+        value={value}
+        onChange={handleChange}
+        onPressEnter={jump}
+      />
+      <Button
+        type="primary"
+        size="small"
+        icon={<ErdaIcon type="enter" onClick={jump} className="relative top-0.5" />}
+      />
+    </div>
+  );
+};
+
+export default Pagination;

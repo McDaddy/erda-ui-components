@@ -26,28 +26,75 @@
     }
   }
 
+  th {
+    padding: 4px 12px !important;
+  }
+
+  // sorter
   &-sort-cell {
     padding-right: 32px;
   }
 
-  &-action-menu-item {
+  &-menu-item {
     color: unset;
     cursor: pointer;
     margin-right: 4px;
   }
 
+  // action more
   &-action-more {
     cursor: pointer;
     padding: 4px;
     border-radius: 2px;
   }
 
-  th {
-    padding: 4px 12px !important;
+  &-menu-item-disabled {
+    color: @darkgray;
+    cursor: not-allowed;
   }
 
-  &-action-menu-item-disabled {
-    color: @disabled-color;
+  &-menu-icon {
+    position: relative;
+    margin-right: 4px;
+    top: 2px;
+  }
+
+  &-sorter-overlay {
+    width: 160px;
+    min-width: 160px !important;
+
+    .@{ant-table-prefix-cls}-dropdown-menu-title-content > span {
+      color: @color-table-color;
+    }
+  }
+
+  &-justify-center {
+    justify-content: center;
+  }
+  &-justify-start {
+    justify-content: flex-start;
+  }
+  &-justify-end {
+    justify-content: flex-end;
+  }
+
+  &-sorter {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    &-icon {
+      position: relative;
+      top: 3px;
+      font-size: 14px;
+      color: @black-4;
+      padding-left: 4px;
+    }
+
+    &-icon-content {
+      position: relative;
+      top: 2px;
+    }
   }
 
   .@{ant-table-prefix-cls}-tbody > tr.ant-table-row:hover > td {

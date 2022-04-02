@@ -12,52 +12,54 @@ nav:
 ```tsx
 import React from 'react';
 import { Table } from 'erda-ui-components';
-import { Tooltip } from 'antd';
 
 export default () => {
   const columns = [
     {
-      title: '集群名称',
-      dataIndex: 'clusterName',
-      render: (value: string) => <Tooltip title={value}>{value}</Tooltip>,
+      title: 'Name',
+      dataIndex: 'name',
     },
     {
-      title: '域名',
-      dataIndex: 'domain',
-      render: (value: string) => <Tooltip title={value}>{value}</Tooltip>,
+      title: 'Age',
+      dataIndex: 'age',
     },
     {
-      title: '归属类型',
-      dataIndex: 'type',
-    },
-    {
-      title: '项目名称',
-      dataIndex: 'projectName',
-      render: (value: string) => <Tooltip title={value}>{value}</Tooltip>,
-    },
-    {
-      title: '应用名',
-      dataIndex: 'appName',
-      render: (value: string) => <Tooltip title={value}>{value}</Tooltip>,
-    },
-    {
-      title: '环境',
-      dataIndex: 'workspace',
+      title: 'Address',
+      dataIndex: 'address',
     },
   ];
 
   const dataSource = [
     {
-      clusterName: 'daily-cluster',
-      domain: 'erda.cloud',
-      type: 'API网关',
-      projectName: 'auto-cmp-project',
-      appName: 'base-api-design',
-      workspace: '测试',
+      name: 'John Brown',
+      age: 32,
+      address: 'New York No. 1 Lake Park',
+    },
+    {
+      name: 'Jim Green',
+      age: 42,
+      address: 'London No. 1 Lake Park',
+    },
+    {
+      name: 'Joe Black',
+      age: 32,
+      address: 'Sidney No. 1 Lake Park',
+    },
+    {
+      name: 'Jim Red',
+      age: 32,
+      address: 'London No. 2 Lake Park',
     },
   ];
 
-  return <Table columns={columns} dataSource={dataSource} headerConfig={{ tableKey: 'basic', whiteHeader: true }} />;
+  return (
+    <Table
+      rowKey="name"
+      columns={columns}
+      dataSource={dataSource}
+      headerConfig={{ tableKey: 'basic', whiteHeader: true }}
+    />
+  );
 };
 ```
 
@@ -66,48 +68,43 @@ export default () => {
 ```tsx
 import React from 'react';
 import { Table } from 'erda-ui-components';
-import { Tooltip } from 'antd';
 
 export default () => {
   const columns = [
     {
-      title: '集群名称',
-      dataIndex: 'clusterName',
-      render: (value: string) => <Tooltip title={value}>{value}</Tooltip>,
+      title: 'Name',
+      dataIndex: 'name',
     },
     {
-      title: '域名',
-      dataIndex: 'domain',
-      render: (value: string) => <Tooltip title={value}>{value}</Tooltip>,
+      title: 'Age',
+      dataIndex: 'age',
     },
     {
-      title: '归属类型',
-      dataIndex: 'type',
-    },
-    {
-      title: '项目名称',
-      dataIndex: 'projectName',
-      render: (value: string) => <Tooltip title={value}>{value}</Tooltip>,
-    },
-    {
-      title: '应用名',
-      dataIndex: 'appName',
-      render: (value: string) => <Tooltip title={value}>{value}</Tooltip>,
-    },
-    {
-      title: '环境',
-      dataIndex: 'workspace',
+      title: 'Address',
+      dataIndex: 'address',
     },
   ];
 
   const dataSource = [
     {
-      clusterName: 'daily-cluster',
-      domain: 'erda.cloud',
-      type: 'API网关',
-      projectName: 'auto-cmp-project',
-      appName: 'base-api-design',
-      workspace: '测试',
+      name: 'John Brown',
+      age: 32,
+      address: 'New York No. 1 Lake Park',
+    },
+    {
+      name: 'Jim Green',
+      age: 42,
+      address: 'London No. 1 Lake Park',
+    },
+    {
+      name: 'Joe Black',
+      age: 32,
+      address: 'Sidney No. 1 Lake Park',
+    },
+    {
+      name: 'Jim Red',
+      age: 32,
+      address: 'London No. 2 Lake Park',
     },
   ];
 
@@ -132,12 +129,176 @@ export default () => {
     },
   };
 
+  return <Table rowKey="name" columns={columns} dataSource={dataSource} actions={actions} />;
+};
+```
+
+### 排序
+
+```tsx
+import React from 'react';
+import { Table } from 'erda-ui-components';
+
+export default () => {
+  const columns = [
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      sorter: (a, b) => (a.name > b.name ? 1 : -1),
+    },
+    {
+      title: 'Age',
+      dataIndex: 'age',
+      sorter: (a, b) => (a.age > b.age ? 1 : -1),
+    },
+    {
+      title: 'Address',
+      dataIndex: 'address',
+    },
+  ];
+
+  const dataSource = [
+    {
+      name: 'John Brown',
+      age: 32,
+      address: 'New York No. 1 Lake Park',
+    },
+    {
+      name: 'Jim Green',
+      age: 42,
+      address: 'London No. 1 Lake Park',
+    },
+    {
+      name: 'Joe Black',
+      age: 32,
+      address: 'Sidney No. 1 Lake Park',
+    },
+    {
+      name: 'Jim Red',
+      age: 32,
+      address: 'London No. 2 Lake Park',
+    },
+  ];
+
+  return <Table rowKey="name" columns={columns} dataSource={dataSource} />;
+};
+```
+
+### 行选择
+
+```tsx
+import React from 'react';
+import { Table } from 'erda-ui-components';
+
+export default () => {
+  const columns = [
+    {
+      title: 'Name',
+      dataIndex: 'name',
+    },
+    {
+      title: 'Age',
+      dataIndex: 'age',
+    },
+    {
+      title: 'Address',
+      dataIndex: 'address',
+    },
+  ];
+
+  const dataSource = [
+    {
+      name: 'John Brown',
+      age: 32,
+      address: 'New York No. 1 Lake Park',
+    },
+    {
+      name: 'Jim Green',
+      age: 42,
+      address: 'London No. 1 Lake Park',
+    },
+    {
+      name: 'Joe Black',
+      age: 32,
+      address: 'Sidney No. 1 Lake Park',
+    },
+    {
+      name: 'Jim Red',
+      age: 32,
+      address: 'London No. 2 Lake Park',
+    },
+  ];
+
   return (
     <Table
+      rowKey="name"
       columns={columns}
       dataSource={dataSource}
-      headerConfig={{ tableKey: 'action', whiteHeader: true }}
-      actions={actions}
+      rowSelection={{
+        onChange: (_selectedKeys: string[], selectedRows: any[]) => {
+          console.log(_selectedKeys, selectedRows);
+        },
+      }}
+    />
+  );
+};
+```
+
+### 分页
+
+```tsx
+import React from 'react';
+import { Table } from 'erda-ui-components';
+
+export default () => {
+  const columns = [
+    {
+      title: 'Name',
+      dataIndex: 'name',
+    },
+    {
+      title: 'Age',
+      dataIndex: 'age',
+    },
+    {
+      title: 'Address',
+      dataIndex: 'address',
+    },
+  ];
+
+  const dataSource = [
+    {
+      name: 'John Brown',
+      age: 32,
+      address: 'New York No. 1 Lake Park',
+    },
+    {
+      name: 'Jim Green',
+      age: 42,
+      address: 'London No. 1 Lake Park',
+    },
+    {
+      name: 'Joe Black',
+      age: 32,
+      address: 'Sidney No. 1 Lake Park',
+    },
+    {
+      name: 'Jim Red',
+      age: 32,
+      address: 'London No. 2 Lake Park',
+    },
+  ];
+
+  return (
+    <Table
+      rowKey="name"
+      columns={columns}
+      dataSource={dataSource}
+      rowSelection={{
+        onChange: (_selectedKeys: string[], selectedRows: any[]) => {
+          console.log(_selectedKeys, selectedRows);
+        },
+      }}
     />
   );
 };

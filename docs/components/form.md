@@ -1104,6 +1104,14 @@ export default () => {
       },
     },
     {
+      component: Comp,
+      type: 'void',
+      name: 'void2',
+      wrapperProps: {
+        gridSpan: 2,
+      },
+    },
+    {
       component: Input,
       title: '昵称',
       name: 'nickName',
@@ -1508,6 +1516,7 @@ export default () => {
           component: Input,
           name: 'name',
           title: '姓名',
+          required: true,
         },
         {
           component: Input,
@@ -1518,8 +1527,9 @@ export default () => {
     },
   ];
 
-  const getValue = () => {
+  const getValue = async () => {
     const state = form.getState();
+    await form.validate();
     setData(JSON.stringify(state.values, null, 2));
   };
 

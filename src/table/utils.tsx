@@ -3,7 +3,7 @@ import cn from 'classnames';
 import React from 'react';
 import ErdaIcon from 'src/icon';
 import { ErdaColumnType } from '.';
-import { ColumnsConfig, TableRowActions } from './interface';
+import { ColumnsConfig, IPagination, TableRowActions } from './interface';
 
 export const getLsColumnsConfig = (key: string): ColumnsConfig => {
   const str = localStorage.getItem(`table-key-${key}`);
@@ -55,9 +55,10 @@ export function renderActions<T extends object = any>(
                   <Menu.Item key={title} onClick={disabled ? undefined : onClick}>
                     <Tooltip title={disabled && disabledTip}>
                       <span
-                        className={cn(`${clsPrefix}-action-menu-item`, {
-                          [`${clsPrefix}-action-menu-item-disabled`]: !!disabled,
+                        className={cn(`${clsPrefix}-menu-item`, {
+                          [`${clsPrefix}-menu-item-disabled`]: !!disabled,
                         })}
+                        onClick={disabled ? (e: any) => e && e.stopPropagation && e.stopPropagation() : undefined}
                       >
                         {title}
                       </span>
@@ -83,3 +84,8 @@ export function renderActions<T extends object = any>(
   }
   return [];
 }
+
+export const PAGINATION: IPagination = {
+  pageSize: 10,
+  pageSizeOptions: ['10', '20', '50', '100'],
+};
