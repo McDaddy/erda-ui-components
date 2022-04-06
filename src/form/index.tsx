@@ -33,6 +33,7 @@ import type { CT } from './utils';
 import StepForm from './step-form';
 import classnames from 'classnames';
 import { usePrefixCls } from '../_util/hooks';
+import SelectTable from './select-table';
 
 // type IsUnion<T, U extends T = T> = (T extends any ? (U extends T ? false : true) : never) extends false ? false : true;
 
@@ -54,7 +55,7 @@ const defaultLayoutConfig = {
 const ErdaForm = <T extends Obj>({ fieldsConfig, form, layoutConfig, style, gridConfig, className }: FormProps<T>) => {
   const componentMap = React.useRef(new Map<CT, string>());
 
-  const [prefixCls] = usePrefixCls();
+  const [prefixCls] = usePrefixCls('form');
 
   const properties = React.useMemo(
     () => transformConfigRecursively(fieldsConfig, componentMap.current),
@@ -94,7 +95,7 @@ const ErdaForm = <T extends Obj>({ fieldsConfig, form, layoutConfig, style, grid
 
   return (
     <FormProvider form={form!}>
-      <Form style={style} className={classnames(`${prefixCls}-form`, className)} form={form!}>
+      <Form style={style} className={classnames(`${prefixCls}`, className)} form={form!}>
         <SchemaField schema={schemaConfig} />
       </Form>
     </FormProvider>
@@ -104,13 +105,18 @@ const ErdaForm = <T extends Obj>({ fieldsConfig, form, layoutConfig, style, grid
 const takeAsyncDataSource = <T extends FieldDataSource>(
   pattern: FormPathPattern,
   service: (field: Field) => Promise<T>,
+  dataSourceAttrName?: string,
 ) => {
   onFieldReact(pattern, (field) => {
     if (isField(field)) {
       field.loading = true;
       service(field).then(
         action.bound!((data: FieldDataSource) => {
+          if (dataSourceAttrName) {
+            field.componentProps[dataSourceAttrName] = data;
+          }
           field.dataSource = data;
+          field.componentProps._datasource = data;
           field.loading = false;
         }),
       );
@@ -135,4 +141,6 @@ ErdaForm.useField = useField;
 ErdaForm.useFieldSchema = useFieldSchema;
 ErdaForm.RecursionField = RecursionField;
 ErdaForm.StepForm = StepForm;
+ErdaForm.SelectTable = SelectTable;
+
 export type { FormType, Field, IFormLayoutProps, ArrayFieldType, IFormGridProps, FormLayout, FormGrid, IFormStep };

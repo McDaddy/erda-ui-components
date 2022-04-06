@@ -14,14 +14,14 @@ import React from 'react';
 import { Input, Button } from 'antd';
 import { Form } from 'erda-ui-components';
 
-const { createForm } = Form;
+const { createForm, createFields } = Form;
 
 const form = createForm();
 
 export default () => {
   const [data, setData] = React.useState('');
 
-  const fieldsConfig = [
+  const fieldsConfig = createFields([
     {
       component: Input,
       title: '姓名',
@@ -30,7 +30,7 @@ export default () => {
         placeholder: '请输入姓名',
       },
     },
-  ];
+  ]);
 
   const getValue = () => {
     const state = form.getState();
@@ -64,7 +64,7 @@ import React from 'react';
 import { Input, Button } from 'antd';
 import { Form } from 'erda-ui-components';
 
-const { createForm } = Form;
+const { createForm, createFields } = Form;
 
 const form = createForm();
 
@@ -83,7 +83,7 @@ export default () => {
     });
   }, []);
 
-  const fieldsConfig = [
+  const fieldsConfig = createFields([
     {
       component: Input,
       title: '姓名',
@@ -92,7 +92,7 @@ export default () => {
         placeholder: '请输入姓名',
       },
     },
-  ];
+  ]);
 
   const getValue = () => {
     const state = form.getState();
@@ -126,14 +126,14 @@ import React from 'react';
 import { Input, Button } from 'antd';
 import { Form } from 'erda-ui-components';
 
-const { createForm } = Form;
+const { createForm, createFields } = Form;
 
 const form = createForm();
 
 export default () => {
   const [data, setData] = React.useState('');
 
-  const fieldsConfig = [
+  const fieldsConfig = createFields([
     {
       component: Input,
       title: '姓名',
@@ -142,7 +142,7 @@ export default () => {
         placeholder: '请输入姓名',
       },
     },
-  ];
+  ]);
 
   const getValue = () => {
     const state = form.getState();
@@ -183,14 +183,7 @@ import React from 'react';
 import { Select, Button } from 'antd';
 import { Form } from 'erda-ui-components';
 
-const { createForm, takeAsyncDataSource, connect, mapProps } = Form;
-
-const FormSelect = connect(
-  Select,
-  mapProps({
-    dataSource: 'options',
-  }),
-);
+const { createForm, takeAsyncDataSource, createFields } = Form;
 
 const form = createForm({
   effects: () => {
@@ -209,6 +202,7 @@ const form = createForm({
             },
           ]);
         }),
+      'options',
     );
   },
 });
@@ -216,13 +210,13 @@ const form = createForm({
 export default () => {
   const [data, setData] = React.useState('');
 
-  const fieldsConfig = [
+  const fieldsConfig = createFields([
     {
-      component: FormSelect,
+      component: Select,
       title: '省份',
       name: 'province',
     },
-  ];
+  ]);
 
   const getValue = () => {
     const state = form.getState();
@@ -258,7 +252,7 @@ import React from 'react';
 import { InputNumber, Button } from 'antd';
 import { Form } from 'erda-ui-components';
 
-const { createForm, onFieldValueChange } = Form;
+const { createForm, onFieldValueChange, createFields } = Form;
 
 const form = createForm({
   effects: () => {
@@ -280,7 +274,7 @@ const form = createForm({
 export default () => {
   const [data, setData] = React.useState('');
 
-  const fieldsConfig = [
+  const fieldsConfig = createFields([
     {
       component: InputNumber,
       title: '年龄',
@@ -302,7 +296,7 @@ export default () => {
         min: 0,
       },
     },
-  ];
+  ]);
 
   const getValue = () => {
     const state = form.getState();
@@ -336,7 +330,7 @@ import React from 'react';
 import { InputNumber, Button } from 'antd';
 import { Form } from 'erda-ui-components';
 
-const { createForm, onFieldValueChange } = Form;
+const { createForm, onFieldValueChange, createFields } = Form;
 
 const form = createForm({
   effects: () => {
@@ -360,7 +354,7 @@ const form = createForm({
 export default () => {
   const [data, setData] = React.useState('');
 
-  const fieldsConfig = [
+  const fieldsConfig = createFields([
     {
       component: InputNumber,
       title: '单价',
@@ -387,7 +381,7 @@ export default () => {
         disabled: true,
       },
     },
-  ];
+  ]);
 
   const getValue = () => {
     const state = form.getState();
@@ -421,7 +415,7 @@ import React from 'react';
 import { Input, Button } from 'antd';
 import { Form } from 'erda-ui-components';
 
-const { createForm, onFieldValueChange } = Form;
+const { createForm, onFieldValueChange, createFields } = Form;
 
 const form = createForm({
   effects: () => {
@@ -438,14 +432,14 @@ const form = createForm({
 export default () => {
   const [data, setData] = React.useState('');
 
-  const fieldsConfig = [
+  const fieldsConfig = createFields([
     {
       component: Input,
       title: '颜色',
       defaultValue: '#6a549e',
       name: 'color',
     },
-  ];
+  ]);
 
   const getValue = () => {
     const state = form.getState();
@@ -479,7 +473,7 @@ import React from 'react';
 import { Select, Button } from 'antd';
 import { Form } from 'erda-ui-components';
 
-const { createForm, onFieldValueChange } = Form;
+const { createForm, onFieldValueChange, createFields } = Form;
 
 const form = createForm({
   effects: () => {
@@ -511,7 +505,7 @@ const form = createForm({
 export default () => {
   const [data, setData] = React.useState('');
 
-  const fieldsConfig = [
+  const fieldsConfig = createFields([
     {
       component: Select,
       title: '国家',
@@ -528,7 +522,7 @@ export default () => {
       title: '省份',
       name: 'province',
     },
-  ];
+  ]);
 
   const getValue = () => {
     const state = form.getState();
@@ -562,7 +556,7 @@ import React from 'react';
 import { Select, Button } from 'antd';
 import { Form } from 'erda-ui-components';
 
-const { createForm, takeAsyncDataSource } = Form;
+const { createForm, takeAsyncDataSource, createFields } = Form;
 
 const form = createForm({
   effects: () => {
@@ -599,7 +593,7 @@ const form = createForm({
 export default () => {
   const [data, setData] = React.useState('');
 
-  const fieldsConfig = [
+  const fieldsConfig = createFields([
     {
       component: Select,
       title: '国家',
@@ -616,7 +610,7 @@ export default () => {
       title: '省份',
       name: 'province',
     },
-  ];
+  ]);
 
   const getValue = () => {
     const state = form.getState();
@@ -650,7 +644,7 @@ import React from 'react';
 import { Input, InputNumber, Button } from 'antd';
 import { Form } from 'erda-ui-components';
 
-const { createForm, registerValidateRules, onFieldValueChange } = Form;
+const { createForm, registerValidateRules, onFieldValueChange, createFields } = Form;
 
 const form = createForm({
   effects: () => {
@@ -691,7 +685,7 @@ registerValidateRules({
 export default () => {
   const [data, setData] = React.useState('');
 
-  const fieldsConfig = [
+  const fieldsConfig = createFields([
     {
       component: Input,
       title: '必填',
@@ -903,7 +897,7 @@ export default () => {
         labelCol: 10,
       },
     },
-  ];
+  ]);
 
   const submit = async () => {
     const values = await form.submit();
@@ -941,14 +935,14 @@ import React from 'react';
 import { Input, Button } from 'antd';
 import { Form } from 'erda-ui-components';
 
-const { createForm } = Form;
+const { createForm, createFields } = Form;
 
 const form = createForm();
 
 export default () => {
   const [data, setData] = React.useState('');
 
-  const fieldsConfig = [
+  const fieldsConfig = createFields([
     {
       component: Input,
       title: '姓名',
@@ -972,7 +966,7 @@ export default () => {
       title: '性别',
       name: 'gender',
     },
-  ];
+  ]);
 
   const getValue = () => {
     const state = form.getState();
@@ -1006,14 +1000,14 @@ import React from 'react';
 import { Input, Button } from 'antd';
 import { Form } from 'erda-ui-components';
 
-const { createForm } = Form;
+const { createForm, createFields } = Form;
 
 const form = createForm();
 
 export default () => {
   const [data, setData] = React.useState('');
 
-  const fieldsConfig = [
+  const fieldsConfig = createFields([
     {
       component: Input,
       title: '姓名',
@@ -1040,7 +1034,7 @@ export default () => {
       title: '性别',
       name: 'gender',
     },
-  ];
+  ]);
 
   const getValue = () => {
     const state = form.getState();
@@ -1074,7 +1068,7 @@ import React from 'react';
 import { Input, Button } from 'antd';
 import { Form } from 'erda-ui-components';
 
-const { createForm } = Form;
+const { createForm, createFields } = Form;
 
 const form = createForm();
 
@@ -1083,7 +1077,7 @@ const Comp = () => <div style={{ backgroundColor: 'white', paddingLeft: '16px' }
 export default () => {
   const [data, setData] = React.useState('');
 
-  const fieldsConfig = [
+  const fieldsConfig = createFields([
     {
       component: Input,
       title: '姓名',
@@ -1126,7 +1120,7 @@ export default () => {
       title: '性别',
       name: 'gender',
     },
-  ];
+  ]);
 
   const getValue = () => {
     const state = form.getState();
@@ -1160,7 +1154,7 @@ import React from 'react';
 import { Input, Button } from 'antd';
 import { Form } from 'erda-ui-components';
 
-const { createForm } = Form;
+const { createForm, createFields } = Form;
 
 const form = createForm();
 
@@ -1182,7 +1176,7 @@ const CustomComp = ({ value, onChange }: { value: string; onChange: (v: string) 
 export default () => {
   const [data, setData] = React.useState('');
 
-  const fieldsConfig = [
+  const fieldsConfig = createFields([
     {
       title: '自定义组件',
       component: CustomComp,
@@ -1193,7 +1187,7 @@ export default () => {
       component: CustomComp,
       name: 'customValue2',
     },
-  ];
+  ]);
 
   const getValue = () => {
     const state = form.getState();
@@ -1353,7 +1347,7 @@ import React from 'react';
 import { Input, Space, Button } from 'antd';
 import { Form, ArrayFieldType } from 'erda-ui-components';
 
-const { createForm, observer, Field, useField } = Form;
+const { createForm, observer, Field, useField, createFields } = Form;
 
 const form = createForm();
 
@@ -1406,13 +1400,13 @@ const ArrayComponent = observer(() => {
 export default () => {
   const [data, setData] = React.useState('');
 
-  const fieldsConfig = [
+  const fieldsConfig = createFields([
     {
       type: 'array',
       component: ArrayComponent,
       name: 'arrayField',
     },
-  ];
+  ]);
 
   const getValue = () => {
     const state = form.getState();
@@ -1446,7 +1440,7 @@ import React from 'react';
 import { Button, Space, Input } from 'antd';
 import { Form, Schema, ArrayFieldType } from 'erda-ui-components';
 
-const { createForm, observer, RecursionField, useFieldSchema, useField } = Form;
+const { createForm, observer, RecursionField, useFieldSchema, useField, createFields } = Form;
 
 const form = createForm();
 
@@ -1506,7 +1500,7 @@ const ArrayItems = observer((props: { value: DataType[] }) => {
 export default () => {
   const [data, setData] = React.useState('');
 
-  const fieldsConfig = [
+  const fieldsConfig = createFields([
     {
       type: 'array',
       component: ArrayItems,
@@ -1525,7 +1519,7 @@ export default () => {
         },
       ],
     },
-  ];
+  ]);
 
   const getValue = async () => {
     const state = form.getState();
@@ -1667,6 +1661,126 @@ export default () => {
         ]}
         stepButtonGroup={buttonGroup}
       />
+      <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
+    </div>
+  );
+};
+```
+
+## 可选 Table
+
+```tsx
+import React from 'react';
+import { Button } from 'antd';
+import { Form } from 'erda-ui-components';
+
+const { createForm, createFields, takeAsyncDataSource, SelectTable } = Form;
+
+const form = createForm();
+const form2 = createForm({
+  effects: () => {
+    takeAsyncDataSource<Array<{ label: string; value: string }>>(
+      'username',
+      () =>
+        new Promise<Array<{ value: string; label: string }>>((resolve) => {
+          resolve([
+            {
+              name: '张三',
+            },
+            {
+              name: '李四',
+            },
+          ]);
+        }),
+    );
+  },
+});
+
+const dataSource = [{ name: 'Jim' }, { name: 'Mike' }];
+
+let counter = 1;
+
+export default () => {
+  const [data, setData] = React.useState('');
+
+  const fieldsConfig = createFields([
+    {
+      component: SelectTable,
+      name: 'username',
+      customProps: {
+        columns: [
+          {
+            dataIndex: 'name',
+            title: '全选',
+          },
+        ],
+        dataSource,
+        primaryKey: 'name',
+      },
+    },
+  ]);
+
+  const onRefresh = async () => {
+    setTimeout(() => {
+      form2.setFieldState('username', (state) => {
+        state.componentProps = {
+          ...state.componentProps,
+          dataSource: [...dataSource, { name: `John-${counter++}` }],
+        };
+      });
+    }, 1000);
+  };
+
+  const fieldsConfig2 = createFields([
+    {
+      component: SelectTable,
+      name: 'username',
+      customProps: {
+        columns: [
+          {
+            dataIndex: 'name',
+            title: '全选',
+          },
+        ],
+        primaryKey: 'name',
+        showSearch: true,
+        searchConfig: {
+          placeholder: '搜索',
+          slot: (
+            <Button type="ghost" onClick={onRefresh}>
+              刷新
+            </Button>
+          ),
+        },
+      },
+    },
+  ]);
+
+  const getValue = (isTwo?: boolean) => {
+    const state = (isTwo ? form2 : form).getState();
+    setData(JSON.stringify(state.values, null, 2));
+  };
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        background: '#eee',
+        padding: '40px 0',
+      }}
+    >
+      <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
+      <Button type="primary" onClick={() => getValue()}>
+        提交
+      </Button>
+      <div>异步数据源</div>
+      <Form style={{ width: '50%' }} form={form2} fieldsConfig={fieldsConfig2} />
+
+      <Button type="primary" onClick={() => getValue(true)}>
+        提交
+      </Button>
       <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
     </div>
   );
