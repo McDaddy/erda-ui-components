@@ -16,6 +16,7 @@ const {
   useField,
   createFields,
   StepForm,
+  createTabsField,
 } = Form;
 
 describe('erda form test', () => {
@@ -318,5 +319,69 @@ describe('erda form test', () => {
     userEvent.click(screen.getByText('下一步'));
     await waitFor(() => expect(getByText('性别')).toBeInTheDocument());
     expect(getByText('学历')).toBeInTheDocument();
+  });
+
+  it('test render tabs', async () => {
+    const form = createForm();
+    const fieldsConfig = createFields([
+      {
+        component: Input,
+        title: '基本信息',
+        name: 'info',
+        customProps: {
+          placeholder: '请输入基本信息',
+        },
+      },
+      createTabsField({
+        name: 'tabsField',
+        customProps: {
+          tabPosition: 'left',
+        },
+        tabs: [
+          {
+            tab: 'Tab1',
+            fields: createFields([
+              {
+                component: Input,
+                title: '姓名',
+                name: 'name',
+                customProps: {
+                  placeholder: '请输入姓名',
+                },
+              },
+              {
+                component: Input,
+                title: '年龄',
+                name: 'age',
+                customProps: {
+                  placeholder: '请输入年龄',
+                },
+              },
+            ]),
+          },
+          {
+            tab: 'Tab2',
+            fields: createFields([
+              {
+                component: Input,
+                title: '性别',
+                name: 'sex',
+              },
+              {
+                component: Input,
+                title: '学历',
+                name: 'education',
+              },
+            ]),
+          },
+        ],
+      }),
+    ]);
+    render(<Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />);
+    expect(screen.getByText('Tab1')).toBeInTheDocument();
+    expect(screen.getByText('Tab2')).toBeInTheDocument();
+    expect(screen.getByText('基本信息')).toBeInTheDocument();
+    expect(screen.getByText('姓名')).toBeInTheDocument();
+    expect(screen.getByText('性别')).toBeInTheDocument();
   });
 });
