@@ -32,7 +32,7 @@ jobs:
           key: ${{ runner.os }}-jest-${{ env.cache-name }}-${{ matrix.node-version }}
 
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: '14.x'
 
