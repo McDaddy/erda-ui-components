@@ -34,11 +34,6 @@ export interface TableRowActions<T> {
 
 export type SortOrder = 'ascend' | 'descend';
 
-export interface IPagination {
-  pageSize: number;
-  pageSizeOptions: string[];
-}
-
 export interface RowSelection<T extends Obj> extends TableRowSelection<T> {
   actions?: RowActions[];
 }

@@ -50,7 +50,11 @@ const insertScripts = (scriptUrls: string[]) => {
 
 export const useErdaIcon = (props?: { url?: string | string[]; colors?: Obj<string> }) => {
   if (props?.colors) {
-    themeColor = props.colors;
+    if (Object.keys(themeColor).length) {
+      themeColor = { ...themeColor, ...props.colors };
+    } else {
+      themeColor = props.colors;
+    }
   }
 
   React.useLayoutEffect(() => {

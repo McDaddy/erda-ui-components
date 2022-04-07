@@ -1,8 +1,17 @@
 import React from 'react';
 import { Popover, Input, Button, Dropdown, Menu } from 'antd';
 import ErdaIcon, { useErdaIcon } from 'src/icon';
-import { PAGINATION } from 'src/table/utils';
 import { usePrefixCls } from 'src/_util/hooks';
+
+export interface IPagination {
+  pageSize: number;
+  pageSizeOptions: string[];
+}
+
+export const PAGINATION: IPagination = {
+  pageSize: 10,
+  pageSizeOptions: ['10', '20', '50', '100'],
+};
 
 /**
  * 配置项：
@@ -18,7 +27,7 @@ export interface IPaginationProps {
   pageSize?: number;
   theme?: 'light' | 'dark';
   onChange: (page: number, pageSize: number) => void;
-  hidePageSizeChange?: boolean;
+  hidePageSizeChanger?: boolean;
   hideTotal?: boolean;
 }
 
@@ -33,12 +42,12 @@ const Pagination = (pagination: IPaginationProps) => {
     current = 1,
     pageSize = PAGINATION.pageSize,
     onChange,
-    hidePageSizeChange = false,
+    hidePageSizeChanger: hidePageSizeChange = false,
     hideTotal = false,
     theme = 'light', // TODO
   } = pagination;
 
-  useErdaIcon({ colors: { white: '#fff' } });
+  useErdaIcon();
 
   const [prefixCls] = usePrefixCls('pagination');
 
@@ -65,7 +74,7 @@ const Pagination = (pagination: IPaginationProps) => {
           onVisibleChange={setGoToVisible}
         >
           <div className={`${prefixCls}-center`} onClick={() => setGoToVisible(true)}>
-            {total ? pagination.current : 0} / {(total && pageSize && Math.ceil(total / pageSize)) || 0}
+            {total ? current ?? 1 : 0} / {(total && pageSize && Math.ceil(total / pageSize)) || 0}
           </div>
         </Popover>
 

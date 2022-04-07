@@ -3,7 +3,7 @@ import cn from 'classnames';
 import React from 'react';
 import ErdaIcon from 'src/icon';
 import { ErdaColumnType } from '.';
-import { ColumnsConfig, IPagination, TableRowActions } from './interface';
+import { ColumnsConfig, TableRowActions } from './interface';
 
 export const getLsColumnsConfig = (key: string): ColumnsConfig => {
   const str = localStorage.getItem(`table-key-${key}`);
@@ -84,8 +84,3 @@ export function renderActions<T extends object = any>(
   }
   return [];
 }
-
-export const PAGINATION: IPagination = {
-  pageSize: 10,
-  pageSizeOptions: ['10', '20', '50', '100'],
-};
