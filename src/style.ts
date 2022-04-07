@@ -3,3 +3,4 @@ import './icon/style/index.less';
 import './table/style/index.less';
 import './table/style/table-config-header.less';
 import './table/style/table-footer.less';
+import './pagination/style/index.less';
