@@ -1,8 +1,8 @@
 import React from 'react';
 import { Dropdown, Menu } from 'antd';
 import { SorterResult } from 'antd/lib/table/interface';
-import ErdaIcon from 'src/icon';
-import { usePrefixCls } from 'src/_util/hooks';
+import ErdaIcon from '../icon';
+import { usePrefixCls } from '../_util/hooks';
 import { ErdaColumnType } from '.';
 import { SortOrder } from './interface';
 import cn from 'classnames';

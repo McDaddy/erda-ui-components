@@ -1,8 +1,8 @@
 import { TablePaginationConfig } from 'antd/lib/table/interface';
 // import { BatchOperation } from 'common';
 import React from 'react';
-import Pagination from 'src/pagination';
-import { usePrefixCls } from 'src/_util/hooks';
+import Pagination from '../pagination';
+import { usePrefixCls } from '../_util/hooks';
 import cn from 'classnames';
 // import { RowSelection } from './interface';
 

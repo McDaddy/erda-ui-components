@@ -473,7 +473,7 @@ import React from 'react';
 import { Select, Button } from 'antd';
 import { Form } from 'erda-ui-components';
 
-const { createForm, onFieldValueChange, createFields } = Form;
+const { createForm, onFieldValueChange, createFields, isField } = Form;
 
 const form = createForm({
   effects: () => {
@@ -495,7 +495,9 @@ const form = createForm({
           ];
         }
         provinceField.setComponentProps({ options });
-        provinceField.setValue(options[0].value);
+        if (isField(provinceField)) {
+          provinceField.setValue(options[0].value);
+        }
       }, 1000);
     });
   },

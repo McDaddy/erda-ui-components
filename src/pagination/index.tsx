@@ -1,7 +1,7 @@
 import React from 'react';
 import { Popover, Input, Button, Dropdown, Menu } from 'antd';
-import ErdaIcon, { useErdaIcon } from 'src/icon';
-import { usePrefixCls } from 'src/_util/hooks';
+import ErdaIcon, { useErdaIcon } from '../icon';
+import { usePrefixCls } from '../_util/hooks';
 
 export interface IPagination {
   pageSize: number;

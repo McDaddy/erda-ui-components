@@ -4,13 +4,13 @@ import cn from 'classnames';
 import { usePrefixCls } from '../_util/hooks';
 import { ColumnType } from 'antd/lib/table';
 import TableConfigHeader from './table-config-header';
-import { useErdaIcon } from 'src/icon';
+import { useErdaIcon } from '../icon';
 import { TableRowActions } from './interface';
 import { renderActions } from './utils';
 import { TablePaginationConfig } from 'antd/lib/table/interface';
 import { useSorterMenu } from './sorter';
 import TableFooter from './table-footer';
-import { PAGINATION } from 'src/pagination';
+import { PAGINATION } from '../pagination';
 
 export interface ErdaColumnType<T> extends ColumnType<T> {
   subTitle?: ((text: string, record: T, index: number) => React.ReactNode) | React.ReactNode;

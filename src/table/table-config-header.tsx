@@ -3,7 +3,7 @@ import { Checkbox, Popover } from 'antd';
 import ErdaIcon from '../icon';
 import { ErdaColumnType } from '.';
 import { getLsColumnsConfig, saveLsColumnsConfig, transformDataIndex } from './utils';
-import { usePrefixCls } from 'src/_util/hooks';
+import { usePrefixCls } from '../_util/hooks';
 import cn from 'classnames';
 import { ColumnsConfig } from './interface';
 

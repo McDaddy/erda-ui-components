@@ -1,8 +1,8 @@
 import React from 'react';
 import { ISelectTableProps, SelectTable as AntSelectTable } from '@formily/antd';
 import { Input, InputProps } from 'antd';
-import { usePrefixCls } from 'src/_util/hooks';
-import ErdaIcon, { useErdaIcon } from 'src/icon';
+import { usePrefixCls } from '../../_util/hooks';
+import ErdaIcon, { useErdaIcon } from '../../icon';
 
 type SearchConfig = {
   slot: React.ReactNode;

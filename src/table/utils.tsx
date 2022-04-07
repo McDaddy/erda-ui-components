@@ -1,7 +1,7 @@
 import { Dropdown, Menu, Tooltip } from 'antd';
 import cn from 'classnames';
 import React from 'react';
-import ErdaIcon from 'src/icon';
+import ErdaIcon from '../icon';
 import { ErdaColumnType } from '.';
 import { ColumnsConfig, TableRowActions } from './interface';
 

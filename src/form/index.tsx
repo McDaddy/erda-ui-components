@@ -143,5 +143,6 @@ ErdaForm.RecursionField = RecursionField;
 ErdaForm.StepForm = StepForm;
 ErdaForm.SelectTable = SelectTable;
 ErdaForm.createTabsField = createTabsField;
+ErdaForm.isField = isField;
 
 export type { FormType, Field, IFormLayoutProps, ArrayFieldType, IFormGridProps, FormLayout, FormGrid, IFormStep };
