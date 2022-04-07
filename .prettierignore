@@ -26,4 +26,4 @@ yarn-error.log
 .eslintignore
 .history
 **/*.yml
-src/form/utils.ts
+src/form/interface.ts

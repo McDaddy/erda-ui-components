@@ -8,7 +8,7 @@ type SearchConfig = {
   slot: React.ReactNode;
 } & InputProps;
 
-interface IProps extends ISelectTableProps {
+export interface IProps extends ISelectTableProps {
   searchConfig?: SearchConfig;
 }
 
