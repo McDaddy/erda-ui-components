@@ -481,22 +481,21 @@ const form = createForm({
       field.loading = true;
       setTimeout(() => {
         field.loading = false;
-        form.setFieldState('province', (state) => {
-          let options = [];
-          if (field.value === 'usa') {
-            options = [
-              { value: 'ma', label: '马萨诸塞' },
-              { value: 'Ny', label: '纽约' },
-            ];
-          } else {
-            options = [
-              { value: 'zj', label: '浙江' },
-              { value: 'tw', label: '台湾' },
-            ];
-          }
-          state.setComponentProps({ options });
-          state.setValue(options[0].value);
-        });
+        const provinceField = form.query('province').take();
+        let options = [];
+        if (field.value === 'usa') {
+          options = [
+            { value: 'ma', label: '马萨诸塞' },
+            { value: 'Ny', label: '纽约' },
+          ];
+        } else {
+          options = [
+            { value: 'zj', label: '浙江' },
+            { value: 'tw', label: '台湾' },
+          ];
+        }
+        provinceField.setComponentProps({ options });
+        provinceField.setValue(options[0].value);
       }, 1000);
     });
   },
