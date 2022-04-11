@@ -7,7 +7,10 @@ nav:
 
 # 表单 Form
 
-## 基本用法
+### 基本用法
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./demos/basic.tsx) -->
+<!-- The below code snippet is automatically added from ./demos/basic.tsx -->
 
 ```tsx
 import React from 'react';
@@ -57,7 +60,12 @@ export default () => {
 };
 ```
 
-## 编辑表单
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+### 编辑表单
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./demos/edit.tsx) -->
+<!-- The below code snippet is automatically added from ./demos/edit.tsx -->
 
 ```tsx
 import React from 'react';
@@ -119,7 +127,12 @@ export default () => {
 };
 ```
 
-## 重置表单
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+### 重置表单
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./demos/reset.tsx) -->
+<!-- The below code snippet is automatically added from ./demos/reset.tsx -->
 
 ```tsx
 import React from 'react';
@@ -176,7 +189,12 @@ export default () => {
 };
 ```
 
-## 异步数据源
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+### 异步数据源
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./demos/async-dataSource.tsx) -->
+<!-- The below code snippet is automatically added from ./demos/async-dataSource.tsx -->
 
 ```tsx
 import React from 'react';
@@ -243,9 +261,14 @@ export default () => {
 };
 ```
 
-## 字段联动
+<!-- AUTO-GENERATED-CONTENT:END -->
 
-### 一对一
+### 字段联动
+
+#### 一对一
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./demos/linkage/one-to-one.tsx) -->
+<!-- The below code snippet is automatically added from ./demos/linkage/one-to-one.tsx -->
 
 ```tsx
 import React from 'react';
@@ -323,7 +346,12 @@ export default () => {
 };
 ```
 
-### 依赖联动
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+#### 依赖联动
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./demos/linkage/dependency.tsx) -->
+<!-- The below code snippet is automatically added from ./demos/linkage/dependency.tsx -->
 
 ```tsx
 import React from 'react';
@@ -408,7 +436,12 @@ export default () => {
 };
 ```
 
-### 自身联动
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+#### 自身联动
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./demos/linkage/self.tsx) -->
+<!-- The below code snippet is automatically added from ./demos/linkage/self.tsx -->
 
 ```tsx
 import React from 'react';
@@ -466,14 +499,19 @@ export default () => {
 };
 ```
 
+<!-- AUTO-GENERATED-CONTENT:END -->
+
 ### 异步联动
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./demos/linkage/async1.tsx) -->
+<!-- The below code snippet is automatically added from ./demos/linkage/async1.tsx -->
 
 ```tsx
 import React from 'react';
 import { Select, Button } from 'antd';
 import { Form } from 'erda-ui-components';
 
-const { createForm, onFieldValueChange, createFields, isField } = Form;
+const { createForm, onFieldValueChange, createFields, isField, isObjectField, isArrayField } = Form;
 
 const form = createForm({
   effects: () => {
@@ -495,7 +533,7 @@ const form = createForm({
           ];
         }
         provinceField.setComponentProps({ options });
-        if (isField(provinceField)) {
+        if (isField(provinceField) && !isArrayField(provinceField) && !isObjectField(provinceField)) {
           provinceField.setValue(options[0].value);
         }
       }, 1000);
@@ -550,7 +588,12 @@ export default () => {
 };
 ```
 
+<!-- AUTO-GENERATED-CONTENT:END -->
+
 方案二：
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./demos/linkage/async2.tsx) -->
+<!-- The below code snippet is automatically added from ./demos/linkage/async2.tsx -->
 
 ```tsx
 import React from 'react';
@@ -564,13 +607,13 @@ const form = createForm({
     takeAsyncDataSource('province', async (field) => {
       const country = field.query('country').value();
       if (!country) return [];
-      const promise = new Promise((resolve) => {
+      const promise = new Promise<Array<{ value: string; label: string }>>((resolve) => {
         setTimeout(() => {
           let options = [];
           if (country === 'usa') {
             options = [
               { value: 'ma', label: '马萨诸塞' },
-              { value: 'Ny', label: '纽约' },
+              { value: 'ny', label: '纽约' },
             ];
           } else {
             options = [
@@ -638,7 +681,12 @@ export default () => {
 };
 ```
 
-## 字段校验
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+### 字段校验
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./demos/validator.tsx) -->
+<!-- The below code snippet is automatically added from ./demos/validator.tsx -->
 
 ```tsx
 import React from 'react';
@@ -652,22 +700,22 @@ const form = createForm({
     onFieldValueChange('linkA', (field) => {
       const fieldB = field.query('linkB').value();
       if (field.value < fieldB) {
-        field.selfErrors = 'A必须大于B';
+        field.selfErrors = ['A必须大于B'];
       } else {
-        field.selfErrors = '';
+        field.selfErrors = [''];
         form.setFieldState('linkB', (state) => {
-          state.selfErrors = '';
+          state.selfErrors = [''];
         });
       }
     });
     onFieldValueChange('linkB', (field) => {
       const fieldA = field.query('linkA').value();
       if (field.value >= fieldA) {
-        field.selfErrors = 'A必须大于B';
+        field.selfErrors = ['A必须大于B'];
       } else {
-        field.selfErrors = '';
+        field.selfErrors = [''];
         form.setFieldState('linkA', (state) => {
-          state.selfErrors = '';
+          state.selfErrors = [''];
         });
       }
     });
@@ -925,11 +973,16 @@ export default () => {
 };
 ```
 
-## 表单布局
+<!-- AUTO-GENERATED-CONTENT:END -->
 
-### Grid 布局
+### 表单布局
 
-#### 多列布局
+#### Grid 布局
+
+##### 多列布局
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./demos/layout/multi-col.tsx) -->
+<!-- The below code snippet is automatically added from ./demos/layout/multi-col.tsx -->
 
 ```tsx
 import React from 'react';
@@ -994,7 +1047,12 @@ export default () => {
 };
 ```
 
-#### 自定义布局
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+##### 自定义布局
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./demos/layout/custom.tsx) -->
+<!-- The below code snippet is automatically added from ./demos/layout/custom.tsx -->
 
 ```tsx
 import React from 'react';
@@ -1062,7 +1120,12 @@ export default () => {
 };
 ```
 
-#### 插入非表单内容
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+##### 插入非表单内容
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./demos/layout/none-form.tsx) -->
+<!-- The below code snippet is automatically added from ./demos/layout/none-form.tsx -->
 
 ```tsx
 import React from 'react';
@@ -1148,28 +1211,27 @@ export default () => {
 };
 ```
 
-## 自定义组件
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+### 自定义组件
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./demos/custom-comp.tsx) -->
+<!-- The below code snippet is automatically added from ./demos/custom-comp.tsx -->
 
 ```tsx
 import React from 'react';
 import { Input, Button } from 'antd';
 import { Form } from 'erda-ui-components';
 
-const { createForm, createFields, takeAsyncDataSource } = Form;
+const { createForm, createFields } = Form;
 
-const form = createForm({
-  effects: () => {
-    takeAsyncDataSource('input', async () => {
-      return 'xxx';
-    });
-  },
-});
+const form = createForm();
 
 const CustomComp = ({ value, onChange }: { value: string; onChange: (v: string) => void }) => {
   const [count, setCount] = React.useState(0);
 
   React.useEffect(() => {
-    console.log('onMount');
+    console.log('onMount Custom Component');
   }, []);
 
   React.useEffect(() => {
@@ -1179,7 +1241,7 @@ const CustomComp = ({ value, onChange }: { value: string; onChange: (v: string) 
   return (
     <div style={{ display: 'flex', paddingLeft: '16px' }}>
       <div>{count}</div>
-      <Input value={value} onChange={onChange} />
+      <Input value={value} onChange={(e) => onChange(e.target.value)} />
     </div>
   );
 };
@@ -1230,9 +1292,14 @@ export default () => {
 };
 ```
 
+<!-- AUTO-GENERATED-CONTENT:END -->
+
 ## 性能
 
 Antd Form 实现 300 个字段求和加总
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./demos/performance/antd.tsx) -->
+<!-- The below code snippet is automatically added from ./demos/performance/antd.tsx -->
 
 ```tsx
 import React from 'react';
@@ -1247,7 +1314,7 @@ const CustomComp = ({ value, onChange }: { value: string; onChange: (v: string) 
 const list = new Array(300)
   .toString()
   .split(',')
-  .map((item, index) => index);
+  .map((_item, index) => index);
 
 export default () => {
   const [count, setCount] = React.useState(0);
@@ -1275,8 +1342,8 @@ export default () => {
       <Form style={{ width: '70%' }}>
         {list.map((i, index) => (
           <Form.Item key={i} label={`字段${i}`} name={`field${i}`}>
+            {/*  @ts-ignore no fix */}
             <CustomComp
-              sum={count}
               onChange={(v) => {
                 array[index] = v;
                 setArray([...array]);
@@ -1289,6 +1356,8 @@ export default () => {
   );
 };
 ```
+
+<!-- AUTO-GENERATED-CONTENT:END -->
 
 Erda Form 实现 300 个字段求和加总
 

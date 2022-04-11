@@ -26,6 +26,8 @@ import {
   FieldDataSource,
   registerValidateRules,
   ArrayField as ArrayFieldType,
+  isArrayField,
+  isObjectField,
 } from '@formily/core';
 import { action } from '@formily/reactive';
 import { Form, FormItem, FormLayout, IFormLayoutProps, FormGrid, IFormGridProps, IFormStep } from '@formily/antd';
@@ -146,6 +148,8 @@ ErdaForm.StepForm = StepForm;
 ErdaForm.SelectTable = SelectTable;
 ErdaForm.createTabsField = createTabsField;
 ErdaForm.isField = isField;
+ErdaForm.isArrayField = isArrayField;
+ErdaForm.isObjectField = isObjectField;
 ErdaForm.ArrayTabs = ArrayTabs;
 ErdaForm.Schema = Schema;
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, ModalProps } from 'antd';
+import { Modal, ModalProps, Spin } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
 import enUS from 'antd/lib/locale/en_US';
 import Form from '../form';
@@ -15,16 +15,18 @@ export interface FormModalProps extends ModalProps {
   isEditing?: boolean;
   exactTitle?: boolean;
   formProps: FormProps;
+  loading?: boolean;
 }
 
 const FormModal = (props: FormModalProps) => {
-  const { formProps, isEditing, title, ...rest } = props;
+  const { formProps, isEditing, title, loading, ...rest } = props;
 
   React.useEffect(() => {
     return () => {
       formProps.form && formProps.form.reset();
     };
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const { locale } = React.useContext(Context);
 
@@ -34,7 +36,9 @@ const FormModal = (props: FormModalProps) => {
 
   return (
     <Modal title={displayTitle} {...localeProps} {...rest}>
-      <Form {...formProps} />
+      <Spin spinning={!!loading}>
+        <Form {...formProps} />
+      </Spin>
     </Modal>
   );
 };

@@ -55,7 +55,7 @@ module.exports = {
       processor: 'markdown/markdown',
     },
     {
-      files: ['./docs/**/*.md/*.tsx'],
+      files: ['./docs/**/*.tsx'],
       rules: {
         'no-console': 'off',
         'import/no-anonymous-default-export': 'off',
