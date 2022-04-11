@@ -10,6 +10,7 @@ import {
   FormProvider,
   connect,
   mapProps,
+  Schema,
 } from '@formily/react';
 import {
   createForm,
@@ -34,6 +35,7 @@ import StepForm from './step-form';
 import classnames from 'classnames';
 import { usePrefixCls } from '../_util/hooks';
 import SelectTable from './select-table';
+import ArrayTabs from './array-tabs';
 
 // type IsUnion<T, U extends T = T> = (T extends any ? (U extends T ? false : true) : never) extends false ? false : true;
 
@@ -48,7 +50,7 @@ export interface FormProps<T extends Obj = any> {
   className?: string;
 }
 
-const defaultLayoutConfig = {
+export const defaultLayoutConfig = {
   layout: 'vertical',
 };
 
@@ -144,5 +146,7 @@ ErdaForm.StepForm = StepForm;
 ErdaForm.SelectTable = SelectTable;
 ErdaForm.createTabsField = createTabsField;
 ErdaForm.isField = isField;
+ErdaForm.ArrayTabs = ArrayTabs;
+ErdaForm.Schema = Schema;
 
 export type { FormType, Field, IFormLayoutProps, ArrayFieldType, IFormGridProps, FormLayout, FormGrid, IFormStep };

@@ -9,7 +9,7 @@
     "prettier": "prettier -c --write .",
     "prepare": "husky install",
     "precommit": "lint-staged",
-    "lint": "eslint --ext .ts,.tsx,.js,.jsx src",
+    "lint": "eslint --ext .ts,.tsx,.js,.jsx,.md src",
     "test": "jest",
     "test:coverage": "jest --coverage"
   },
@@ -55,10 +55,10 @@
     }
   },
   "dependencies": {
-    "@formily/antd": "^2.0.17",
-    "@formily/core": "^2.0.17",
-    "@formily/react": "^2.0.17",
-    "@formily/reactive": "^2.0.17",
+    "@formily/antd": "^2.0.18",
+    "@formily/core": "^2.0.18",
+    "@formily/react": "^2.0.18",
+    "@formily/reactive": "^2.0.18",
     "classnames": "^2.3.1"
   },
   "devDependencies": {

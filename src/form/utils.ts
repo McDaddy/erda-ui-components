@@ -1,5 +1,6 @@
 import { FormTab, IFormTabProps } from '@formily/antd';
 import { map, reduce, uniqueId } from 'lodash';
+import { defaultLayoutConfig } from '.';
 import { CheckType, CT, Field, SchemaField } from './interface';
 
 export const createFields: CheckType = (fieldList: any) => fieldList;
@@ -76,12 +77,13 @@ export const transformConfigRecursively = (fieldsConfig: Field[], componentMap: 
           layout: {
             type: 'void',
             'x-component': 'FormLayout',
-            'x-component-props': { ...layoutConfig },
+            'x-component-props': { ...defaultLayoutConfig, ...layoutConfig },
             properties: {
               grid: {
                 type: 'void',
                 'x-component': 'FormGrid',
                 'x-component-props': {
+                  maxColumns: 1,
                   ...gridConfig,
                 },
                 properties: _properties,
