@@ -27,7 +27,7 @@ export interface ErdaTableProps<T = unknown> extends TableProps<T> {
     hideReload?: boolean;
     hideColumnConfig?: boolean;
     slot?: React.ReactNode;
-    onReload: () => void;
+    onReload?: () => void;
     whiteHeader?: boolean;
   };
   actions?: TableRowActions<T> | null;
