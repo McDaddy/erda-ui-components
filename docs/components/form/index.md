@@ -1361,12 +1361,15 @@ export default () => {
 
 Erda Form 实现 300 个字段求和加总
 
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./demos/performance/erda.tsx) -->
+<!-- The below code snippet is automatically added from ./demos/performance/erda.tsx -->
+
 ```tsx
 import React from 'react';
 import { InputNumber } from 'antd';
 import { Form } from 'erda-ui-components';
 
-const { createForm, onFieldValueChange } = Form;
+const { createForm, onFieldValueChange, isField } = Form;
 
 const CustomComp = ({ value, onChange }: { value: string; onChange: (v: string) => void }) => {
   console.log('render child');
@@ -1376,8 +1379,13 @@ const CustomComp = ({ value, onChange }: { value: string; onChange: (v: string) 
 const form = createForm({
   effects: () => {
     onFieldValueChange('*(!sum)', () => {
-      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-      const sumResult = form.query('*(!sum)').reduce((sum, _field) => sum + (_field.value || 0), 0);
+      const sumResult = form.query('*(!sum)').reduce((sum, _field) => {
+        if (isField(_field)) {
+          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+          return sum + (_field.value || 0);
+        }
+        return sum;
+      }, 0);
       form.setFieldState('sum', (state) => {
         state.value = sumResult;
       });
@@ -1388,7 +1396,7 @@ const form = createForm({
 const list = new Array(300)
   .toString()
   .split(',')
-  .map((item, index) => index);
+  .map((_item, index) => index);
 
 export default () => {
   const fieldsConfig = list.map((i) => ({
@@ -1400,6 +1408,7 @@ export default () => {
     title: '总和',
     component: InputNumber,
     name: 'sum',
+    // @ts-ignore no fix
     customProps: {
       disabled: true,
     },
@@ -1423,9 +1432,12 @@ export default () => {
 };
 ```
 
-## 自增字段
+<!-- AUTO-GENERATED-CONTENT:END -->
 
 ### 数组字段
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./demos/array/array-field.tsx) -->
+<!-- The below code snippet is automatically added from ./demos/array/array-field.tsx -->
 
 ```tsx
 import React from 'react';
@@ -1441,7 +1453,7 @@ const ArrayComponent = observer(() => {
   return (
     <>
       <div>
-        {field.value?.map((item, index) => (
+        {field.value?.map((_item, index) => (
           // eslint-disable-next-line react/no-array-index-key
           <div key={index} style={{ display: 'flex-block', marginBottom: 10 }}>
             <Space>
@@ -1518,7 +1530,12 @@ export default () => {
 };
 ```
 
+<!-- AUTO-GENERATED-CONTENT:END -->
+
 ### 对象数组字段
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./demos/array/array-object.tsx) -->
+<!-- The below code snippet is automatically added from ./demos/array/array-object.tsx -->
 
 ```tsx
 import React from 'react';
@@ -1539,7 +1556,7 @@ const ArrayItems = observer((props: { value: DataType[] }) => {
   const field = useField<ArrayFieldType>();
   return (
     <div>
-      {props.value?.map((item, index) => (
+      {props.value?.map((_item, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <div key={index} style={{ marginBottom: 10 }}>
           <Space>
@@ -1632,7 +1649,113 @@ export default () => {
 };
 ```
 
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+## Tab 数组
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./demos/array/array-tabs.tsx) -->
+<!-- The below code snippet is automatically added from ./demos/array/array-tabs.tsx -->
+
+```tsx
+import React from 'react';
+import { Input, Button } from 'antd';
+import { Form } from 'erda-ui-components';
+
+const { createForm, createFields, ArrayTabs } = Form;
+
+const form = createForm();
+
+export default () => {
+  const [data, setData] = React.useState('');
+  const [formData, setFormData] = React.useState<any>(null);
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setFormData({
+        arrayTabs: [
+          {
+            name: '张三',
+            age: 22,
+          },
+          {
+            name: '李四',
+            age: 33,
+          },
+        ],
+      });
+    }, 1000);
+  }, []);
+
+  React.useEffect(() => {
+    if (formData) {
+      form.setValues(formData);
+    }
+  }, [formData]);
+
+  const fieldsConfig = createFields([
+    {
+      type: 'array',
+      customProps: {
+        tabPosition: 'left',
+        type: 'line',
+        tabTitle: (item) => {
+          return item?.name;
+        },
+      },
+      name: 'arrayTabs',
+      component: ArrayTabs,
+      items: [
+        {
+          component: Input,
+          title: '姓名',
+          name: 'name',
+          customProps: {
+            placeholder: '请输入姓名',
+          },
+        },
+        {
+          component: Input,
+          title: '年龄',
+          name: 'age',
+          customProps: {
+            placeholder: '请输入年龄',
+          },
+        },
+      ],
+    },
+  ]);
+
+  const getValue = () => {
+    const state = form.getState();
+    setData(JSON.stringify(state.values, null, 2));
+  };
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        background: '#eee',
+        padding: '40px 0',
+      }}
+    >
+      <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
+      <Button type="primary" onClick={() => getValue()}>
+        提交
+      </Button>
+      <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
+    </div>
+  );
+};
+```
+
+<!-- AUTO-GENERATED-CONTENT:END -->
+
 ### 分步表单
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./demos/step-form.tsx) -->
+<!-- The below code snippet is automatically added from ./demos/step-form.tsx -->
 
 ```tsx
 import React from 'react';
@@ -1752,7 +1875,12 @@ export default () => {
 };
 ```
 
-## 可选 Table
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+### 可选 Table
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./demos/selectTable.tsx) -->
+<!-- The below code snippet is automatically added from ./demos/selectTable.tsx -->
 
 ```tsx
 import React from 'react';
@@ -1764,10 +1892,10 @@ const { createForm, createFields, takeAsyncDataSource, SelectTable } = Form;
 const form = createForm();
 const form2 = createForm({
   effects: () => {
-    takeAsyncDataSource<Array<{ label: string; value: string }>>(
+    takeAsyncDataSource<Array<{ name: string }>>(
       'username',
       () =>
-        new Promise<Array<{ value: string; label: string }>>((resolve) => {
+        new Promise<Array<{ name: string }>>((resolve) => {
           resolve([
             {
               name: '张三',
@@ -1793,6 +1921,7 @@ export default () => {
       component: SelectTable,
       name: 'username',
       customProps: {
+        valueType: 'all',
         columns: [
           {
             dataIndex: 'name',
@@ -1821,6 +1950,7 @@ export default () => {
       component: SelectTable,
       name: 'username',
       customProps: {
+        valueType: 'all',
         columns: [
           {
             dataIndex: 'name',
@@ -1831,7 +1961,7 @@ export default () => {
         showSearch: true,
         searchConfig: {
           placeholder: '搜索',
-          slot: (
+          slotNode: (
             <Button type="ghost" onClick={onRefresh}>
               刷新
             </Button>
@@ -1872,7 +2002,12 @@ export default () => {
 };
 ```
 
-## Form Tab
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+### 多 Tab 表单
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./demos/form-tabs.tsx) -->
+<!-- The below code snippet is automatically added from ./demos/form-tabs.tsx -->
 
 ```tsx
 import React from 'react';
@@ -1966,98 +2101,4 @@ export default () => {
 };
 ```
 
-## Form Array Tab
-
-```tsx
-import React from 'react';
-import { Input, Button } from 'antd';
-import { Form } from 'erda-ui-components';
-
-const { createForm, createFields, ArrayTabs } = Form;
-
-const form = createForm();
-
-export default () => {
-  const [data, setData] = React.useState('');
-  const [formData, setFormData] = React.useState(null);
-
-  React.useEffect(() => {
-    setTimeout(() => {
-      setFormData({
-        arrayTabs: [
-          {
-            name: '张三',
-            age: 22,
-          },
-          {
-            name: '李四',
-            age: 33,
-          },
-        ],
-      });
-    }, [1000]);
-  }, []);
-
-  React.useEffect(() => {
-    if (formData) {
-      form.setValues(formData);
-    }
-  }, [formData]);
-
-  const fieldsConfig = createFields([
-    {
-      type: 'array',
-      customProps: {
-        tabPosition: 'left',
-        type: 'line',
-        tabTitle: (item) => {
-          return item?.name;
-        },
-      },
-      name: 'arrayTabs',
-      component: ArrayTabs,
-      items: [
-        {
-          component: Input,
-          title: '姓名',
-          name: 'name',
-          customProps: {
-            placeholder: '请输入姓名',
-          },
-        },
-        {
-          component: Input,
-          title: '年龄',
-          name: 'age',
-          customProps: {
-            placeholder: '请输入年龄',
-          },
-        },
-      ],
-    },
-  ]);
-
-  const getValue = () => {
-    const state = form.getState();
-    setData(JSON.stringify(state.values, null, 2));
-  };
-
-  return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        background: '#eee',
-        padding: '40px 0',
-      }}
-    >
-      <Form style={{ width: '50%' }} form={form} fieldsConfig={fieldsConfig} />
-      <Button type="primary" onClick={() => getValue()}>
-        提交
-      </Button>
-      <code style={{ marginTop: data ? '24px' : '0' }}>{data}</code>
-    </div>
-  );
-};
-```
+<!-- AUTO-GENERATED-CONTENT:END -->

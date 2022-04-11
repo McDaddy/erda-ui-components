@@ -151,6 +151,15 @@ ErdaForm.isField = isField;
 ErdaForm.isArrayField = isArrayField;
 ErdaForm.isObjectField = isObjectField;
 ErdaForm.ArrayTabs = ArrayTabs;
-ErdaForm.Schema = Schema;
 
-export type { FormType, Field, IFormLayoutProps, ArrayFieldType, IFormGridProps, FormLayout, FormGrid, IFormStep };
+export type {
+  FormType,
+  Field,
+  IFormLayoutProps,
+  ArrayFieldType,
+  IFormGridProps,
+  FormLayout,
+  FormGrid,
+  IFormStep,
+  Schema,
+};

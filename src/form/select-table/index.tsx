@@ -4,11 +4,11 @@ import { Input, InputProps } from 'antd';
 import { usePrefixCls } from '../../_util/hooks';
 import ErdaIcon, { useErdaIcon } from '../../icon';
 
-type SearchConfig = {
-  slot: React.ReactNode;
-} & InputProps;
+interface SearchConfig extends InputProps {
+  slotNode: React.ReactElement;
+}
 
-export interface IProps extends ISelectTableProps {
+export interface IErdaSelectTableProps extends ISelectTableProps {
   searchConfig?: SearchConfig;
 }
 
@@ -47,7 +47,7 @@ function includesOption(pOption: any, search: string) {
   return _includesOption(pOption);
 }
 
-const SelectTable = (props: IProps) => {
+const SelectTable = (props: IErdaSelectTableProps) => {
   useErdaIcon();
 
   const [searchKey, setSearchKey] = React.useState('');

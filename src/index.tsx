@@ -14,6 +14,7 @@ export type {
   FormLayout,
   FormGrid,
   IFormStep,
+  Schema,
 } from './form';
 
 export { default as FormModal } from './form-modal';
