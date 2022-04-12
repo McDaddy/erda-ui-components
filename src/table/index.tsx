@@ -5,7 +5,7 @@ import { usePrefixCls } from '../_util/hooks';
 import { ColumnType } from 'antd/lib/table';
 import TableConfigHeader from './table-config-header';
 import { useErdaIcon } from '../icon';
-import { TableRowActions } from './interface';
+import { RowSelection, TableRowActions } from './interface';
 import { renderActions } from './utils';
 import { TablePaginationConfig } from 'antd/lib/table/interface';
 import { useSorterMenu } from './sorter';
@@ -31,6 +31,7 @@ export interface ErdaTableProps<T = unknown> extends TableProps<T> {
     whiteHeader?: boolean;
   };
   actions?: TableRowActions<T> | null;
+  rowSelection?: RowSelection<T>;
 }
 
 const ErdaTable = <T extends Obj>({
@@ -274,13 +275,13 @@ const ErdaTable = <T extends Obj>({
         {...restTableProps}
       />
       <TableFooter
-        // rowKey={rowKey}
-        // dataSource={data}
-        // onSelectChange={setSelectedRowKeys}
-        // rowSelection={{
-        //   ...rowSelection,
-        //   selectedRowKeys,
-        // }}
+        rowKey={rowKey}
+        dataSource={data}
+        onSelectChange={setSelectedRowKeys}
+        rowSelection={{
+          ...rowSelection,
+          selectedRowKeys,
+        }}
         pagination={pagination}
         hidePagination={paginationProps === false}
         onTableChange={onTableChange}

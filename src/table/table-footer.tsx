@@ -1,38 +1,38 @@
-import { TablePaginationConfig } from 'antd/lib/table/interface';
-// import { BatchOperation } from 'common';
 import React from 'react';
+import { GetRowKey, TablePaginationConfig } from 'antd/lib/table/interface';
+import BatchOperation from './batch-operation';
 import Pagination from '../pagination';
 import { usePrefixCls } from '../_util/hooks';
 import cn from 'classnames';
-// import { RowSelection } from './interface';
+import { RowSelection } from './interface';
 
-interface IProps {
-  // rowKey?: string | GetRowKey<T>;
-  // dataSource: T[];
+interface IProps<T> {
+  rowKey?: string | GetRowKey<T>;
+  dataSource: T[];
   pagination: TablePaginationConfig | false;
   hidePagination: boolean;
   onTableChange: ([key]: any) => void;
-  // rowSelection?: RowSelection<T>;
+  rowSelection?: RowSelection<T>;
   whiteFooter?: boolean;
-  // onSelectChange: (selectedRowKeys: Array<string | number>) => void;
+  onSelectChange: (selectedRowKeys: Array<string | number>) => void;
 }
 
-const TableFooter = ({
-  // rowSelection,
+const TableFooter = <T extends Obj>({
+  rowSelection,
   pagination,
   hidePagination,
   onTableChange,
   whiteFooter,
-}: // rowKey,
-// dataSource,
-// onSelectChange,
-IProps) => {
-  // const { actions, selectedRowKeys } = rowSelection ?? {};
+  rowKey,
+  dataSource,
+  onSelectChange,
+}: IProps<T>) => {
+  const { actions, selectedRowKeys } = rowSelection ?? {};
   const [prefixCls] = usePrefixCls('table-footer');
 
   return (
     <div className={cn(`${prefixCls}`, { [`${prefixCls}-white`]: whiteFooter })}>
-      {/* {actions ?
+      {actions ? (
         <BatchOperation
           rowKey={rowKey}
           dataSource={dataSource}
@@ -42,8 +42,7 @@ IProps) => {
         />
       ) : (
         <div />
-      )} */}
-      <div />
+      )}
       {!hidePagination && (
         <div className={`${prefixCls}-pagination`}>
           <Pagination {...pagination} onChange={(page, size) => onTableChange({ pageNo: page, pageSize: size })} />
