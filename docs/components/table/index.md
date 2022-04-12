@@ -60,7 +60,7 @@ export default () => {
       rowKey="name"
       columns={columns}
       dataSource={dataSource}
-      headerConfig={{ tableKey: 'basic', whiteHeader: true }}
+      extraConfig={{ tableKey: 'basic', whiteHeader: true }}
     />
   );
 };
@@ -407,6 +407,45 @@ export default () => {
           },
         ],
       }}
+    />
+  );
+};
+```
+
+<!-- AUTO-GENERATED-CONTENT:END -->
+
+### 空页面
+
+<!-- AUTO-GENERATED-CONTENT:START (CODE:src=./demos/empty-text.tsx) -->
+<!-- The below code snippet is automatically added from ./demos/empty-text.tsx -->
+
+```tsx
+import React from 'react';
+import { Table } from 'erda-ui-components';
+
+export default () => {
+  const columns = [
+    {
+      title: 'Name',
+      dataIndex: 'name',
+    },
+    {
+      title: 'Age',
+      dataIndex: 'age',
+    },
+    {
+      title: 'Address',
+      dataIndex: 'address',
+    },
+  ];
+
+  return (
+    <Table
+      rowKey="name"
+      columns={columns}
+      dataSource={[]}
+      extraConfig={{ whiteHeader: true }}
+      pagination={{ current: 2 }}
     />
   );
 };

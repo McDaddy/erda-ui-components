@@ -1661,9 +1661,18 @@ import React from 'react';
 import { Input, Button } from 'antd';
 import { Form } from 'erda-ui-components';
 
-const { createForm, createFields, ArrayTabs } = Form;
+const { createForm, createFields, ArrayTabs, onFieldValueChange, isField } = Form;
 
-const form = createForm();
+const form = createForm({
+  effects: () => {
+    onFieldValueChange('arrayTabs.*.name', (field) => {
+      const field2 = form.query(field.path.splice(-1, 1, 'name2')).take();
+      if (isField(field2)) {
+        field2.setValue(field.value);
+      }
+    });
+  },
+});
 
 export default () => {
   const [data, setData] = React.useState('');
@@ -1710,6 +1719,15 @@ export default () => {
           title: '姓名',
           name: 'name',
           customProps: {
+            placeholder: '请输入姓名',
+          },
+        },
+        {
+          component: Input,
+          title: '姓名副本',
+          name: 'name2',
+          customProps: {
+            disabled: true,
             placeholder: '请输入姓名',
           },
         },

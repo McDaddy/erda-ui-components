@@ -53,7 +53,7 @@ const SelectTable = (props: IErdaSelectTableProps) => {
   const [searchKey, setSearchKey] = React.useState('');
   // @ts-ignore TODO
   const { searchConfig, showSearch, dataSource, _datasource, ...rest } = props;
-  const { slot, ...searchProps } = (searchConfig || {}) as Partial<SearchConfig>;
+  const { slotNode, ...searchProps } = (searchConfig || {}) as Partial<SearchConfig>;
 
   const [prefixCls] = usePrefixCls('form-select-table');
 
@@ -80,7 +80,7 @@ const SelectTable = (props: IErdaSelectTableProps) => {
             onChange={onSearchChange}
             {...searchProps}
           />
-          {slot}
+          {slotNode}
         </div>
       )}
       <AntSelectTable dataSource={memoDataSource} {...rest} />

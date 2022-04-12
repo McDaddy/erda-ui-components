@@ -21,7 +21,7 @@ export interface ErdaColumnType<T> extends ColumnType<T> {
 
 export interface ErdaTableProps<T = unknown> extends TableProps<T> {
   columns: Array<ErdaColumnType<T>>;
-  headerConfig?: {
+  extraConfig?: {
     tableKey?: string;
     hideHeader?: boolean;
     hideReload?: boolean;
@@ -29,6 +29,7 @@ export interface ErdaTableProps<T = unknown> extends TableProps<T> {
     slot?: React.ReactNode;
     onReload?: () => void;
     whiteHeader?: boolean;
+    whiteFooter?: boolean;
   };
   actions?: TableRowActions<T> | null;
   rowSelection?: RowSelection<T>;
@@ -42,7 +43,7 @@ const ErdaTable = <T extends Obj>({
   dataSource,
   className,
   columns: columnsSource,
-  headerConfig,
+  extraConfig,
   actions,
   pagination: paginationProps,
   rowSelection,
@@ -205,7 +206,7 @@ const ErdaTable = <T extends Obj>({
   }, [columnsSource, hiddenColumns, prefixCls, renderSortTitle, sortConfig]);
 
   const onReload = () => {
-    if (headerConfig?.onReload) {
+    if (extraConfig?.onReload) {
       // headerConfig.onReload(current, pageSize);
     } else {
       // const { onChange: onPageChange } = pagination as TablePaginationConfig;
@@ -222,16 +223,16 @@ const ErdaTable = <T extends Obj>({
 
   return (
     <>
-      {!headerConfig?.hideHeader && (
+      {!extraConfig?.hideHeader && (
         <TableConfigHeader
-          slot={headerConfig?.slot}
-          hideColumnConfig={headerConfig?.hideColumnConfig}
-          hideReload={headerConfig?.hideReload}
+          slot={extraConfig?.slot}
+          hideColumnConfig={extraConfig?.hideColumnConfig}
+          hideReload={extraConfig?.hideReload}
           columns={columns}
           setHiddenColumns={setHiddenColumns}
           onReload={onReload}
-          whiteHeader={headerConfig?.whiteHeader}
-          tableKey={headerConfig?.tableKey}
+          whiteHeader={extraConfig?.whiteHeader}
+          tableKey={extraConfig?.tableKey}
         />
       )}
       <Table
@@ -259,19 +260,19 @@ const ErdaTable = <T extends Obj>({
               }
             : undefined
         }
-        className={cn(`${prefixCls}-table`, className)}
+        className={cn(prefixCls, className)}
         tableLayout="auto"
-        // locale={{
-        //   emptyText:
-        //     !pagination?.current || pagination?.current === 1 ? null : (
-        //       <span>
-        //         {i18n.t('This page has no data, whether to go')}
-        //         <span className="fake-link ml-1" onClick={() => onTableChange({ pageNo: 1 })}>
-        //           {i18n.t('page 1')}
-        //         </span>
-        //       </span>
-        //     ),
-        // }}
+        locale={{
+          emptyText:
+            typeof pagination !== 'boolean' && (!pagination?.current || pagination?.current === 1) ? null : (
+              <span>
+                该页暂无数据，是否前往
+                <span className="link" onClick={() => onTableChange({ pageNo: 1 })}>
+                  第一页
+                </span>
+              </span>
+            ),
+        }}
         {...restTableProps}
       />
       <TableFooter
@@ -285,7 +286,7 @@ const ErdaTable = <T extends Obj>({
         pagination={pagination}
         hidePagination={paginationProps === false}
         onTableChange={onTableChange}
-        // whiteFooter={whiteFooter}
+        whiteFooter={extraConfig?.whiteFooter}
       />
     </>
   );

@@ -45,7 +45,7 @@ export default () => {
       rowKey="name"
       columns={columns}
       dataSource={dataSource}
-      headerConfig={{ tableKey: 'basic', whiteHeader: true }}
+      extraConfig={{ tableKey: 'basic', whiteHeader: true }}
     />
   );
 };
