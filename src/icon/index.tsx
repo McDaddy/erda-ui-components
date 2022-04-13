@@ -9,16 +9,17 @@ export interface ErdaIconProps<T = any> {
   style?: React.CSSProperties;
   size?: string | number; // size of svg with default value of 1rem. Use width and height if width-to-height ratio is not 1
   color?: T; // color of svg
+  colorValue?: string;
   onClick?: React.MouseEventHandler;
 }
 
-const ErdaIcon = ({ type, color, className, style, onClick, size }: ErdaIconProps) => {
+const ErdaIcon = ({ type, color, colorValue, className, style, onClick, size }: ErdaIconProps) => {
   const classes = cn(className, 'erda-icon');
   const sizeWithUnit = typeof size === 'string' || Number.isNaN(Number(size)) ? size : `${size ?? 20}px`;
   const styleProps = {
     width: sizeWithUnit,
     height: sizeWithUnit,
-    color: themeColor[color] ?? 'currentColor',
+    color: themeColor[color] ?? colorValue ?? 'currentColor',
     ...style,
   };
   return (
@@ -59,7 +60,7 @@ export const useErdaIcon = (props?: { url?: string | string[]; colors?: Obj<stri
 
   React.useLayoutEffect(() => {
     const scriptUrls = props?.url ? (Array.isArray(props.url) ? props.url : [props.url]) : [];
-    scriptUrls.push('//at.alicdn.com/t/font_1538246_pwig3wmfep.js'); // TODO keep it as static
+    scriptUrls.push('//at.alicdn.com/t/font_1538246_f7tuyag5yfw.js'); // TODO keep it as static
     const scripts = insertScripts(scriptUrls);
     return () => {
       scripts.forEach((script) => {

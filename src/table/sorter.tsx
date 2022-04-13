@@ -109,7 +109,7 @@ export const useSorterMenu = <T extends object>() => {
               {_sortConfig.order && _sortConfig.columnKey === dataIndex ? (
                 sortIcon[_sortConfig.order]
               ) : (
-                <ErdaIcon type="caret-down" size={20} className={cn(`${prefixCls}-sorter-icon-content`)} />
+                <ErdaIcon type="caret-down" size={16} className={cn(`${prefixCls}-sorter-icon-content`)} />
               )}
             </span>
           </span>

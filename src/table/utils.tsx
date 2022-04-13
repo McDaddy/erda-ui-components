@@ -73,7 +73,7 @@ export function renderActions<T extends object = any>(
             <span onClick={(e) => e.stopPropagation()}>
               {!!list.length && (
                 <Dropdown overlay={menu} align={{ offset: [0, 5] }} trigger={['click']}>
-                  <ErdaIcon type="more" className={`${clsPrefix}-action-more`} />
+                  <ErdaIcon type="more" size="16" className={`${clsPrefix}-action-more`} />
                 </Dropdown>
               )}
             </span>

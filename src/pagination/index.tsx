@@ -61,7 +61,7 @@ const Pagination = (pagination: IPaginationProps) => {
           className={`${prefixCls}-pre ${current === 1 ? 'disabled' : 'pointer'}`}
           onClick={() => current > 1 && onChange?.(current - 1, pageSize)}
         >
-          <ErdaIcon type="chevronleft" size={18} />
+          <ErdaIcon type="chevronleft" size={16} />
         </div>
 
         <Popover
@@ -84,7 +84,7 @@ const Pagination = (pagination: IPaginationProps) => {
           }`}
           onClick={() => total && current < Math.ceil(total / pageSize) && onChange?.(current + 1, pageSize)}
         >
-          <ErdaIcon type="chevronright" size={18} />
+          <ErdaIcon type="chevronright" size={16} />
         </div>
       </div>
       {!hidePageSizeChange ? (
