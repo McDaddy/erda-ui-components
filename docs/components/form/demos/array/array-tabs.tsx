@@ -52,6 +52,7 @@ export default () => {
           return item?.name;
         },
       },
+      gridConfig: { minColumns: 2 },
       name: 'arrayTabs',
       component: ArrayTabs,
       items: [

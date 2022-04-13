@@ -22,6 +22,7 @@ export interface Field<T extends CT = any> {
   stepName?: string;
   properties?: Field[];
   display?: 'none' | 'visible' | 'hidden';
+  valuePropName?: string;
 }
 
 export interface CheckType {

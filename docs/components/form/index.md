@@ -14,7 +14,7 @@ nav:
 
 ```tsx
 import React from 'react';
-import { Input, Button } from 'antd';
+import { Input, Button, Switch } from 'antd';
 import { Form } from 'erda-ui-components';
 
 const { createForm, createFields } = Form;
@@ -32,6 +32,12 @@ export default () => {
       customProps: {
         placeholder: '请输入姓名',
       },
+    },
+    {
+      component: Switch,
+      title: '开启',
+      name: 'switch',
+      valuePropName: 'checked',
     },
   ]);
 
@@ -1711,6 +1717,7 @@ export default () => {
           return item?.name;
         },
       },
+      gridConfig: { minColumns: 2 },
       name: 'arrayTabs',
       component: ArrayTabs,
       items: [

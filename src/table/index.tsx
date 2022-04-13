@@ -172,7 +172,7 @@ const ErdaTable = <T extends Obj>({
   }
 
   return (
-    <>
+    <div className={cn(`${prefixCls}`, { [`${prefixCls}-hide-header`]: extraConfig?.hideHeader })}>
       {!extraConfig?.hideHeader && (
         <TableConfigHeader
           slotNode={extraConfig?.slot}
@@ -210,7 +210,7 @@ const ErdaTable = <T extends Obj>({
               }
             : undefined
         }
-        className={cn(prefixCls, className)}
+        className={cn(`${prefixCls}-content`, className)}
         tableLayout="auto"
         locale={{
           emptyText:
@@ -238,7 +238,7 @@ const ErdaTable = <T extends Obj>({
         onTableChange={onTableChange}
         whiteFooter={extraConfig?.whiteFooter}
       />
-    </>
+    </div>
   );
 };
 

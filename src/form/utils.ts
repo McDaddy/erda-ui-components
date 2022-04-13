@@ -1,6 +1,7 @@
 import { FormTab, IFormTabProps } from '@formily/antd';
 import { map, reduce, uniqueId } from 'lodash';
 import { defaultLayoutConfig } from '.';
+import { connect, mapProps } from '@formily/react';
 import { CheckType, CT, Field, SchemaField } from './interface';
 
 export const createFields: CheckType = (fieldList: any) => fieldList;
@@ -57,6 +58,7 @@ export const transformConfigRecursively = (fieldsConfig: Field[], componentMap: 
       gridConfig,
       layoutConfig,
       display,
+      valuePropName,
       componentName: _componentName,
       properties: fieldProperties,
     } = item;
@@ -66,7 +68,11 @@ export const transformConfigRecursively = (fieldsConfig: Field[], componentMap: 
       componentName = componentMap.get(component)!;
     } else {
       componentName = _componentName ?? uniqueId('component-');
-      componentMap.set(component, componentName);
+      if (valuePropName) {
+        componentMap.set(connect(component, mapProps({ value: valuePropName })), componentName);
+      } else {
+        componentMap.set(component, componentName);
+      }
     }
 
     let _items = {}; // for array fields
@@ -84,7 +90,7 @@ export const transformConfigRecursively = (fieldsConfig: Field[], componentMap: 
                 type: 'void',
                 'x-component': 'FormGrid',
                 'x-component-props': {
-                  maxColumns: 1,
+                  maxColumns: gridConfig?.minColumns ? gridConfig.minColumns : 1,
                   ...gridConfig,
                 },
                 properties: _properties,

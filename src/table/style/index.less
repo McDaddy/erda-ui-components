@@ -8,8 +8,18 @@
 @ant-table-prefix-cls: ~'@{ant-prefix}-table';
 
 .@{table-prefix-cls} {
-  flex: 1;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  background: @white;
+
+  &-content {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  &-hide-header {
+    margin: 0;
+  }
 
   .@{ant-table-prefix-cls}-content {
     margin: 0 1rem;
