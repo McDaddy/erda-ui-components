@@ -8,7 +8,7 @@ import cn from 'classnames';
 import { ColumnsConfig } from './interface';
 
 export interface TableConfigProps<T> {
-  slot?: React.ReactNode;
+  slotNode?: React.ReactNode;
   columns: Array<ErdaColumnType<T>>;
   setHiddenColumns: (val: string[]) => void;
   onReload: () => void;
@@ -19,7 +19,7 @@ export interface TableConfigProps<T> {
 }
 
 function TableConfigHeader<T extends Record<string, any>>({
-  slot,
+  slotNode,
   columns,
   setHiddenColumns,
   onReload,
@@ -82,7 +82,7 @@ function TableConfigHeader<T extends Record<string, any>>({
   return (
     <div className={cn(`${clsPrefix}`, whiteHeader ? `${clsPrefix}-white-bg` : `${clsPrefix}-default-bg-02`)}>
       <div className={`${clsPrefix}-slot}`}>
-        <div>{slot}</div>
+        <div>{slotNode}</div>
       </div>
       <div className={`${clsPrefix}-ops`}>
         {!hideReload ? <ErdaIcon size="20" className={`${clsPrefix}-icon`} type="refresh" onClick={onReload} /> : null}

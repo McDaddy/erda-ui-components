@@ -21,6 +21,7 @@ export interface Field<T extends CT = any> {
   layoutConfig?: IFormLayoutProps;
   stepName?: string;
   properties?: Field[];
+  display?: 'none' | 'visible' | 'hidden';
 }
 
 export interface CheckType {

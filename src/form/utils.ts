@@ -56,6 +56,7 @@ export const transformConfigRecursively = (fieldsConfig: Field[], componentMap: 
       items,
       gridConfig,
       layoutConfig,
+      display,
       componentName: _componentName,
       properties: fieldProperties,
     } = item;
@@ -110,6 +111,7 @@ export const transformConfigRecursively = (fieldsConfig: Field[], componentMap: 
       'x-decorator': _properties ? undefined : 'FormItem',
       'x-component': componentName,
       'x-component-props': customProps,
+      'x-display': display,
       'x-decorator-props': _properties ? undefined : { colon: false, ...wrapperProps },
       properties: _properties,
     };
