@@ -118,7 +118,7 @@ export const transformConfigRecursively = (fieldsConfig: Field[], componentMap: 
       'x-component': componentName,
       'x-component-props': customProps,
       'x-display': display,
-      'x-decorator-props': _properties ? undefined : { colon: false, ...wrapperProps },
+      'x-decorator-props': _properties ? { ...wrapperProps } : { colon: false, ...wrapperProps },
       properties: _properties,
     };
   });

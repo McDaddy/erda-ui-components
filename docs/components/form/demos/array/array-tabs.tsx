@@ -80,6 +80,9 @@ export default () => {
           customProps: {
             placeholder: '请输入年龄',
           },
+          wrapperProps: {
+            gridSpan: 2,
+          },
         },
       ],
     },

@@ -5,7 +5,6 @@
 @import './table-footer.less';
 
 @table-prefix-cls: ~'@{erda-prefix}-table';
-@ant-table-prefix-cls: ~'@{ant-prefix}-table';
 
 .@{table-prefix-cls} {
   display: flex;
@@ -21,26 +20,101 @@
     margin: 0;
   }
 
-  .@{ant-table-prefix-cls}-content {
+  .@{ant-prefix}-table-content {
     margin: 0 1rem;
   }
 
-  .@{ant-table-prefix-cls} {
+  .@{ant-prefix}-table {
     border-radius: 0 !important;
-  }
+    color: @default-8;
+    background-color: @white;
+    border-radius: 6px;
 
-  .@{ant-table-prefix-cls}-tbody td {
-    line-height: 30px !important;
-  }
-
-  .@{ant-table-prefix-cls}-tbody tr:not(.ant-table-measure-row) {
-    td {
-      padding: 4px 12px;
+    &-tbody td {
+      line-height: 30px !important;
     }
-  }
 
-  th {
-    padding: 4px 12px !important;
+    &-thead > tr > th,
+    &-tbody > tr > td,
+    & tfoot > tr > th,
+    & tfoot > tr > td {
+      line-height: 32px;
+    }
+
+    &-tbody tr:not(&-measure-row) {
+      td {
+        padding: 4px 12px;
+      }
+    }
+
+    &-thead tr > th {
+      background-color: @white !important;
+      color: @color-table-color;
+      font-weight: 400 !important;
+    }
+
+    &-thead > tr > th {
+      font-weight: 500;
+      white-space: nowrap;
+
+      &::before {
+        background-color: transparent !important;
+      }
+    }
+
+    th {
+      padding: 4px 12px !important;
+    }
+
+    &-tbody > tr&-row:hover > td {
+      background: @item-selected-bg;
+    }
+
+    &-tbody > tr&-row-selected > td {
+      background: @color-table-bg-hover;
+    }
+
+    &-expanded-row-fixed {
+      width: auto !important;
+    }
+
+    &-progress-circle-path {
+      transition: all 0.8s !important;
+    }
+
+    > &-scroll {
+      border: 1px solid @default-08;
+      border-radius: 6px;
+
+      &-body {
+        border-radius: 0 0 6px 6px;
+      }
+    }
+
+    // table下的button默认使用small大小的
+    .@{ant-prefix}-btn {
+      height: 28px;
+      padding: 0 11px;
+    }
+
+    &-column-sorters {
+      justify-content: flex-start;
+
+      &-column-title {
+        flex: 0 1 auto;
+      }
+
+      &-column-sorter {
+        margin-left: 0.5rem;
+      }
+    }
+
+    &-cell-fix-right,
+    &-cell-fix-left {
+      overflow: unset;
+      white-space: unset;
+      text-overflow: unset;
+    }
   }
 
   // sorter
@@ -76,7 +150,7 @@
     width: 160px;
     min-width: 160px !important;
 
-    .@{ant-table-prefix-cls}-dropdown-menu-title-content > span {
+    .@{ant-prefix}-table-dropdown-menu-title-content > span {
       color: @color-table-color;
     }
   }
@@ -116,11 +190,41 @@
     margin-right: 4px;
   }
 
-  .@{ant-table-prefix-cls}-tbody > tr.ant-table-row:hover > td {
-    background: @item-selected-bg;
-
-    // .erda-table-td-title {
-    //   color: $color-table-text-highlight;
-    // }
+  // from ant-extension
+  .@{ant-prefix}-table-small > .@{ant-prefix}-table-content > .@{ant-prefix}-table-header > table,
+  .@{ant-prefix}-table-small > .@{ant-prefix}-table-content > .@{ant-prefix}-table-body > table,
+  .@{ant-prefix}-table-small
+    > .@{ant-prefix}-table-content
+    > .@{ant-prefix}-table-scroll
+    > .@{ant-prefix}-table-header
+    > table,
+  .@{ant-prefix}-table-small
+    > .@{ant-prefix}-table-content
+    > .@{ant-prefix}-table-scroll
+    > .@{ant-prefix}-table-body
+    > table,
+  .@{ant-prefix}-table-small
+    > .@{ant-prefix}-table-content
+    > .@{ant-prefix}-table-fixed-left
+    > .@{ant-prefix}-table-header
+    > table,
+  .@{ant-prefix}-table-small
+    > .@{ant-prefix}-table-content
+    > .@{ant-prefix}-table-fixed-right
+    > .@{ant-prefix}-table-header
+    > table,
+  .@{ant-prefix}-table-small
+    > .@{ant-prefix}-table-content
+    > .@{ant-prefix}-table-fixed-left
+    > .@{ant-prefix}-table-body-outer
+    > .@{ant-prefix}-table-body-inner
+    > table,
+  .@{ant-prefix}-table-small
+    > .@{ant-prefix}-table-content
+    > .@{ant-prefix}-table-fixed-right
+    > .@{ant-prefix}-table-body-outer
+    > .@{ant-prefix}-table-body-inner
+    > table {
+    padding: 0;
   }
 }
