@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-import Form, { ArrayFieldType, IFormStep } from 'src/form';
+import Form, { ArrayFieldType } from 'src/form';
 import { Input, Select, Space, Button } from 'antd';
 
 const {
@@ -15,8 +15,11 @@ const {
   useFieldSchema,
   useField,
   createFields,
-  StepForm,
   createTabsField,
+  createFormStep,
+  createStepField,
+  FormProvider,
+  FormConsumer,
 } = Form;
 
 describe('erda form test', () => {
@@ -216,99 +219,107 @@ describe('erda form test', () => {
 
   it('render step form', async () => {
     const form = createForm();
-    const fieldsConfig = createFields([
-      {
-        component: Input,
-        title: '姓名',
-        name: 'username',
-        customProps: {
-          placeholder: '请输入姓名',
+    const formStep = createFormStep();
+    const fieldsConfig = createStepField(
+      [
+        {
+          stepName: 'first',
+          layoutConfig: { layout: 'vertical' },
+          fields: [
+            {
+              component: Input,
+              title: '姓名',
+              name: 'username',
+              customProps: {
+                placeholder: '请输入姓名',
+              },
+              required: true,
+            },
+          ],
+          customProps: {
+            title: '第一步',
+          },
         },
-        required: true,
-        stepName: 'first',
-      },
-      {
-        component: Input,
-        title: '年龄',
-        name: 'age',
-        customProps: {
-          placeholder: '请输入年龄',
+        {
+          stepName: 'second',
+          layoutConfig: { layout: 'horizontal' },
+          fields: [
+            {
+              component: Input,
+              title: '年龄',
+              name: 'age',
+              customProps: {
+                placeholder: '请输入年龄',
+              },
+            },
+          ],
+          customProps: {
+            title: '第二步',
+          },
         },
-        stepName: 'second',
-      },
-      {
-        component: Input,
-        title: '性别',
-        name: 'sex',
-        customProps: {
-          placeholder: '请输入性别',
+        {
+          stepName: 'third',
+          gridConfig: { minColumns: 2 },
+          fields: [
+            {
+              component: Input,
+              title: '性别',
+              name: 'sex',
+              customProps: {
+                placeholder: '请输入性别',
+              },
+            },
+            {
+              component: Input,
+              title: '学历',
+              name: 'education',
+              customProps: {
+                placeholder: '请输入学历',
+              },
+            },
+          ],
+          customProps: {
+            title: '第三步',
+          },
         },
-        stepName: 'third',
-      },
+      ],
       {
-        component: Input,
-        title: '学历',
-        name: 'education',
-        customProps: {
-          placeholder: '请输入学历',
-        },
-        stepName: 'third',
+        formStep,
+        name: 'formSteps',
       },
-      {
-        component: Input,
-        title: '无效字段',
-        name: 'none',
-      },
-    ]);
-    const buttonGroup = (formStep: IFormStep) => {
-      return (
-        <div>
-          {formStep.allowBack && (
-            <Button
-              onClick={() => {
-                formStep.back();
-              }}
-            >
-              上一步
-            </Button>
-          )}
-          {formStep.allowNext && (
-            <Button
-              onClick={() => {
-                formStep.next();
-              }}
-            >
-              下一步
-            </Button>
-          )}
-          {!formStep.allowNext && (
-            <Button
-              onClick={() => {
-                // getValue();
-              }}
-            >
-              提交
-            </Button>
-          )}
-        </div>
-      );
-    };
-    const ref = {
-      current: null,
-    };
+    );
+
     const { getByText, container } = render(
-      <StepForm
-        style={{ width: '80%' }}
-        form={form}
-        formRef={ref}
-        fieldsConfig={fieldsConfig}
-        stepConfig={[
-          { stepName: 'first', stepTitle: '第一步' },
-          { stepName: 'second', stepTitle: '第二步' },
-          { stepName: 'third', stepTitle: '第三步' },
-        ]}
-        stepButtonGroup={buttonGroup}
-      />,
+      <FormProvider form={form}>
+        <Form style={{ width: '80%' }} form={form} fieldsConfig={[fieldsConfig]} />
+        <FormConsumer>
+          {() => {
+            return (
+              <div>
+                {formStep?.allowBack && (
+                  <Button
+                    onClick={() => {
+                      formStep.back();
+                    }}
+                  >
+                    上一步
+                  </Button>
+                )}
+                {formStep?.allowNext && (
+                  <Button
+                    onClick={() => {
+                      formStep.next();
+                    }}
+                  >
+                    下一步
+                  </Button>
+                )}
+                {!formStep?.allowNext && <Button>提交</Button>}
+              </div>
+            );
+          }}
+        </FormConsumer>
+      </FormProvider>,
     );
     expect(getByText('姓名')).toBeInTheDocument();
     userEvent.click(screen.getByText('下一步'));

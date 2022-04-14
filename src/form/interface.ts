@@ -19,10 +19,10 @@ export interface Field<T extends CT = any> {
   items?: Field[];
   gridConfig?: IFormGridProps;
   layoutConfig?: IFormLayoutProps;
-  stepName?: string;
   properties?: Field[];
   display?: 'none' | 'visible' | 'hidden';
   valuePropName?: string;
+  noPropertyLayoutWrapper?: boolean;
 }
 
 export interface CheckType {
@@ -130,3 +130,7 @@ export interface SchemaField {
   'x-component'?: string;
   'x-component-props'?: Obj; // TODO
 }
+
+// export interface FormRef {
+//   formStep?: IFormStep;
+// }

@@ -11,6 +11,7 @@ import {
   connect,
   mapProps,
   Schema,
+  FormConsumer,
 } from '@formily/react';
 import {
   createForm,
@@ -30,10 +31,18 @@ import {
   isObjectField,
 } from '@formily/core';
 import { action } from '@formily/reactive';
-import { Form, FormItem, FormLayout, IFormLayoutProps, FormGrid, IFormGridProps, IFormStep } from '@formily/antd';
-import { createFields, createTabsField, transformConfigRecursively } from './utils';
+import {
+  Form,
+  FormItem,
+  FormLayout,
+  IFormLayoutProps,
+  FormGrid,
+  IFormGridProps,
+  IFormStep,
+  FormStep,
+} from '@formily/antd';
+import { createFields, createStepField, createTabsField, transformConfigRecursively } from './utils';
 import type { CT, Field as XField } from './interface';
-import StepForm from './step-form';
 import classnames from 'classnames';
 import { usePrefixCls } from '../_util/hooks';
 import SelectTable from './select-table';
@@ -130,6 +139,8 @@ const takeAsyncDataSource = <T extends FieldDataSource>(
 
 export default ErdaForm;
 ErdaForm.createForm = createForm;
+ErdaForm.FormProvider = FormProvider;
+ErdaForm.FormConsumer = FormConsumer;
 ErdaForm.connect = connect;
 ErdaForm.mapProps = mapProps;
 ErdaForm.createFields = createFields;
@@ -144,13 +155,14 @@ ErdaForm.Field = ReactField;
 ErdaForm.useField = useField;
 ErdaForm.useFieldSchema = useFieldSchema;
 ErdaForm.RecursionField = RecursionField;
-ErdaForm.StepForm = StepForm;
 ErdaForm.SelectTable = SelectTable;
 ErdaForm.createTabsField = createTabsField;
 ErdaForm.isField = isField;
 ErdaForm.isArrayField = isArrayField;
 ErdaForm.isObjectField = isObjectField;
 ErdaForm.ArrayTabs = ArrayTabs;
+ErdaForm.createStepField = createStepField;
+ErdaForm.createFormStep = FormStep.createFormStep;
 
 export type {
   FormType,

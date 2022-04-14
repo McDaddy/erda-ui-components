@@ -1,8 +1,9 @@
-import { FormTab, IFormTabProps } from '@formily/antd';
+import { FormStep, FormTab, IFormGridProps, IFormLayoutProps, IFormStepProps, IFormTabProps } from '@formily/antd';
 import { map, reduce, uniqueId } from 'lodash';
 import { defaultLayoutConfig } from '.';
 import { connect, mapProps } from '@formily/react';
 import { CheckType, CT, Field, SchemaField } from './interface';
+import { StepProps } from 'antd/lib/steps';
 
 export const createFields: CheckType = (fieldList: any) => fieldList;
 
@@ -36,7 +37,49 @@ export const createTabsField = ({
       ...customProps,
       formTab: FormTab.createFormTab!(),
     },
+    noPropertyLayoutWrapper: true,
     properties: tabsProperties,
+  };
+  return result;
+};
+
+export interface ErdaStepField {
+  stepName: string;
+  gridConfig?: IFormGridProps;
+  layoutConfig?: IFormLayoutProps;
+  customProps?: StepProps;
+  fields: Field[];
+}
+
+export const createStepField = (
+  params: ErdaStepField[],
+  customProps: IFormStepProps & Required<Pick<IFormStepProps, 'formStep'>> & { name: string },
+): Field => {
+  const stepProperties = (params ?? []).map(
+    ({ stepName, gridConfig, layoutConfig, customProps: _subCustomProps, fields }) => {
+      return {
+        type: 'void',
+        component: FormStep.StepPane,
+        componentName: 'ErdaStepPane',
+        name: stepName,
+        customProps: _subCustomProps,
+        gridConfig,
+        layoutConfig,
+        properties: fields,
+      };
+    },
+  );
+
+  const { name, ...restProps } = customProps;
+
+  const result = {
+    type: 'void',
+    component: FormStep,
+    componentName: 'ErdaFormStep',
+    name,
+    customProps: restProps,
+    properties: stepProperties,
+    noPropertyLayoutWrapper: true,
   };
   return result;
 };
@@ -59,6 +102,7 @@ export const transformConfigRecursively = (fieldsConfig: Field[], componentMap: 
       layoutConfig,
       display,
       valuePropName,
+      noPropertyLayoutWrapper = false,
       componentName: _componentName,
       properties: fieldProperties,
     } = item;
@@ -104,6 +148,26 @@ export const transformConfigRecursively = (fieldsConfig: Field[], componentMap: 
     let _properties;
     if (fieldProperties) {
       _properties = transformConfigRecursively(fieldProperties, componentMap);
+      if (!noPropertyLayoutWrapper) {
+        _properties = {
+          layout: {
+            type: 'void',
+            'x-component': 'FormLayout',
+            'x-component-props': { ...defaultLayoutConfig, ...layoutConfig },
+            properties: {
+              grid: {
+                type: 'void',
+                'x-component': 'FormGrid',
+                'x-component-props': {
+                  maxColumns: gridConfig?.minColumns ? gridConfig.minColumns : 1,
+                  ...gridConfig,
+                },
+                properties: _properties,
+              },
+            },
+          },
+        };
+      }
     }
 
     return {
@@ -111,7 +175,7 @@ export const transformConfigRecursively = (fieldsConfig: Field[], componentMap: 
       title: title ?? label,
       type,
       required,
-      items: _items,
+      items: _properties ? undefined : _items,
       default: defaultValue,
       'x-validator': validator,
       'x-decorator': _properties ? undefined : 'FormItem',
