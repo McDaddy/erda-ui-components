@@ -1,9 +1,12 @@
+import React from 'react';
 import { FormStep, FormTab, IFormGridProps, IFormLayoutProps, IFormStepProps, IFormTabProps } from '@formily/antd';
 import { map, reduce, uniqueId } from 'lodash';
 import { defaultLayoutConfig } from '.';
 import { connect, mapProps } from '@formily/react';
 import { CheckType, CT, Field, SchemaField } from './interface';
 import { StepProps } from 'antd/lib/steps';
+import ErdaIcon from '../icon';
+import { usePrefixCls } from '../_util/hooks';
 
 export const createFields: CheckType = (fieldList: any) => fieldList;
 
@@ -51,6 +54,25 @@ export interface ErdaStepField {
   fields: Field[];
 }
 
+const statusRender = {
+  process: (index: number, prefixCls: string) => <div className={`${prefixCls} process`}>{index + 1}</div>,
+  wait: (index: number, prefixCls: string) => <div className={`${prefixCls} wait`}>{index + 1}</div>,
+  finish: (_index: number, prefixCls: string) => (
+    <div className={`${prefixCls} finish`}>
+      <ErdaIcon type="check" size="16" />
+    </div>
+  ),
+};
+const ErdaStepDot = (props: { status: 'wait' | 'process' | 'finish'; index: number }) => {
+  const { status, index } = props;
+  const [prefixCls] = usePrefixCls('form-step-dot');
+  return statusRender[status](index, prefixCls);
+};
+
+const customDot = (_: unknown, { status, index }: { status: 'wait' | 'process' | 'finish'; index: number }) => {
+  return <ErdaStepDot status={status} index={index} />;
+};
+
 export const createStepField = (
   params: ErdaStepField[],
   customProps: IFormStepProps & Required<Pick<IFormStepProps, 'formStep'>> & { name: string },
@@ -77,7 +99,7 @@ export const createStepField = (
     component: FormStep,
     componentName: 'ErdaFormStep',
     name,
-    customProps: restProps,
+    customProps: { progressDot: customDot, ...restProps },
     properties: stepProperties,
     noPropertyLayoutWrapper: true,
   };
