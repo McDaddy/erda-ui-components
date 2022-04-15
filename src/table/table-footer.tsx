@@ -27,9 +27,13 @@ const TableFooter = <T extends Obj>({
   dataSource,
   onSelectChange,
 }: IProps<T>) => {
-  const { actions, selectedRowKeys } = rowSelection ?? {};
+  const { actions, selectedRowKeys, onChange } = rowSelection ?? {};
   const [prefixCls] = usePrefixCls('table-footer');
 
+  const onSelectionChange = (keys: React.Key[]) => {
+    onSelectChange(keys);
+    onChange?.(keys, []);
+  };
   return (
     <div className={cn(`${prefixCls}`, { [`${prefixCls}-white`]: whiteFooter })}>
       {actions ? (
@@ -37,7 +41,7 @@ const TableFooter = <T extends Obj>({
           rowKey={rowKey}
           dataSource={dataSource}
           selectedKeys={selectedRowKeys}
-          onSelectChange={onSelectChange}
+          onSelectChange={onSelectionChange}
           operations={actions}
         />
       ) : (

@@ -26,6 +26,7 @@ export { default as ErdaIcon, useErdaIcon } from './icon';
 export type { ErdaIconProps } from './icon';
 
 export { default as Table } from './table';
+export type { ErdaColumnType, ErdaTableProps } from './table';
 
 export { default as Pagination } from './pagination';
 export type { IPaginationProps } from './pagination';

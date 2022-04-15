@@ -77,6 +77,10 @@ const ErdaTable = <T extends Obj>({
     [rowKey],
   );
 
+  React.useEffect(() => {
+    setSelectedRowKeys(rowSelection?.selectedRowKeys || []);
+  }, [rowSelection?.selectedRowKeys]);
+
   const onTableChange = React.useCallback(
     ({ pageNo, pageSize: size, sorter: currentSorter }) => {
       if (typeof pagination === 'boolean' || !pagination) {
