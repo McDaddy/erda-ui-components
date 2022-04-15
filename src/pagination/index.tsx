@@ -52,14 +52,6 @@ const Pagination = (pagination: IPaginationProps) => {
   const [prefixCls] = usePrefixCls('pagination');
 
   const [goToVisible, setGoToVisible] = React.useState(false);
-  // eslint-disable-next-line no-console
-  console.log('🚀 ~ file: index.tsx ~ line 55 ~ Pagination ~ goToVisible', goToVisible);
-
-  const test = (e: any) => {
-    // eslint-disable-next-line no-console
-    console.log('🚀 ~ file: index.tsx ~ line 60 ~ test ~ e', e);
-    setGoToVisible(e);
-  };
 
   return (
     <div className={`${prefixCls} theme-${theme}`}>
@@ -77,9 +69,9 @@ const Pagination = (pagination: IPaginationProps) => {
           trigger="click"
           getPopupContainer={(triggerNode) => triggerNode.parentElement as HTMLElement}
           placement="top"
-          overlayClassName={`${prefixCls}-jump`}
+          overlayClassName={`${prefixCls}-popover`}
           visible={goToVisible}
-          onVisibleChange={test}
+          onVisibleChange={setGoToVisible}
         >
           <div className={`${prefixCls}-center`} onClick={() => setGoToVisible(true)}>
             {total ? current ?? 1 : 0} / {(total && pageSize && Math.ceil(total / pageSize)) || 0}
