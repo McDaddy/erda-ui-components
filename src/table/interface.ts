@@ -9,7 +9,7 @@ export interface ColumnsConfig {
 
 export interface RowAction {
   title: string;
-  onClick: () => void;
+  onClick?: () => void;
   show?: boolean;
   disabled?: boolean;
   disabledTip?: string;
