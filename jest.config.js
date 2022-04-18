@@ -24,7 +24,7 @@ module.exports = {
   transform: {
     '^.+\\.(ts|tsx)?$': 'ts-jest',
   },
-  // setupFilesAfterEnv: ['<rootDir>/test/extend-expect.ts'],
-  // setupFiles: ['<rootDir>/test/setupJest.ts'],
+  setupFilesAfterEnv: ['<rootDir>/__tests__/extend-expect.ts'],
+  setupFiles: ['<rootDir>/__tests__/setupJest.ts'],
   // transformIgnorePatterns: [],
 };
