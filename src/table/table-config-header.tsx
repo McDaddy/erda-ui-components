@@ -85,7 +85,7 @@ function TableConfigHeader<T extends Record<string, any>>({
         <div>{slotNode}</div>
       </div>
       <div className={`${clsPrefix}-ops`}>
-        {!hideReload ? <ErdaIcon size="16" className={`${clsPrefix}-icon`} type="refresh" onClick={onReload} /> : null}
+        {!hideReload ? <ErdaIcon size="18" className={`${clsPrefix}-icon`} type="shuaxin" onClick={onReload} /> : null}
         {!hideColumnConfig ? (
           <Popover
             content={columnsFilter}
@@ -94,7 +94,7 @@ function TableConfigHeader<T extends Record<string, any>>({
             overlayClassName={`${clsPrefix}-columns-filter`}
             getPopupContainer={(triggerNode) => triggerNode.parentElement as HTMLElement}
           >
-            <ErdaIcon type="config" size="16" className={`${clsPrefix}-icon`} />
+            <ErdaIcon type="shezhi" size="18" className={`${clsPrefix}-icon`} />
           </Popover>
         ) : null}
       </div>
