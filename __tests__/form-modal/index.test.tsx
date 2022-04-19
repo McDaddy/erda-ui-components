@@ -2,8 +2,8 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-import Form from 'src/form';
-import FormModal from 'src/form-modal';
+import Form from '../../src/form';
+import FormModal from '../../src/form-modal';
 import { Input, Button } from 'antd';
 
 const { createForm, createFields } = Form;

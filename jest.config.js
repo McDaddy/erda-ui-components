@@ -1,5 +1,5 @@
 module.exports = {
-  // clearMocks: true,
+  clearMocks: true,
   preset: 'ts-jest/presets/js-with-ts-esm',
   modulePathIgnorePatterns: ['<rootDir>/package.json'],
   moduleDirectories: ['node_modules', 'src'],

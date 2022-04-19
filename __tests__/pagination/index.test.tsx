@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import ErdaPagination from 'src/pagination';
+import ErdaPagination from '../../src/pagination';
 import userEvent from '@testing-library/user-event';
 
 const TestPaginationComp = () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import ErdaIcon, { ErdaIconProps, useErdaIcon } from 'src/icon';
+import ErdaIcon, { ErdaIconProps, useErdaIcon } from '../../src/icon';
 
 const TestIconComp = (props: ErdaIconProps<'green' | 'red'>) => {
   useErdaIcon({

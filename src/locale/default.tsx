@@ -13,7 +13,7 @@ const localeValues: Locale = {
     ascend: 'ascend',
     descend: 'descend',
     cancelSort: 'Unsort',
-    batchOperation: 'Batch operation',
+    batchOperation: 'Batch Operation',
     selectedItemsText: 'Selected ${size} items',
     operation: 'operation',
   },

@@ -1,8 +1,8 @@
 import React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import ErdaTable, { ErdaColumnType } from 'src/table';
-import { TableRowActions } from 'src/table/interface';
+import ErdaTable, { ErdaColumnType } from '../../src/table';
+import { TableRowActions } from '../../src/table/interface';
 // import { TableRowActions } from 'src/table/interface';
 
 interface IData {
