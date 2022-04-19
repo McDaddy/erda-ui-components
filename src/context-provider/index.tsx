@@ -15,7 +15,7 @@ const ContextProvider = ({
   children,
   locale,
   clsPrefix,
-}: Partial<IContext> & { children: React.ReactNode; locale: Locale }) => {
+}: Partial<IContext> & { children: React.ReactNode; locale?: Locale }) => {
   const contextValue = React.useMemo(() => ({ clsPrefix: clsPrefix ?? 'erda' }), [clsPrefix]);
 
   return (

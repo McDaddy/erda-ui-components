@@ -153,7 +153,7 @@ const PaginationJump = ({ pagination, hidePopover }: IPaginationJumpProps) => {
 
   return (
     <div className={`${prefixCls}`} onClick={(e) => e.stopPropagation()}>
-      {locale.goToPage}
+      <span>{locale.goToPage}</span>
       <Input
         className="paging-input"
         autoFocus

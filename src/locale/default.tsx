@@ -18,7 +18,7 @@ const localeValues: Locale = {
     operation: 'operation',
   },
   Pagination: {
-    goToPage: 'Go to page',
+    goToPage: 'Go to',
     totalText: 'Totally ${total} items',
     pageSizeText: '${size} items / page',
   },
