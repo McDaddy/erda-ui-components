@@ -17,7 +17,8 @@
   },
   "main": "lib/index.js",
   "module": "es/index.js",
-  "unpkg": "dist/ec.js",
+  "unpkg": "dist/erda-ui-components.js",
+  "umd:main": "dist/erda-ui-components.js",
   "typings": "lib/index.d.ts",
   "sideEffects": [
     "dist/*",
