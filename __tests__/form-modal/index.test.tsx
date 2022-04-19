@@ -4,7 +4,6 @@ import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import Form from 'src/form';
 import FormModal from 'src/form-modal';
-import ConfigProvider from 'src/context-provider';
 import { Input, Button } from 'antd';
 
 const { createForm, createFields } = Form;
@@ -14,10 +13,10 @@ const form = createForm();
 const formFieldsList = createFields([
   {
     component: Input,
-    title: '姓名',
+    title: 'Name',
     name: 'username',
     customProps: {
-      placeholder: '请输入姓名',
+      placeholder: 'Please type in name',
     },
   },
 ]);
@@ -33,7 +32,7 @@ const TestModalComp = () => {
   };
 
   return (
-    <ConfigProvider>
+    <>
       <Button data-testid="showBtn" onClick={() => setVisible(true)}>
         新建
       </Button>
@@ -68,7 +67,7 @@ const TestModalComp = () => {
           fieldsConfig: formFieldsList,
         }}
       />
-    </ConfigProvider>
+    </>
   );
 };
 
@@ -77,15 +76,15 @@ describe('erda form modal test', () => {
     render(<TestModalComp />);
     userEvent.click(screen.getByTestId('showBtn'));
     await waitFor(() => {
-      expect(screen.getByText('姓名')).toBeInTheDocument();
-      expect(screen.getByText('新建应用')).toBeInTheDocument();
+      expect(screen.getByText('Name')).toBeInTheDocument();
+      expect(screen.getByText('Create 应用')).toBeInTheDocument();
     });
-    userEvent.click(screen.getByRole('button', { name: /取.*消/i }));
+    userEvent.click(screen.getByRole('button', { name: 'Cancel' }));
     userEvent.click(screen.getByTestId('editBtn'));
     await waitFor(() => {
-      expect(screen.getByText('编辑应用')).toBeInTheDocument();
+      expect(screen.getByText('Edit 应用')).toBeInTheDocument();
     });
-    userEvent.click(screen.getByRole('button', { name: /取.*消/i }));
+    userEvent.click(screen.getByRole('button', { name: 'Cancel' }));
     userEvent.click(screen.getByTestId('titleBtn'));
     await waitFor(() => {
       expect(screen.getByText('应用')).toBeInTheDocument();

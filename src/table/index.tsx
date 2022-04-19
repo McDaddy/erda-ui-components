@@ -11,7 +11,8 @@ import { TablePaginationConfig } from 'antd/lib/table/interface';
 import { useSorterMenu } from './sorter';
 import TableFooter from './table-footer';
 import { PAGINATION } from '../pagination';
-import { TableAction } from 'antd/es/table/interface';
+import { SorterResult } from 'antd/es/table/interface';
+import { useLocaleReceiver } from '../locale-provider';
 
 export interface ErdaColumnType<T> extends ColumnType<T> {
   subTitle?: ((text: string, record: T, index: number) => React.ReactNode) | React.ReactNode;
@@ -52,6 +53,7 @@ const ErdaTable = <T extends Obj>({
 }: ErdaTableProps<T>) => {
   useErdaIcon();
   const [prefixCls] = usePrefixCls('table');
+  const [locale] = useLocaleReceiver('Table');
   const [columns, setColumns] = React.useState(columnsSource);
   const [hiddenColumns, setHiddenColumns] = React.useState<string[]>([]);
   const [selectedRowKeys, setSelectedRowKeys] = React.useState(rowSelection?.selectedRowKeys || []);
@@ -70,7 +72,20 @@ const ErdaTable = <T extends Obj>({
 
   const { current = 1, pageSize = PAGINATION.pageSize } = pagination as TablePaginationConfig;
 
-  const [renderSortTitle, sortConfig, sortCompareRef] = useSorterMenu();
+  // for backend sort
+  const onSort = React.useCallback(
+    (currentSorter: SorterResult<T>) => {
+      if (typeof pagination === 'boolean' || !pagination || !onChange) {
+        return;
+      }
+      onChange({ ...pagination, current: 1 }, {}, currentSorter, {
+        currentDataSource: [...(dataSource ?? [])],
+        action: 'sort',
+      });
+    },
+    [dataSource, onChange, pagination],
+  );
+  const [renderSortTitle, sortConfig, sortCompareRef] = useSorterMenu(onSort);
 
   const getKey = React.useCallback(
     (item: T) => (typeof rowKey === 'function' ? rowKey(item) : item?.[rowKey || 'id']),
@@ -81,64 +96,33 @@ const ErdaTable = <T extends Obj>({
     setSelectedRowKeys(rowSelection?.selectedRowKeys || []);
   }, [rowSelection?.selectedRowKeys]);
 
-  const onTableChange = React.useCallback(
-    ({ pageNo, pageSize: size, sorter: currentSorter }) => {
+  const onPaginationChange = React.useCallback(
+    ({ pageNo, pageSize: size }) => {
       if (typeof pagination === 'boolean' || !pagination) {
         return;
       }
       const { onChange: onPageChange } = pagination;
-      const action: TableAction = currentSorter ? 'sort' : 'paginate';
       const extra = {
-        currentDataSource: (action === 'sort' && [...(dataSource ?? [])]) || [],
-        action,
+        currentDataSource: [],
+        action: 'paginate' as const,
       };
 
-      switch (action) {
-        case 'paginate':
-          if (isFrontendPaging) {
-            setDefaultPagination({ ...pagination, current: pageNo || current, pageSize: size || pageSize });
-          } else {
-            onPageChange?.(pageNo || current, size || pageSize);
-            onChange?.(
-              { ...pagination, current: pageNo || current, pageSize: size || pageSize },
-              {},
-              currentSorter || sortConfig,
-              extra,
-            );
-          }
-          break;
-        case 'sort':
-          if (!sortCompareRef.current) {
-            onChange?.(
-              { ...pagination, current: pageNo || current, pageSize: size || pageSize },
-              {},
-              currentSorter || sortConfig,
-              extra,
-            );
-          }
-          break;
-        default:
-          break;
+      if (isFrontendPaging) {
+        setDefaultPagination({ ...pagination, current: pageNo || current, pageSize: size || pageSize });
+      } else {
+        onPageChange?.(pageNo || current, size || pageSize);
+        onChange?.({ ...pagination, current: pageNo || current, pageSize: size || pageSize }, {}, sortConfig, extra);
       }
     },
-    [current, dataSource, isFrontendPaging, onChange, pageSize, pagination, sortCompareRef, sortConfig],
+    [current, isFrontendPaging, onChange, pageSize, pagination, sortConfig],
   );
-
-  React.useEffect(() => {
-    if (!sortCompareRef.current) {
-      onChange?.({ current, pageSize }, {}, sortConfig, {
-        currentDataSource: (dataSource as T[]) ?? [],
-        action: 'sort',
-      });
-    }
-  }, [current, dataSource, onChange, pageSize, sortCompareRef, sortConfig]);
 
   React.useEffect(() => {
     const _columns = columnsSource.map((col) => {
       const { width = 300, sorter, title, render, align, dataIndex, ...restColumnProps } = col;
       let sortTitle;
       if (sorter) {
-        sortTitle = renderSortTitle(col, sortConfig);
+        sortTitle = renderSortTitle(col);
       }
 
       return {
@@ -157,7 +141,7 @@ const ErdaTable = <T extends Obj>({
       };
     });
     setColumns(_columns);
-  }, [columnsSource, hiddenColumns, prefixCls, renderSortTitle, sortConfig]);
+  }, [columnsSource, hiddenColumns, onPaginationChange, onSort, prefixCls, renderSortTitle, sortConfig]);
 
   const onReload = () => {
     if (extraConfig?.onReload) {
@@ -220,9 +204,9 @@ const ErdaTable = <T extends Obj>({
           emptyText:
             typeof pagination !== 'boolean' && (!pagination?.current || pagination?.current === 1) ? null : (
               <span>
-                该页暂无数据，是否前往
-                <span className="link" onClick={() => onTableChange({ pageNo: 1 })}>
-                  第一页
+                {locale.emptyText}
+                <span className="link" onClick={() => onPaginationChange({ pageNo: 1 })}>
+                  {locale.firstPage}
                 </span>
               </span>
             ),
@@ -239,7 +223,7 @@ const ErdaTable = <T extends Obj>({
         }}
         pagination={pagination}
         hidePagination={paginationProps === false}
-        onTableChange={onTableChange}
+        onTableChange={onPaginationChange}
         whiteFooter={extraConfig?.whiteFooter}
       />
     </div>

@@ -25,7 +25,7 @@ expect.extend({
       pass,
       message: () => {
         return [
-          this.utils.matcherHint(`${this.isNot ? '.not' : ''}.isExit`, selector, expect.toString()),
+          this.utils.matcherHint(`${this.isNot ? '.not' : ''}.isExist`, selector, expect.toString()),
           `Expected: ${this.utils.EXPECTED_COLOR(expect)}`,
           `Received: ${this.utils.RECEIVED_COLOR(count)}`,
         ].join('\n');
@@ -43,7 +43,7 @@ expect.extend({
       pass,
       message: () => {
         return [
-          this.utils.matcherHint(`${this.isNot ? '.not' : ''}.isExitClass`, selector, expect.toString()),
+          this.utils.matcherHint(`${this.isNot ? '.not' : ''}.isExistClass`, selector, expect.toString()),
           `Expected: ${this.utils.EXPECTED_COLOR(expect)}`,
           `Received: ${this.utils.RECEIVED_COLOR(classList.join(', '))}`,
         ].join('\n');

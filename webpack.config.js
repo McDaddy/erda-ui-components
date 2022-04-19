@@ -1,17 +1,17 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const cwd = process.cwd();
+// const cwd = process.cwd();
 module.exports = {
   mode: 'development',
   devtool: false,
   entry: {
-    ec: './src/index.tsx',
+    'erda-ui-components': './src/index.tsx',
   },
   output: {
     path: path.resolve('dist'),
     filename: '[name].js',
-    library: 'ec',
+    library: 'erda-ui-components',
     libraryTarget: 'umd',
   },
   externals: {
@@ -30,9 +30,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
-    alias: {
-      ec: cwd,
-    },
+    // alias: {
+    //   ec: cwd,
+    // },
   },
   module: {
     rules: [

@@ -5,7 +5,13 @@ module.exports = {
   moduleDirectories: ['node_modules', 'src'],
   coverageDirectory: 'coverage',
   moduleFileExtensions: ['tsx', 'ts', 'js'],
-  collectCoverageFrom: ['src/**/*.{js,ts,tsx}', '!src/**/*.d.ts', '!src/.umi/**/*', '!src/.umi-production/**/*'],
+  collectCoverageFrom: [
+    'src/**/*.{js,ts,tsx}',
+    '!src/**/*.d.ts',
+    '!src/.umi/**/*',
+    '!src/.umi-production/**/*',
+    '!src/locale/**/*',
+  ],
   testMatch: ['**/__tests__/**/*.test.+(tsx|ts)'],
   globals: {
     'ts-jest': {

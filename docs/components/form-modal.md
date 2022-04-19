@@ -38,7 +38,7 @@ export default () => {
   };
 
   return (
-    <ConfigProvider>
+    <>
       <Button onClick={() => setVisible(true)}>显示</Button>
       <FormModal
         title="应用"
@@ -50,7 +50,7 @@ export default () => {
           fieldsConfig: formFieldsList,
         }}
       />
-    </ConfigProvider>
+    </>
   );
 };
 ```
@@ -107,7 +107,7 @@ export default () => {
   };
 
   return (
-    <ConfigProvider>
+    <>
       <FormModal
         title="应用"
         visible={visible}
@@ -120,7 +120,7 @@ export default () => {
         }}
       />
       <Button onClick={() => setVisible(true)}>显示</Button>
-    </ConfigProvider>
+    </>
   );
 };
 ```
@@ -129,7 +129,7 @@ export default () => {
 
 ```tsx
 import React from 'react';
-import { FormModal, Form, ConfigProvider } from 'erda-ui-components';
+import { FormModal, Form } from 'erda-ui-components';
 import { Button, Input } from 'antd';
 
 const { createForm, createFields } = Form;
@@ -156,7 +156,7 @@ export default () => {
   };
 
   return (
-    <ConfigProvider>
+    <>
       <Button onClick={() => setVisible(true)}>显示</Button>
       <FormModal
         title="新建一个应用"
@@ -169,7 +169,7 @@ export default () => {
           fieldsConfig: formFieldsList,
         }}
       />
-    </ConfigProvider>
+    </>
   );
 };
 ```
