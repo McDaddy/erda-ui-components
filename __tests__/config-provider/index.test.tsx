@@ -1,3 +1,4 @@
+/* eslint-disable no-template-curly-in-string */
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
@@ -26,7 +27,6 @@ describe('ConfigProvider', () => {
   });
   it('should render zh custom well', async () => {
     const onChange = jest.fn();
-    // eslint-disable-next-line no-template-curly-in-string
     render(
       <ConfigProvider locale={{ ...zhCN, Pagination: { ...zhCN.Pagination, totalText: '我这里有${total}个东西' } }}>
         <Pagination total={99} pageSize={10} onChange={onChange} current={1} />

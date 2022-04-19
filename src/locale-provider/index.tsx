@@ -32,22 +32,6 @@ export interface LocaleProviderProps {
   children?: React.ReactNode;
 }
 
-const ErdaLocaleProvider = (props: LocaleProviderProps) => {
-  const { locale, children } = props;
-
-  const getMemoizedContextValue = React.useCallback(
-    (localeValue: Locale): Locale & { exist?: boolean } => ({
-      ...localeValue,
-      exist: true,
-    }),
-    [],
-  );
-
-  const contextValue = getMemoizedContextValue(locale);
-
-  return <LocaleContext.Provider value={contextValue}>{children}</LocaleContext.Provider>;
-};
-
 export function useLocaleReceiver<T extends LocaleComponentName>(
   componentName: T,
   defaultLocale?: Locale[T] | Function,
@@ -66,8 +50,6 @@ export function useLocaleReceiver<T extends LocaleComponentName>(
 
   return [componentLocale];
 }
-
-export default ErdaLocaleProvider;
 
 /**
  * Replace with template.

@@ -13,8 +13,3 @@ export const usePrefixCls = (
 
   return [`${clsPrefix}-${tag}`, getPrefixCls(tag, props?.prefixCls)];
 };
-
-export const useLocale = () => {
-  const { locale } = useContext(ConfigProvider.ConfigContext);
-  return locale?.locale;
-};
