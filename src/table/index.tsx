@@ -178,7 +178,7 @@ const ErdaTable = <T extends Obj>({
         scroll={{ x: '100%' }}
         columns={[
           ...columns.filter((item) => !item.hidden).map((item) => ({ ...item, title: item.sortTitle || item.title })),
-          ...renderActions(prefixCls, actions),
+          ...renderActions(prefixCls, locale, actions),
         ]}
         rowClassName={cn({ 'cursor-pointer': onRow }, rowClassName)}
         size="small"

@@ -13,6 +13,14 @@ const localeValues: Locale = {
     ascend: '升序',
     descend: '降序',
     cancelSort: '取消排序',
+    batchOperation: '批量操作',
+    selectedItemsText: '已选择 ${size} 项',
+    operation: '操作',
+  },
+  Pagination: {
+    goToPage: '前往页',
+    totalText: '共 ${total} 条',
+    pageSizeText: '${size} 条 / 页',
   },
 };
 

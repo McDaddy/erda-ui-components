@@ -3,6 +3,7 @@ import { GetRowKey } from 'antd/es/table/interface';
 import { Button, Checkbox, Dropdown, Menu } from 'antd';
 import ErdaIcon from '../icon';
 import { usePrefixCls } from '../_util/hooks';
+import { replaceMessage, useLocaleReceiver } from '../locale-provider';
 
 interface IBatchProps<T> {
   rowKey?: string | GetRowKey<T>;
@@ -38,6 +39,7 @@ const BatchOperation = <T extends Obj>(props: IBatchProps<T>) => {
   } = props;
 
   const [prefixCls] = usePrefixCls('batch-operation');
+  const [locale] = useLocaleReceiver('Table');
 
   const [checkAll, setCheckAll] = React.useState(false);
   const [indeterminate, setIndetermination] = React.useState(false);
@@ -93,7 +95,9 @@ const BatchOperation = <T extends Obj>(props: IBatchProps<T>) => {
   return (
     <div className={`${prefixCls}`}>
       <Checkbox className="checkbox" indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll} />
-      <span className={`${prefixCls}-label`}>{`已选择 ${selectedKeys.length || 0} 项`}</span>
+      <span className={`${prefixCls}-label`}>
+        {replaceMessage(locale.selectedItemsText, { size: `${selectedKeys.length}` })}
+      </span>
       {visibleOperations.length > 1 ? (
         <Dropdown
           overlay={dropdownMenu}
@@ -101,7 +105,7 @@ const BatchOperation = <T extends Obj>(props: IBatchProps<T>) => {
           getPopupContainer={(triggerNode) => triggerNode.parentElement as HTMLElement}
         >
           <Button className="op-btn">
-            批量操作
+            {locale.batchOperation}
             <ErdaIcon size="18" type="caret-down" className="ml-1 text-default-4" />
           </Button>
         </Dropdown>

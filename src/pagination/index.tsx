@@ -2,6 +2,7 @@ import React from 'react';
 import { Popover, Input, Button, Dropdown, Menu } from 'antd';
 import ErdaIcon, { useErdaIcon } from '../icon';
 import { usePrefixCls } from '../_util/hooks';
+import { replaceMessage, useLocaleReceiver } from '../locale-provider';
 
 export interface IPagination {
   pageSize: number;
@@ -48,14 +49,16 @@ const Pagination = (pagination: IPaginationProps) => {
   } = pagination;
 
   useErdaIcon();
-
+  const [locale] = useLocaleReceiver('Pagination');
   const [prefixCls] = usePrefixCls('pagination');
 
   const [goToVisible, setGoToVisible] = React.useState(false);
 
   return (
     <div className={`${prefixCls} theme-${theme}`}>
-      {!hideTotal ? <div className={`${prefixCls}-total`}>{`共 ${total} 条`}</div> : null}
+      {!hideTotal ? (
+        <div className={`${prefixCls}-total`}>{replaceMessage(locale.totalText, { total: `${total}` })}</div>
+      ) : null}
       <div className={`${prefixCls}-content`}>
         <div
           className={`${prefixCls}-pre ${current === 1 ? 'disabled' : 'pointer'}`}
@@ -95,7 +98,9 @@ const Pagination = (pagination: IPaginationProps) => {
               {PAGINATION.pageSizeOptions.map((item: string | number) => {
                 return (
                   <Menu.Item key={item} onClick={() => onChange?.(1, +item)}>
-                    <span className={`${prefixCls}-link`}>{`${item} 条 / 页`}</span>
+                    <span className={`${prefixCls}-link`}>
+                      {replaceMessage(locale.pageSizeText, { size: `${item}` })}
+                    </span>
                   </Menu.Item>
                 );
               })}
@@ -105,7 +110,9 @@ const Pagination = (pagination: IPaginationProps) => {
           overlayStyle={{ minWidth: 120 }}
           getPopupContainer={(triggerNode) => triggerNode.parentElement as HTMLElement}
         >
-          <span className={`${prefixCls}-page-config`}>{`${pageSize} 条 / 页`}</span>
+          <span className={`${prefixCls}-page-config`}>
+            {replaceMessage(locale.pageSizeText, { size: `${pageSize}` })}
+          </span>
         </Dropdown>
       ) : null}
     </div>
@@ -115,6 +122,7 @@ const Pagination = (pagination: IPaginationProps) => {
 const PaginationJump = ({ pagination, hidePopover }: IPaginationJumpProps) => {
   const { total = 0, pageSize = PAGINATION.pageSize, onChange } = pagination;
   const [value, setValue] = React.useState('');
+  const [locale] = useLocaleReceiver('Pagination');
 
   const [prefixCls] = usePrefixCls('pagination-jump');
 
@@ -145,7 +153,7 @@ const PaginationJump = ({ pagination, hidePopover }: IPaginationJumpProps) => {
 
   return (
     <div className={`${prefixCls}`} onClick={(e) => e.stopPropagation()}>
-      {'前往页'}
+      {locale.goToPage}
       <Input
         className="paging-input"
         autoFocus

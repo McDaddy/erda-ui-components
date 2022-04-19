@@ -16,6 +16,14 @@ export interface Locale {
     ascend: string;
     descend: string;
     cancelSort: string;
+    batchOperation: string;
+    selectedItemsText: string;
+    operation: string;
+  };
+  Pagination: {
+    goToPage: string;
+    totalText: string;
+    pageSizeText: string;
   };
 }
 

@@ -13,6 +13,14 @@ const localeValues: Locale = {
     ascend: 'ascend',
     descend: 'descend',
     cancelSort: 'Unsort',
+    batchOperation: 'Batch operation',
+    selectedItemsText: 'Selected ${size} items',
+    operation: 'operation',
+  },
+  Pagination: {
+    goToPage: 'Go to page',
+    totalText: 'Totally ${total} items',
+    pageSizeText: '${size} items / page',
   },
 };
 

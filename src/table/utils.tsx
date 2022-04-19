@@ -33,13 +33,14 @@ export const transformDataIndex = (dataIndex: string | number | ReadonlyArray<st
 
 export function renderActions<T extends object = any>(
   clsPrefix: string,
+  locale: { operation: string },
   actions?: TableRowActions<T> | null,
 ): Array<ErdaColumnType<T>> {
   if (actions) {
     const { render } = actions;
     return [
       {
-        title: '操作', // TODO
+        title: locale.operation,
         width: 100,
         dataIndex: 'operation',
         fixed: 'right',
