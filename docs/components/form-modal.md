@@ -11,7 +11,7 @@ nav:
 
 ```tsx
 import React from 'react';
-import { FormModal, Form, ConfigProvider } from 'erda-ui-components';
+import { FormModal, Form, ConfigProvider } from '@erda-ui/components';
 import { Button, Input } from 'antd';
 
 const { createForm, createFields } = Form;
@@ -59,7 +59,7 @@ export default () => {
 
 ```tsx
 import React from 'react';
-import { FormModal, Form, ConfigProvider } from 'erda-ui-components';
+import { FormModal, Form, ConfigProvider } from '@erda-ui/components';
 import { Button, Input } from 'antd';
 
 const { createForm, createFields } = Form;
@@ -129,7 +129,7 @@ export default () => {
 
 ```tsx
 import React from 'react';
-import { FormModal, Form } from 'erda-ui-components';
+import { FormModal, Form } from '@erda-ui/components';
 import { Button, Input } from 'antd';
 
 const { createForm, createFields } = Form;

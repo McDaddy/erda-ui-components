@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Space, Input } from 'antd';
-import { Form, Schema, ArrayFieldType } from 'erda-ui-components';
+import { Form, Schema, ArrayFieldType } from '@erda-ui/components';
 
 const { createForm, observer, RecursionField, useFieldSchema, useField, createFields } = Form;
 

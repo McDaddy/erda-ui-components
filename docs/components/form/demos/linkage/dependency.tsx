@@ -1,6 +1,6 @@
 import React from 'react';
 import { InputNumber, Button } from 'antd';
-import { Form } from 'erda-ui-components';
+import { Form } from '@erda-ui/components';
 
 const { createForm, onFieldValueChange, createFields } = Form;
 

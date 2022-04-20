@@ -11,7 +11,7 @@ nav:
 
 ```tsx
 import React from 'react';
-import { ErdaIcon, useErdaIcon } from 'erda-ui-components';
+import { ErdaIcon, useErdaIcon } from '@erda-ui/components';
 
 export default () => {
   useErdaIcon();
@@ -24,7 +24,7 @@ export default () => {
 
 ```tsx
 import React from 'react';
-import { ErdaIcon, useErdaIcon } from 'erda-ui-components';
+import { ErdaIcon, useErdaIcon } from '@erda-ui/components';
 
 export default () => {
   useErdaIcon({
@@ -39,7 +39,7 @@ export default () => {
 
 ```tsx
 import React from 'react';
-import { ErdaIcon, useErdaIcon } from 'erda-ui-components';
+import { ErdaIcon, useErdaIcon } from '@erda-ui/components';
 
 export default () => {
   useErdaIcon({

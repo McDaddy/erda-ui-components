@@ -1,5 +1,5 @@
 import React from 'react';
-import { Ellipsis } from 'erda-ui-components';
+import { Ellipsis } from '@erda-ui/components';
 
 export default () => (
   <div style={{ width: '200px' }}>

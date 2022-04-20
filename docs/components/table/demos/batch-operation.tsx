@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from 'erda-ui-components';
+import { Table } from '@erda-ui/components';
 
 export default () => {
   const columns = [

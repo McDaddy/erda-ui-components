@@ -13,7 +13,7 @@ nav:
 
 ```tsx
 import React from 'react';
-import { Pagination } from 'erda-ui-components';
+import { Pagination } from '@erda-ui/components';
 
 export default () => {
   const [current, setCurrent] = React.useState(1);

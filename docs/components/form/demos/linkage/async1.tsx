@@ -1,6 +1,6 @@
 import React from 'react';
 import { Select, Button } from 'antd';
-import { Form } from 'erda-ui-components';
+import { Form } from '@erda-ui/components';
 
 const { createForm, onFieldValueChange, createFields, isField, isObjectField, isArrayField } = Form;
 

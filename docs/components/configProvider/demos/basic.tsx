@@ -1,8 +1,8 @@
 /* eslint-disable no-template-curly-in-string */
 import React from 'react';
-import { Pagination, ConfigProvider } from 'erda-ui-components';
+import { Pagination, ConfigProvider } from '@erda-ui/components';
 // @ts-ignore no fix
-import zhCN from 'erda-ui-components/es/locale/zh_CN';
+import zhCN from '@erda-ui/components/es/locale/zh_CN';
 
 export default () => {
   const [current, setCurrent] = React.useState(1);

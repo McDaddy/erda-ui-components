@@ -6,12 +6,12 @@ module.exports = {
   mode: 'development',
   devtool: false,
   entry: {
-    'erda-ui-components': './src/index.tsx',
+    components: './src/index.tsx',
   },
   output: {
     path: path.resolve('dist'),
     filename: '[name].js',
-    library: 'erda-ui-components',
+    library: 'components',
     libraryTarget: 'umd',
   },
   externals: {
