@@ -20,6 +20,7 @@ const {
   createStepField,
   FormProvider,
   FormConsumer,
+  ArrayTabs,
 } = Form;
 
 describe('erda form test', () => {
@@ -379,5 +380,61 @@ describe('erda form test', () => {
     expect(screen.getByText('基本信息')).toBeInTheDocument();
     expect(screen.getByText('姓名')).toBeInTheDocument();
     expect(screen.getByText('性别')).toBeInTheDocument();
+  });
+  it('test render array tabs', async () => {
+    const form = createForm();
+
+    form.setValues({
+      arrayTabs: [
+        {
+          name: '张三',
+          age: 22,
+        },
+        {
+          name: '李四',
+          age: 33,
+        },
+      ],
+    });
+
+    const fieldsConfig = createFields([
+      {
+        type: 'array',
+        customProps: {
+          tabPosition: 'left',
+          type: 'line',
+          tabTitle: (item) => {
+            return item?.name;
+          },
+        },
+        gridConfig: { minColumns: 2 },
+        name: 'arrayTabs',
+        component: ArrayTabs,
+        items: [
+          {
+            component: Input,
+            title: '姓名',
+            name: 'name',
+            customProps: {
+              placeholder: '请输入姓名',
+            },
+          },
+          {
+            component: Input,
+            title: '年龄',
+            name: 'age',
+            customProps: {
+              placeholder: '请输入年龄',
+            },
+            wrapperProps: {
+              gridSpan: 2,
+            },
+          },
+        ],
+      },
+    ]);
+    render(<Form form={form} fieldsConfig={fieldsConfig} />);
+    expect(screen.queryAllByLabelText('张三')).toHaveLength(1);
+    expect(screen.queryAllByText('张三')).toHaveLength(1);
   });
 });
