@@ -15,6 +15,11 @@
     "test:coverage": "jest --coverage",
     "publish:patch": "npm run build && npm version patch && npm publish --registry https://registry.npmjs.org"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/McDaddy/erda-ui-components.git"
+  },
+  "homepage": "https://mcdaddy.github.io/erda-ui-components/",
   "main": "lib/index.js",
   "module": "es/index.js",
   "unpkg": "dist/components.js",

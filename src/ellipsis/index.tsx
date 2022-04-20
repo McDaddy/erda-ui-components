@@ -8,8 +8,6 @@ const TOOLTIP_MOUSE_ENTER_DELAY = 100;
 
 export interface EllipsisProps extends AbstractTooltipProps {
   title?: React.ReactNode | RenderFunction;
-  overlay?: React.ReactNode | RenderFunction;
-  className?: string;
 }
 
 declare type RenderFunction = () => React.ReactNode;
