@@ -41,7 +41,6 @@ describe('ErdaTable', () => {
     {
       title: 'name',
       dataIndex: 'name',
-      subTitle: 'projectName',
     },
     {
       title: 'Rule-Title',

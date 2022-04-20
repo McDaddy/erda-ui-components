@@ -26,10 +26,6 @@ export interface TableRowActions<T> {
    * }
    */
   render: (record: T) => RowAction[];
-  /**
-   * Limit the number of displays
-   */
-  limitNum?: number;
 }
 
 export type SortOrder = 'ascend' | 'descend';

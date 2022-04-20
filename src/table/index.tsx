@@ -15,10 +15,7 @@ import { SorterResult } from 'antd/es/table/interface';
 import { useLocaleReceiver } from '../locale-provider';
 
 export interface ErdaColumnType<T> extends ColumnType<T> {
-  subTitle?: ((text: string, record: T, index: number) => React.ReactNode) | React.ReactNode;
-  icon?: ((text: string, record: T, index: number) => React.ReactNode) | React.ReactNode;
   hidden?: boolean;
-  sortTitle?: React.ReactNode;
 }
 
 export interface ErdaTableProps<T = unknown> extends TableProps<T> {
@@ -26,7 +23,6 @@ export interface ErdaTableProps<T = unknown> extends TableProps<T> {
   extraConfig?: {
     tableKey?: string;
     hideHeader?: boolean;
-    hideReload?: boolean;
     hideColumnConfig?: boolean;
     slot?: React.ReactNode;
     onReload?: (pageNo: number, pageSize: number) => void;
@@ -153,6 +149,8 @@ const ErdaTable = <T extends Obj>({
     }
   };
 
+  const hideReload = !extraConfig?.onReload && !onChange;
+
   let data = [...(dataSource ?? [])];
 
   if (sortCompareRef.current) {
@@ -165,7 +163,7 @@ const ErdaTable = <T extends Obj>({
         <TableConfigHeader
           slotNode={extraConfig?.slot}
           hideColumnConfig={extraConfig?.hideColumnConfig}
-          hideReload={extraConfig?.hideReload}
+          hideReload={hideReload}
           columns={columns}
           setHiddenColumns={setHiddenColumns}
           onReload={onReload}
@@ -177,7 +175,7 @@ const ErdaTable = <T extends Obj>({
         rowKey={rowKey}
         scroll={{ x: '100%' }}
         columns={[
-          ...columns.filter((item) => !item.hidden).map((item) => ({ ...item, title: item.sortTitle || item.title })),
+          ...columns.filter((item) => !item.hidden).map((item) => ({ ...item, title: item.title })),
           ...renderActions(prefixCls, locale, actions),
         ]}
         rowClassName={cn({ 'cursor-pointer': onRow }, rowClassName)}
