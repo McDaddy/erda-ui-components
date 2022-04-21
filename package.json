@@ -6,6 +6,7 @@
     "start": "dumi dev",
     "build:dist": "webpack",
     "build": "gulp compile",
+    "watch-build": "gulp --gulpfile gulpfile-watch.js",
     "docs:build": "dumi build",
     "prettier": "prettier -c --write .",
     "prepare": "husky install",
@@ -70,7 +71,6 @@
     "classnames": "^2.3.1"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.16.7",
     "@babel/plugin-transform-runtime": "^7.16.4",
     "@babel/plugin-transform-typescript": "^7.16.1",
     "@babel/preset-env": "^7.16.4",
@@ -91,7 +91,6 @@
     "cross-env": "^7.0.3",
     "css-loader": "^6.5.1",
     "cz-customizable": "^6.3.0",
-    "docsearch.js": "^2.6.3",
     "dumi": "^1.1.40",
     "eslint": "^8.3.0",
     "eslint-plugin-markdown": "^2.2.1",
