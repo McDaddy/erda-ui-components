@@ -8,7 +8,7 @@ export interface ColumnsConfig {
 }
 
 export interface RowAction {
-  title: string;
+  title: React.ReactNode;
   onClick?: () => void;
   show?: boolean;
   disabled?: boolean;

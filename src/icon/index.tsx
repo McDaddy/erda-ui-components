@@ -60,7 +60,7 @@ export const useErdaIcon = (props?: { url?: string | string[]; colors?: Obj<stri
 
   React.useLayoutEffect(() => {
     const scriptUrls = props?.url ? (Array.isArray(props.url) ? props.url : [props.url]) : [];
-    scriptUrls.push('//at.alicdn.com/t/font_3337333_yw4mmdcfq9p.js'); // TODO keep it as static
+    scriptUrls.push('//at.alicdn.com/t/font_3337333_5x7k4kiqdq5.js'); // TODO keep it as static
     const scripts = insertScripts(scriptUrls);
     return () => {
       scripts.forEach((script) => {

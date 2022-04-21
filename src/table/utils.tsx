@@ -49,11 +49,10 @@ export function renderActions<T extends object = any>(
 
           const menu = (
             <Menu theme="dark">
-              {list.map((item) => {
+              {list.map((item, index) => {
                 const { title, onClick, disabled = false, disabledTip } = item;
-
                 return (
-                  <Menu.Item key={title} onClick={disabled ? undefined : onClick}>
+                  <Menu.Item key={index} onClick={disabled ? undefined : onClick}>
                     <Tooltip title={disabled && disabledTip}>
                       <span
                         className={cn(`${clsPrefix}-menu-item`, {
