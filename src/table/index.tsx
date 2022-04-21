@@ -157,6 +157,10 @@ const ErdaTable = <T extends Obj>({
     data = data.sort(sortCompareRef.current);
   }
 
+  if (isFrontendPaging) {
+    data = data.slice((current - 1) * pageSize, current * pageSize);
+  }
+
   return (
     <div className={cn(`${prefixCls}`, { [`${prefixCls}-hide-header`]: extraConfig?.hideHeader })}>
       {!extraConfig?.hideHeader && (
