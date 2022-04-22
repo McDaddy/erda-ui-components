@@ -18,6 +18,7 @@ const tsConfig = {
   strictNullChecks: true,
   moduleResolution: 'node',
   declaration: true,
+  declarationMap: true,
   preserveSymlinks: true,
   allowSyntheticDefaultImports: true,
   ...compilerOptions,
