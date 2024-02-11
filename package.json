@@ -94,7 +94,7 @@
     "dumi": "^1.1.40",
     "eslint": "^8.3.0",
     "eslint-plugin-markdown": "^2.2.1",
-    "f2elint": "^2.2.1",
+    "f2elint": "^4.0.0",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
     "gulp-typescript": "^6.0.0-alpha.1",
