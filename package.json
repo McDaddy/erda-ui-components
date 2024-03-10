@@ -93,7 +93,7 @@
     "cz-customizable": "^6.3.0",
     "dumi": "^1.1.40",
     "eslint": "^8.3.0",
-    "eslint-plugin-markdown": "^2.2.1",
+    "eslint-plugin-markdown": "^4.0.0",
     "f2elint": "^2.2.1",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
