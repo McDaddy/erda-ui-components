@@ -91,7 +91,7 @@
     "cross-env": "^7.0.3",
     "css-loader": "^6.5.1",
     "cz-customizable": "^6.3.0",
-    "dumi": "^1.1.40",
+    "dumi": "^2.0.0",
     "eslint": "^8.3.0",
     "eslint-plugin-markdown": "^2.2.1",
     "f2elint": "^2.2.1",
