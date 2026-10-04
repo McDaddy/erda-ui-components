@@ -73,7 +73,7 @@
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.16.4",
     "@babel/plugin-transform-typescript": "^7.16.1",
-    "@babel/preset-env": "^7.16.4",
+    "@babel/preset-env": "^8.0.0",
     "@babel/preset-react": "^7.16.0",
     "@babel/runtime": "^7.16.3",
     "@testing-library/jest-dom": "^5.16.3",
